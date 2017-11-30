@@ -1,0 +1,175 @@
+<%=render "/users/header" %>
+<div class="container-fluid">
+  <div class="row" id="content-outter">
+    <%=render "/users/siderbar" %>
+    <div class="col-md-10">
+      <div class="content container-fluid">
+        <div class="contact-us">
+          <div class="row">
+            <% if notice %>
+              <p id="notice"><%= notice %></p>
+            <% end %>
+            <div class="h1-style-user">Tests</div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 flex">
+              <button type="button" name="button" class="btn btn-user-link flex-item"><%= link_to 'Create Tests', new_test_path %></button>
+              <div class="input-group stylish-input-group tests-search flex-item">
+                    <input type="text" class="form-control">
+                    <span class="input-group-addon">
+                        <button type="submit">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
+                </div>
+              <!-- <button type="button" name="button" class="btn btn-user-icon flex-item"><i class="fa fa-filter" aria-hidden="true"></i></button> -->
+              </div>
+              <div class="col-md-6 text-right flex-end">
+                <!-- <div class="page-number flex-item">1 - 15 of 42</div>
+                <div class="btn btn-user-icon flex-item"><i class="fa fa-chevron-left" aria-hidden="true"></i></div>
+                <div class="btn btn-user-icon flex-item"><i class="fa fa-chevron-right" aria-hidden="true"></i></div> -->
+                <%= will_paginate @tests, renderer: 'PaginateHelper::LinkRenderer' %>
+              </div>
+          </div>
+          <div class="row">
+            <table class="tb-admin-tests">
+              <thead>
+                <tr>
+                  <th>Test Name</th>
+                  <th>Test ID</th>
+                  <th>Language</th>
+                  <th>Industry</th>
+                  <th class="sortable-1 asc">Publish Date</th>
+                  <th class="sortable-2 asc">Popularity</th>
+                  <th class="sortable-3 asc">Price</th>
+                  <th class="sortable-4 asc">Status</th>
+                  <th>Edit</th>
+                  <th>Trash</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <% @tests.each do |test| %>
+                  <tr>
+                    <td><%= test.title %></td>
+                    <td></td>
+                    <td><%= test.language %></td>
+                    <td><%= test.industry %></td>
+                    <td><%= test.updated_at %></td>
+                    <td>162</td>
+                    <td><%= test.price %></td>
+                    <td> <div class="status-live">Live</div></td>
+                    <td><a href=""><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
+                    <td><i class="fa fa-trash" aria-hidden="true"></i></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+
+
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%=render "/users/footer" %>
+
+<script>
+$( "li.admin-tests" ).addClass( "active" );
+$(".sortable-1").click(function(){
+    var o = $(this).hasClass('asc') ? 'desc' : 'asc';
+    $('.sortable-1').removeClass('asc').removeClass('desc');
+    $(this).addClass(o);
+
+    var colIndex = $(this).prevAll().length;
+    var tbod = $(this).closest("table").find("tbody");
+    var rows = tbod.find("tr");
+
+    rows.sort(function(a,b){
+        var A = $(a).find("td").eq(colIndex).text();
+        var B = $(b).find("td").eq(colIndex).text();
+
+        if (!isNaN(A)) A = Number(A);
+        if (!isNaN(B)) B = Number(B);
+
+        return o == 'asc' ? A > B : B > A;
+    });
+
+    $.each(rows, function(index, ele){
+        tbod.append(ele);
+    });
+});
+$(".sortable-2").click(function(){
+    var o = $(this).hasClass('asc') ? 'desc' : 'asc';
+    $('.sortable-2').removeClass('asc').removeClass('desc');
+    $(this).addClass(o);
+
+    var colIndex = $(this).prevAll().length;
+    var tbod = $(this).closest("table").find("tbody");
+    var rows = tbod.find("tr");
+
+    rows.sort(function(a,b){
+        var A = $(a).find("td").eq(colIndex).text();
+        var B = $(b).find("td").eq(colIndex).text();
+
+        if (!isNaN(A)) A = Number(A);
+        if (!isNaN(B)) B = Number(B);
+
+        return o == 'asc' ? A > B : B > A;
+    });
+
+    $.each(rows, function(index, ele){
+        tbod.append(ele);
+    });
+});
+$(".sortable-3").click(function(){
+    var o = $(this).hasClass('asc') ? 'desc' : 'asc';
+    $('.sortable-3').removeClass('asc').removeClass('desc');
+    $(this).addClass(o);
+
+    var colIndex = $(this).prevAll().length;
+    var tbod = $(this).closest("table").find("tbody");
+    var rows = tbod.find("tr");
+
+    rows.sort(function(a,b){
+        var A = $(a).find("td").eq(colIndex).text();
+        var B = $(b).find("td").eq(colIndex).text();
+
+        if (!isNaN(A)) A = Number(A);
+        if (!isNaN(B)) B = Number(B);
+
+        return o == 'asc' ? A > B : B > A;
+    });
+
+    $.each(rows, function(index, ele){
+        tbod.append(ele);
+    });
+});
+$(".sortable-4").click(function(){
+    var o = $(this).hasClass('asc') ? 'desc' : 'asc';
+    $('.sortable-4').removeClass('asc').removeClass('desc');
+    $(this).addClass(o);
+
+    var colIndex = $(this).prevAll().length;
+    var tbod = $(this).closest("table").find("tbody");
+    var rows = tbod.find("tr");
+
+    rows.sort(function(a,b){
+        var A = $(a).find("td").eq(colIndex).text();
+        var B = $(b).find("td").eq(colIndex).text();
+
+        if (!isNaN(A)) A = Number(A);
+        if (!isNaN(B)) B = Number(B);
+
+        return o == 'asc' ? A > B : B > A;
+    });
+
+    $.each(rows, function(index, ele){
+        tbod.append(ele);
+    });
+});
+</script>

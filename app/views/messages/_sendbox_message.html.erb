@@ -1,0 +1,27 @@
+<table class="tb-inbox">
+  <thead class="th-user">
+    <th><%= check_box_tag 'check-all-sendbox' %></th>
+    <th>Subject</th>
+    <th>Content</th>
+    <th></th>
+    <th>From</th>
+    <th>Date</th>
+  </thead>
+  <tbody>
+    <% @sendbox_messages.each do |message| %>
+      <tr class="clickable-row" date-link='<%= link_to '', message_path(message), :class => 'link-to-mail' %>'>
+        <td class="checkbox-td">
+          <%= check_box_tag 'sendbox_message', message.id  %>
+          <%= hidden_field_tag 'box', 'sendbox' %>
+        </td>
+        <td><%= message.subject %></td>
+        <td class="JQellipsis"><%= message.content %></td>
+        <td><%= link_to '', message_path(message) , :class => "link-to-mail" %></td>
+        <td><%= message.from_email %></td>
+        <td><%= message.created_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= javascript_include_tag "js/messages.js" %>

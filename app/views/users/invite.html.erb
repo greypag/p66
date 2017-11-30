@@ -1,0 +1,55 @@
+<%=render "/users/header" %>
+<div class="container-fluid">
+  <div class="row" id="content-outter">
+    <%=render "/users/siderbar" %>
+    <div class="col-md-10">
+      <div class="content container-fluid">
+
+        <div class="new-msg">
+          <div class="col-md-6">
+          <div class="h1-style-user">Invite User</div>
+          <%= link_to 'Back to Users', users_path, :class => "btn btn-user" %>
+          <% if notice %>
+            <p class="alert alert-success"><%= notice %></p>
+          <% end %>
+          <% if alert %>
+            <p class="alert alert-danger"><%= alert %></p>
+          <% end %>
+
+            <div class="form-inputs">
+                <div class="form-group">
+                    <label>To</label>
+                    <input id="invite_email" type="text" class="form-control" placeholder="email">
+                </div>
+              <div class="clearfix"></div>
+              <label>Subject</label>
+              <div class="form-group">
+                  <input id="invite_subject" type="text" class="form-control" placeholder="subject">
+              </div>
+              <div class="clearfix"></div>
+              <label>Message</label>
+              <div class="form-group">
+                <textarea id="invite_content" name="name" rows="8" cols="80"  class="form-control" placeholder="content"></textarea>
+              </div>
+              <div class="clearfix"></div>
+              <span id="send_error_msg" style="color:red;"></span>
+            </div>
+            <div class="form-actions">
+            <button type="button" class="btn btn-user-fade" id="send_invitation">Send</button>
+              <button type="button" class="btn btn-user-fade" id="discard">Reset</button>
+            </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<%=render "/users/footer" %>
+<%= javascript_include_tag "js/users.js" %>
+
+<script type="text/javascript">
+$("li.admin-users").addClass("active");
+$("#invite-user").addClass("active");
+</script>

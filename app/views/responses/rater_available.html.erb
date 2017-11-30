@@ -1,0 +1,104 @@
+<%=render "/users/header" %>
+<div class="container-fluid">
+  <div class="row" id="content-outter">
+    <%=render "/users/siderbar" %>
+    <div class="col-md-10">
+      <div class="content container-fluid">
+        <div class="rate-available">
+          <div class="row">
+            <% if notice %>
+              <p id="notice"><%= notice %></p>
+            <% end %>
+            <div class="h1-style-user">Response</div>
+          </div>
+          <div class="row">
+            <div class="h2-style-user">Waiting for Verify</div>
+          </div>
+          <div class="row">
+            <table class="tb-response">
+              <thead>
+                <tr>
+                  <th>Titles</th>
+                  <th>Language</th>
+                  <th>Industry</th>
+                  <th>Publish Date</th>
+                  <th>Verify Photo</th>
+                </tr>
+              </thead>
+              <tbody>
+              <% @wait_for_verify_tests.each do |wvt| %>
+
+                    <tr>
+                      <td><%= wvt.test_name %></td>
+                      <td><%= wvt.language %></td>
+                      <td><%= wvt.industry %></td>
+                      <td><%= wvt.created_at %></td>
+                      <td><%= link_to 'Verify Now', photo_verification_path(wvt), :class=>"rate-now" %></td>
+                    </tr>
+
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+          <div class="row">
+            <div class="h2-style-user">English</div>
+          </div>
+          <div class="row">
+            <table class="tb-response">
+              <thead>
+                <tr>
+                  <th>Titles</th>
+                  <th>Industry</th>
+                  <th>Publish Date</th>
+                  <th>Rate Response</th>
+                </tr>
+              </thead>
+              <tbody>
+              <% @english_responses.each do |er| %>
+
+                    <tr>
+                      <td><%= er.title %></td>
+                      <td><%= er.industry %></td>
+                      <td><%= er.created_at %></td>
+                      <td><%= link_to 'Rate Now', rate_response_path(er), :class=>"rate-now" %></td>
+                    </tr>
+
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+          <div class="row">
+            <div class="h2-style-user">Spanish</div>
+          </div>
+          <div class="row">
+            <table class="tb-response">
+              <thead>
+                <tr>
+                  <th>Titles</th>
+                  <th>Industry</th>
+                  <th>Publish Date</th>
+                  <th>Rate Response</th>
+                </tr>
+              </thead>
+              <tbody>
+              <% @spanish_responses.each do |sr| %>
+                    <tr>
+                      <td><%= sr.title %></td>
+                      <td><%= sr.industry %></td>
+                      <td><%= sr.created_at %></td>
+                      <td><%= link_to 'Rate Now', rate_response_path(sr), :class=>"rate-now" %></td>
+                    </tr>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%=render "/users/footer" %>
+
+<script type="text/javascript">
+  $( "li.user-response" ).addClass( "active" );
+</script>

@@ -1,0 +1,7 @@
+<p id="notice"><%= notice %></p>
+
+<%= audio_tag @prompt.audio, controls: true, autobuffer: true %>
+<%= video_tag @prompt.video, controls: true, autobuffer: true %>
+
+<%= link_to 'Edit', edit_prompt_path(@prompt) %> |
+<%= link_to 'Back', prompts_path %>

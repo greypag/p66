@@ -1,0 +1,197 @@
+/**
+ * ENGINE
+ * v0.2 | 20150615
+ * License: none (public domain)
+ */
+/* line 8, /home/ubuntu/Parrot66/app/assets/stylesheets/css/_reset.scss */
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+  outline: none;
+}
+
+/* line 16, /home/ubuntu/Parrot66/app/assets/stylesheets/css/_reset.scss */
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  font: inherit;
+  font-size: 100%;
+  margin: 0;
+  padding: 0;
+  vertical-align: baseline;
+  border: 0;
+}
+
+/* line 108, /home/ubuntu/Parrot66/app/assets/stylesheets/css/_reset.scss */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+/* line 122, /home/ubuntu/Parrot66/app/assets/stylesheets/css/_reset.scss */
+body {
+  line-height: 1;
+}
+
+/* line 126, /home/ubuntu/Parrot66/app/assets/stylesheets/css/_reset.scss */
+ol,
+ul {
+  list-style: none;
+}
+
+/* line 131, /home/ubuntu/Parrot66/app/assets/stylesheets/css/_reset.scss */
+blockquote,
+q {
+  quotes: none;
+}
+/* line 134, /home/ubuntu/Parrot66/app/assets/stylesheets/css/_reset.scss */
+blockquote:before, blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+
+/* line 141, /home/ubuntu/Parrot66/app/assets/stylesheets/css/_reset.scss */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+/* line 150, /home/ubuntu/Parrot66/app/assets/stylesheets/css/_reset.scss */
+sup {
+  top: -.5em;
+}
+
+/* line 153, /home/ubuntu/Parrot66/app/assets/stylesheets/css/_reset.scss */
+sub {
+  bottom: -.25em;
+}
+
+/* line 157, /home/ubuntu/Parrot66/app/assets/stylesheets/css/_reset.scss */
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+/* line 162, /home/ubuntu/Parrot66/app/assets/stylesheets/css/_reset.scss */
+input,
+textarea,
+button {
+  font-family: inhert;
+  font-size: inherit;
+  color: inherit;
+}
+
+/* line 171, /home/ubuntu/Parrot66/app/assets/stylesheets/css/_reset.scss */
+select {
+  text-indent: .01px;
+  text-overflow: '';
+  border: 0;
+  border-radius: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+/* line 181, /home/ubuntu/Parrot66/app/assets/stylesheets/css/_reset.scss */
+select::-ms-expand {
+  display: none;
+}
+
+/* line 185, /home/ubuntu/Parrot66/app/assets/stylesheets/css/_reset.scss */
+code,
+pre {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}

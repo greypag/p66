@@ -1,0 +1,61 @@
+<%=render "/users/header" %>
+<div class="container-fluid">
+  <div class="row" id="content-outter">
+    <%=render "/users/siderbar" %>
+    <div class="col-md-10">
+      <div class="content container-fluid">
+        <div class="contact-us">
+          <div class="row">
+            <% if notice %>
+              <p id="notice"><%= notice %></p>
+            <% end %>
+            <div class="h1-style-user">Tests</div>
+          </div>
+          <div class="row">
+            <table class="tb-tests">
+              <thead>
+                <tr>
+                  <th>Test Name</th>
+                  <th>Purchased Date</th>
+                  <th>Date Taken</th>
+                  <th>Rating</th>
+                  <th>View PDF</th>
+                  <th>Send Scores</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <% @test_records.each do |test_record| %>
+                  <tr>
+                    <td><%= link_to test_record_path(test_record), {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '.modal-test-record'} do %><%= test_record.test_name %><% end %></td>
+                    <td><%= test_record.purchased_date %></td>
+                    <td><%= test_record.start_date %></td>
+                    <td><%= test_record.score %></td>
+                    <td><i class="fa fa-file-o" aria-hidden="true"></i></td>
+                    <td><i class="fa fa-envelope-o" aria-hidden="true"></i></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+
+          </div>
+          <div class="row">
+            <!-- <button type="button" name="button" class="btn btn-user flex-item" data-toggle="modal" data-target="#preview-response-modal" id="response_preview">Preview</button> -->
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- test record modal -->
+<div id="modal-window" class="modal fade modal-test-record" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+
+
+<%=render "/users/footer" %>
+
+<script>
+$( "li.user-tests" ).addClass( "active" );
+</script>

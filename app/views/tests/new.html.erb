@@ -1,0 +1,618 @@
+
+<%=render "/users/header" %>
+
+<div class="container-fluid">
+  <div class="row" id="content-outter">
+    <%=render "/users/siderbar" %>
+    <div class="col-md-10">
+      <div class="content container-fluid">
+        <div class="contact-us">
+          <div class="row">
+            <% if notice %>
+              <p id="notice"><%= notice %></p>
+            <% end %>
+
+            <div class="h1-style-user">Create Tests</div>
+          </div>
+          <div class="row">
+            <ul class="nav nav-tabs setup-panel">
+              <li class="active contact-btn-left">
+                <a href="#test-details" class="btn btn-user-fade" data-toggle="tab" id="test-details-btn">
+                  Test Details
+                </a>
+              </li>
+              <li class="contact-btn-left">
+                <a href="#test-ilr1" class="btn btn-user-fade" data-toggle="tab" id="ilr1-btn">
+                  ILR1
+                </a>
+              </li>
+              <li class="contact-btn-left">
+                <a href="#test-ilr1-plus" class="btn btn-user-fade" data-toggle="tab" id="ilr1-plus-btn">
+                  ILR1+
+                </a>
+              </li>
+              <li class="contact-btn-left">
+                <a href="#test-ilr2" class="btn btn-user-fade" data-toggle="tab" id="ilr2-btn">
+                  ILR2
+                </a>
+              </li>
+              <li class="contact-btn-left">
+                <a href="#test-ilr2-plus" class="btn btn-user-fade" data-toggle="tab" id="ilr2-plus-btn">
+                  ILR2+
+                </a>
+              </li>
+              <li class="contact-btn-left">
+                <a href="#test-ilr3" class="btn btn-user-fade" data-toggle="tab" id="ilr3-btn">
+                  ILR3
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="row">
+            <div class="tab-content tab-admin-tests">
+              <div id="test-details" class="tab-pane setup-content fade in active">
+                <div class="">
+                  <table class="tb-admin-tests">
+                    <thead>
+                      <tr>
+                        <th>Status</th>
+                        <th>Test Name</th>
+                        <th>Language</th>
+                        <th>Industry</th>
+                        <th>Discription</th>
+
+                        <th>Time</th>
+                        <th>Price</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                          <td>
+                            <label class="btn-on-off">
+                            <input type="checkbox" name="" id="test_status" value="0">
+                              <span class="btn-on">
+                                <span class="btn-off"></span>
+                              </span>
+                            </label>
+                          </td>
+                          <td><div class="form-group"><input class="form-control" id="test_title"></div></td>
+                          <td>
+                            <div class="form-group">
+                              <select class="form-control t_select" id="test_language">
+                                <option>Select Languages</option>
+                                <option value="English">English</option>
+                                <option value="Spanish">Spanish</option>
+                              </select>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="form-group">
+                              <select class="form-control t_select" id="test_industry">
+                                <option>Select Industry</option>
+                                <option value="Customer Service">Customer Service</option>
+                                <option value="Retail Banking">Retail Banking</option>
+                                <option value="Health Care">Health Care</option>
+                                <option value="Insurance">Insurance</option>
+                              </select>
+                            </div>
+                          </td>
+                          <td><div class="form-group">  <textarea class="form-control" id="test_description"></textarea></div></td>
+
+                          <td><div class="form-group">
+                            <input class="form-control" id="test_time" value="24">
+                              </div></td>
+                          <td><div class="form-group">
+                            <input class="form-control" id="test_price" value="24">
+                              </div></td>
+                        </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+
+
+
+                <div class="btn-creat-tests flex">
+                <div id="activate-step-1" class="btn btn-user flex-item">Next Step</div>
+
+                 <div class="btn btn-user flex-item">Cancel</div>
+                </div>
+
+
+              </div>
+              <div id="test-ilr1" class="tab-pane setup-content fade">
+                <div class="">
+                  <table class="tb-admin-tests">
+                    <thead>
+                      <tr>
+                        <th>Link Prompt</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                          <td><div class="form-group">
+                            <select class="form-control select-prompt prompt_lv1" id="ilr1_prompt1">
+                            </select>
+                              </div></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td><div class="form-group">
+                            <select class="form-control select-prompt prompt_lv1" id="ilr1_prompt2">
+                            </select>
+                              </div></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="btn-creat-tests flex">
+                  <div id="activate-step-2" class="btn btn-user flex-item">Next Step</div>
+                 <div class="btn btn-user flex-item">Cancel</div>
+                </div>
+              </div>
+              <div id="test-ilr1-plus" class="tab-pane setup-content fade">
+                <div class="">
+                  <table class="tb-admin-tests">
+                    <thead>
+                      <tr>
+                        <th>Link Prompt</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                          <td><div class="form-group">
+                            <select class="form-control select-prompt prompt_lv1plus" id="ilr1plus_prompt1">
+                              </select>
+                              </div></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td><div class="form-group">
+                            <select class="form-control select-prompt prompt_lv1plus" id="ilr1plus_prompt2">
+                              </select>
+                              </div></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="btn-creat-tests flex">
+                  <div id="activate-step-3" class="btn btn-user flex-item">Next Step</div>
+
+                 <div class="btn btn-user flex-item">Cancel</div>
+                </div>
+
+              </div>
+              <div id="test-ilr2" class="tab-pane setup-content fade">
+                <div class="">
+                  <table class="tb-admin-tests">
+                    <thead>
+                      <tr>
+                        <th>Link Prompt</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                          <td><div class="form-group">
+                            <select class="form-control select-prompt prompt_lv2" id="ilr2_prompt1">
+                              </select>
+                              </div></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td><div class="form-group">
+                            <select class="form-control select-prompt prompt_lv2" id="ilr2_prompt2">
+                              </select>
+                              </div></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="btn-creat-tests flex">
+                <div id="activate-step-4" class="btn btn-user flex-item">Next Step</div>
+
+                 <div class="btn btn-user flex-item">Cancel</div>
+                </div>
+
+              </div>
+              <div id="test-ilr2-plus" class="tab-pane setup-content fade">
+                <div class="">
+                  <table class="tb-admin-tests">
+                    <thead>
+                      <tr>
+                        <th>Link Prompt</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                          <td><div class="form-group">
+                            <select class="form-control select-prompt prompt_lv2plus" id="ilr2plus_prompt1">
+                              </select>
+                              </div></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td><div class="form-group">
+                            <select class="form-control select-prompt prompt_lv2plus" id="ilr2plus_prompt2">
+                              </select>
+                              </div></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="btn-creat-tests flex">
+                  <div id="activate-step-5" class="btn btn-user flex-item">Next Step</div>
+
+                 <div class="btn btn-user flex-item">Cancel</div>
+                </div>
+
+              </div>
+              <div id="test-ilr3" class="tab-pane setup-content fade">
+                <div class="">
+                  <table class="tb-admin-tests">
+                    <thead>
+                      <tr>
+                        <th>Link Prompt</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                          <td><div class="form-group">
+                            <select class="form-control select-prompt prompt_lv3" id="ilr3_prompt1">
+                              </select>
+                              </div></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td><div class="form-group">
+                            <select class="form-control select-prompt prompt_lv3" id="ilr3_prompt2">
+                              </select>
+                              </div></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="btn-creat-tests flex">
+                 <div class="btn btn-user flex-item" type="button" id="create_test">Save</div>
+                 <div class="btn btn-user flex-item">Cancel</div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<%=render "/users/footer" %>
+<%= javascript_include_tag "js/tests.js" %>
+<script type="text/javascript">
+$('.t_select').change(function(){
+  var language = $('#test_language').val();
+  var industry = $('#test_industry').val();
+
+  var id_arr_filter = [];
+  var id_arr_filterlv1 = [];
+  var id_arr_filterlv1plus = [];
+  var id_arr_filterlv2 = [];
+  var id_arr_filterlv2plus = [];
+  var id_arr_filterlv3 = [];
+
+
+  var all_prompt_hash = <%= @all_prompt_hash.to_json.html_safe %>;
+  var all_lang_prompt_hash = <%= @all_lang_prompt_hash.to_json.html_safe %>;
+  var all_industry_prompt_hash = <%= @all_industry_prompt_hash.to_json.html_safe %>;
+  var all_level_prompt_hash = <%= @all_level_prompt_hash.to_json.html_safe %>;
+
+
+  if(language != ""){
+		// console.log(language);
+
+		Object.keys(all_lang_prompt_hash).forEach(function(key) {
+			if(key == language){
+
+				if(id_arr_filter.length == 0){
+					id_arr_filter = id_arr_filter.concat(all_lang_prompt_hash[key]);
+				}else{
+
+					var different_in_array = $(id_arr_filter).not(all_lang_prompt_hash[key]);
+					different_in_array = different_in_array.toArray();
+          // console.log(different_in_array);
+
+					id_arr_filter = $(id_arr_filter).not(different_in_array);
+					id_arr_filter = id_arr_filter.toArray();
+
+				}
+				// console.log(all_lang_prompt_hash[key]);
+			}
+		})
+
+		// console.log(id_arr_filter);
+	}
+
+  if(industry != ""){
+		// console.log(industry);
+
+		Object.keys(all_industry_prompt_hash).forEach(function(key) {
+			if(key == industry){
+				if(id_arr_filter.length == 0){
+					id_arr_filter = id_arr_filter.concat(all_industry_prompt_hash[key]);
+				}else{
+
+					var different_in_array = $(id_arr_filter).not(all_industry_prompt_hash[key]);
+					different_in_array = different_in_array.toArray();
+          // console.log(different_in_array);
+
+					id_arr_filter = $(id_arr_filter).not(different_in_array);
+					id_arr_filter = id_arr_filter.toArray();
+				}
+				// console.log(all_industry_prompt_hash[key]);
+			}
+		})
+
+		// console.log(id_arr_filter);
+	}
+
+  if (language != "" && industry != "") {
+    Object.keys(all_level_prompt_hash).forEach(function(key) {
+      if(key == 1){
+        id_arr_filterlv1 = id_arr_filter;
+        var different_in_array = $(id_arr_filterlv1).not(all_level_prompt_hash[key]);
+        different_in_array = different_in_array.toArray();
+        // console.log(different_in_array);
+
+        id_arr_filterlv1 = $(id_arr_filterlv1).not(different_in_array);
+        id_arr_filterlv1 = id_arr_filterlv1.toArray();
+
+      }else if (key == 2) {
+        id_arr_filterlv1plus = id_arr_filter;
+        var different_in_array = $(id_arr_filterlv1plus).not(all_level_prompt_hash[key]);
+        different_in_array = different_in_array.toArray();
+        // console.log(different_in_array);
+
+        id_arr_filterlv1plus = $(id_arr_filterlv1plus).not(different_in_array);
+        id_arr_filterlv1plus = id_arr_filterlv1plus.toArray();
+
+      }else if (key == 3) {
+        id_arr_filterlv2 = id_arr_filter;
+        var different_in_array = $(id_arr_filterlv2).not(all_level_prompt_hash[key]);
+        different_in_array = different_in_array.toArray();
+        // console.log(different_in_array);
+
+        id_arr_filterlv2 = $(id_arr_filterlv2).not(different_in_array);
+        id_arr_filterlv2 = id_arr_filterlv2.toArray();
+
+      }else if (key == 4) {
+        id_arr_filterlv2plus = id_arr_filter;
+        var different_in_array = $(id_arr_filterlv2plus).not(all_level_prompt_hash[key]);
+        different_in_array = different_in_array.toArray();
+        // console.log(different_in_array);
+
+        id_arr_filterlv2plus = $(id_arr_filterlv2plus).not(different_in_array);
+        id_arr_filterlv2plus = id_arr_filterlv2plus.toArray();
+
+      }else if (key == 5) {
+        id_arr_filterlv3 = id_arr_filter;
+        var different_in_array = $(id_arr_filterlv3).not(all_level_prompt_hash[key]);
+        different_in_array = different_in_array.toArray();
+        // console.log(different_in_array);
+
+        id_arr_filterlv3 = $(id_arr_filterlv3).not(different_in_array);
+        id_arr_filterlv3 = id_arr_filterlv3.toArray();
+
+      }
+    })
+  }
+
+
+  // console.log(id_arr_filter);
+  // console.log(id_arr_filterlv1);
+  // console.log(id_arr_filterlv1plus);
+  // console.log(id_arr_filterlv2);
+  // console.log(id_arr_filterlv2plus);
+  // console.log(id_arr_filterlv3);
+
+ // generate prompt options for each level
+  var lv1_select = '';
+  var lv1plus_select = '';
+  var lv2_select = '';
+  var lv2plus_select = '';
+  var lv3_select = '';
+  $.each(id_arr_filterlv1 , function(i, val) {
+    if (all_prompt_hash.hasOwnProperty(id_arr_filterlv1 [i])) {
+      var lv1_name = all_prompt_hash[id_arr_filterlv1 [i]]["title"]
+      // console.log(lv1_name);
+    }
+    lv1_select += '<option value="' + id_arr_filterlv1 [i] + '">' + lv1_name + '</option>';
+  });
+  $('.prompt_lv1').html(lv1_select);
+
+  $.each(id_arr_filterlv1plus , function(i, val) {
+    if (all_prompt_hash.hasOwnProperty(id_arr_filterlv1plus [i])) {
+      var lv1plus_name = all_prompt_hash[id_arr_filterlv1plus [i]]["title"]
+      // console.log(lv1plus_name);
+    }
+    lv1plus_select += '<option value="' + id_arr_filterlv1plus [i] + '">' + lv1plus_name + '</option>';
+  });
+  $('.prompt_lv1plus').html(lv1plus_select);
+
+  $.each(id_arr_filterlv2 , function(i, val) {
+    if (all_prompt_hash.hasOwnProperty(id_arr_filterlv2 [i])) {
+      var lv2_name = all_prompt_hash[id_arr_filterlv2 [i]]["title"]
+      // console.log(lv2_name);
+    }
+    lv2_select += '<option value="' + id_arr_filterlv2 [i] + '">' + lv2_name + '</option>';
+  });
+  $('.prompt_lv2').html(lv2_select);
+
+  $.each(id_arr_filterlv2plus , function(i, val) {
+    if (all_prompt_hash.hasOwnProperty(id_arr_filterlv2plus [i])) {
+      var lv2plus_name = all_prompt_hash[id_arr_filterlv2plus [i]]["title"]
+      // console.log(lv2plus_name);
+    }
+    lv2plus_select += '<option value="' + id_arr_filterlv2plus [i] + '">' + lv2plus_name + '</option>';
+  });
+  $('.prompt_lv2plus').html(lv2plus_select);
+
+  $.each(id_arr_filterlv3 , function(i, val) {
+    if (all_prompt_hash.hasOwnProperty(id_arr_filterlv3 [i])) {
+      var lv3_name = all_prompt_hash[id_arr_filterlv3 [i]]["title"]
+      // console.log(lv3_name);
+    }
+    lv3_select += '<option value="' + id_arr_filterlv3 [i] + '">' + lv3_name + '</option>';
+  });
+  $('.prompt_lv3').html(lv3_select);
+
+
+  // initial select-box options
+  $("#ilr1_prompt2 option:last").prop('selected','selected');
+  $("#ilr1plus_prompt2 option:last").prop('selected','selected');
+  $("#ilr2_prompt2 option:last").prop('selected','selected');
+  $("#ilr2plus_prompt2 option:last").prop('selected','selected');
+  $("#ilr3_prompt2 option:last").prop('selected','selected');
+
+  // console.log($('#ilr1_prompt1').val());
+  // console.log($('#ilr1_prompt2').val());
+  // console.log($('#ilr1plus_prompt1').val());
+  // console.log($('#ilr1plus_prompt2').val());
+  // console.log($('#ilr2_prompt1').val());
+  // console.log($('#ilr2_prompt2').val());
+  // console.log($('#ilr2plus_prompt1').val());
+  // console.log($('#ilr2plus_prompt2').val());
+  // console.log($('#ilr3_prompt1').val());
+  // console.log($('#ilr3_prompt2').val());
+
+});
+
+// $('.select-prompt').change(function(){
+  // console.log($('#ilr1_prompt1 option:selected').val());
+  // console.log($('#ilr1_prompt2 option:selected').val());
+  // console.log($('#ilr1plus_prompt1 option:selected').val());
+  // console.log($('#ilr1plus_prompt2 option:selected').val());
+  // console.log($('#ilr2_prompt1 option:selected').val());
+  // console.log($('#ilr2_prompt2 option:selected').val());
+  // console.log($('#ilr2plus_prompt1 option:selected').val());
+  // console.log($('#ilr2plus_prompt2 option:selected').val());
+  // console.log($('#ilr3_prompt1 option:selected').val());
+  // console.log($('#ilr3_prompt2 option:selected').val());
+// });
+
+</script>

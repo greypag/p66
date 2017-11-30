@@ -1,0 +1,66 @@
+<div class="modal-out">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <div class="modal-header">
+        <h4 class="modal-title">
+          <div class="modal-h1-top">Users > <%= @user.f_name %> <%= @user.l_name %> > View Data</div>
+          <div class="h1-style"><span class="preview_prompt_title">Parrot ID : <%= @user.parrot_id %></span></div>
+          <div class="user-avatar"><%= image_tag @user.avatar %></div>
+        </h4>
+      </div>
+      <div class="modal-body">
+        <table>
+          <tr>
+            <td>Name</td>
+            <td><%= @user.f_name %> <%= @user.l_name %></td>
+          </tr>
+          <tr>
+            <td>Email</td>
+            <td><%= @user.email %></td>
+          </tr>
+          <tr>
+            <td>Date of Birth</td>
+            <td><%= @user.date_of_birth %></td>
+          </tr>
+          <tr>
+            <td>Native Language</td>
+            <td><%= @user.native_language %></td>
+          </tr>
+        </table>
+        <table class="tb-user-info">
+          <thead>
+            <tr>
+              <th>Test Name</th>
+              <th class="sortable-level asc">Date Taken</th>
+              <th>Language</th>
+              <th>Industry</th>
+              <th>Level</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+
+          </tbody>
+        </table>
+
+      </div>
+      <div class="modal-footer">
+
+        <button type="button" name="button" class="btn btn-user" data-dismiss="modal" aria-hidden="true">Close</button>
+        <% if !@user.rater? %>
+          <button type="button" name="button" class="btn btn-user" data-dismiss="modal" aria-hidden="true" value="<%= @user.id %>" id="invite_as_rater">Invite as Rater</button>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<%= javascript_include_tag "js/users.js" %>

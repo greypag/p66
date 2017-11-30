@@ -1,0 +1,2 @@
+module PayoutRecordsHelper
+end

@@ -1,0 +1,46 @@
+<table class="tb-inbox">
+  <thead class="th-user">
+    <tr>
+      <th><%= check_box_tag 'check-all-inbox' %></th>
+      <th>Subject</th>
+      <th>Content</th>
+      <th></th>
+      <th>From</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @inbox_messages.each do |message| %>
+      <% if message.to_user_id != @current_user.id.to_s %>
+        <% to_user_id_array = message.to_user_id.split(",") %>
+        <% if to_user_id_array.include?(@current_user.id.to_s) %>
+          <tr class="clickable-row" date-link='<%= link_to '', message_path(message), :class => 'link-to-mail' %>'>
+            <td class="checkbox-td">
+              <%= check_box_tag 'inbox_message', message.id %>
+              <%= hidden_field_tag 'box', 'inbox' %>
+            </td>
+            <td><%= message.subject %></td>
+            <td class="JQellipsis"><%= message.content %></td>
+            <td><%= link_to '', message_path(message), :class => "link-to-mail" %></td>
+            <td><%= message.from_email %></td>
+            <td><%= message.created_at %></td>
+          </tr>
+        <% end %>
+      <% else %>
+        <tr  class="clickable-row" date-link='<%= link_to '', message_path(message), :class => 'link-to-mail' %>'>
+          <td class="checkbox-td">
+            <%= check_box_tag 'inbox_message', message.id %>
+            <%= hidden_field_tag 'box', 'inbox' %>
+          </td>
+          <td><%= message.subject %>
+          <td class="JQellipsis"><%= message.content %></td>
+          <td><%= link_to '', message_path(message), :class => "link-to-mail" %></td>
+          <td><%= message.from_email %></td>
+          <td><%= message.created_at %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<%= javascript_include_tag "js/messages.js" %>

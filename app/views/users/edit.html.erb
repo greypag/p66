@@ -1,0 +1,186 @@
+<!-- <h1>Editing User</h1>
+
+<%= render 'form', user: @user %>
+
+<%= link_to 'Show', @user %> |
+<%= link_to 'Back', users_path %> -->
+<%=render "header" %>
+<div class="container-fluid">
+  <div class="row" id="content-outter">
+
+    <!-- sidebar -->
+    <%=render "siderbar" %>
+    <!-- content -->
+    <div class="col-md-10">
+      <div class="content container-fluid">
+        <div class="account">
+          <div class="row">
+            <div class="col-md-5">
+              <% if notice %>
+                <p class="alert alert-success"><%= notice %></p>
+              <% end %>
+              <div class="h1-style-user">Account</div>
+
+              <% if !@current_user.admin? %>
+                <!-- user/rater-account -->
+                <div class="user-account">
+                  <div class="h3-style-user">Parrot ID <%= @current_user.parrot_id %></div>
+
+                  <%= simple_form_for @user do |f| %>
+                  <%= f.error_notification %>
+
+                  <div class="form-inputs">
+                    <div class="h2-style-user">Personal Information</div>
+                    <label>First Name</label>
+                    <%= f.input :f_name, autofocus: true, label: false %>
+                    <div class="clearfix"></div>
+                    <label>Last Name</label>
+                    <%= f.input :l_name, autofocus: true, label: false %>
+                    <div class="clearfix"></div>
+                    <label>Date of Birth</label>
+                    <%= f.input :date_of_birth, as: :date, start_year: Date.today.year, end_year: Date.today.year - 100, order: [:month , :day, :year], label: false %>
+                    <div class="clearfix"></div>
+                    <label>Gender</label>
+                    <%= f.input :gender, collection: [ ['F', 'Female'], ['M', 'Male' ] ],  include_blank: false, label_method: :last, value_method: :first, checked: @user.gender, label: false %>
+                    <div class="clearfix"></div>
+                    <label>Natvie Language</label>
+                    <%= f.input :native_language, collection: Language.all, label: false %>
+                    <div class="clearfix"></div>
+                    <div class="h2-style-user">Account Management</div>
+                    <div><label>Email</label><label class="user-email"><%= @user.email.to_s%></label></div>
+                    <div class="clearfix"></div>
+                    <label>New Password</label>
+                    <%= f.input :password, placeholder: 'New Password', label: false %>
+                    <div class="clearfix"></div>
+                    <label>Retype Password</label>
+                    <%= f.input :password_confirmation, placeholder: 'Retype Password', label: false %>
+                    <!-- <button type="button" class="btn btn-user-fade change-pw" id="password_change">Change</button> -->
+                    <span id="reset_password_error_msg" style="color:red;"></span>
+                    <div class="clearfix"></div>
+
+                    <label>Profile Picture</label>
+                    <div class="inline-button">
+                      <%= f.file_field :avatar, label: false , :class => "file-input", id: "avatar-upload" %>
+                      <%= f.hidden_field :avatar_cache %>
+                      <div class="no-user-img">
+                        <% if @user.avatar %>
+                        <%= image_tag @user.avatar, id: 'img_prev' %>
+                        <% else %>
+                        <span><img src="https://blog.stylingandroid.com/wp-content/themes/lontano-pro/images/no-image-slide.png" alt=""></span>
+                        <% end %>
+                      </div>
+                      <button type="button" class="btn btn-user" id="upload-img">Uplaod Image</button>
+                      <!-- <%= image_tag ( "homepage/icon/boost-your-resume.png") %> -->
+                      <!-- <button type="button" class="btn btn-user-fade preview">Preview</button> -->
+                    </div>
+                    <div class="clearfix"></div>
+                    <% if @current_user.rater? %>
+                      <div class="h2-style-user">Payment Method</div>
+                      <div class="clearfix"></div>
+                      <label>Recipient Type</label>
+                      <%= f.input :recipient_type, collection: [ ['EMAIL', 'email'], ['PHONE', 'phone' ] ],  include_blank: false, label_method: :last, value_method: :first, checked: @user.recipient_type, label: false %>
+                      <div class="clearfix"></div>
+                      <label>Receiver</label>
+                      <%= f.input :receiver, autofocus: true, label: false %>
+                    <% end %>
+                  </div>
+
+                  <div class="form-actions">
+                    <%= f.button :submit, "Save", :class => "btn-user" %>
+                  </div>
+                  <% end %>
+                </div>
+              <% else %>
+              <!-- admin-account -->
+                <div class="admin-account">
+                  <div class="h2-style-user">Account Management</div>
+
+                  <%= simple_form_for @user do |f| %>
+                    <%= f.error_notification %>
+
+                    <div class="form-inputs">
+                      <div class="form-group">
+                        <label>Email</label>
+                        <%= f.input :email, autofocus: true, label: false %>
+                        <div class="clearfix"></div>
+                        <label>New Password</label>
+                        <%= f.input :password, placeholder: 'New Password', label: false %>
+                        <div class="clearfix"></div>
+                        <label>Retype Password</label>
+                        <%= f.input :password_confirmation, placeholder: 'Retype Password', label: false %>
+                      </div>
+                  <div class="clearfix"></div>
+                  <!-- <button type="button" class="btn btn-user" name="button">Add Admin</button> -->
+
+                    <div class="h2-style-user">Paypal Account Set Up</div>
+                  </div>
+                  <div class="form-actions">
+                    <%= f.button :submit, "Save", :class => "btn-user" %>
+                  </div>
+                <% end %>
+                </div>
+              <% end %>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<%=render "footer" %>
+<script>
+$( "li.user-account" ).addClass( "active" );
+$( "li.admin-account" ).addClass( "active" );
+
+// image preview
+$(function() {
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        $('#img_prev').attr('src', e.target.result);
+      }
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  $("#avatar-upload").change(function(){
+    $('#img_prev').removeClass('hidden');
+    readURL(this);
+  });
+});
+//upload img onclick
+$(function(){
+    $('#upload-img').click(function(e){
+        e.preventDefault();
+        $('#avatar-upload').click();}
+    );
+});
+
+
+// $('#password_change').click(function(){
+//
+//   var new_password = $('#user_password').val();
+//   var new_password_confirmation = $('#user_password_confirmation').val();
+//
+//
+//   $.post("/change_password", {
+//     password: new_password,
+//     password_confirmation: new_password_confirmation
+//   }, function (data, status) {
+//     if(data.status == "false"){
+//       $( "#reset_password_error_msg" ).append( "<p style='color:red;'>"+data.message+"</p>" );
+//       return;
+//     }else {
+//       // console.log("Data: " + data + "\nStatus: " + status);
+//       console.log("Data: " + data.status);
+//       console.log("Data: " + data.message);
+//     }
+//   });
+// });
+</script>

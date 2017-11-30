@@ -1,0 +1,120 @@
+<%=render "/users/header" %>
+
+<div class="container-fluid">
+  <div class="row" id="content-outter">
+    <%=render "/users/siderbar" %>
+    <div class="col-md-10">
+      <div class="content container-fluid">
+        <div class="contact-us">
+          <div class="row">
+            <% if notice %>
+              <p id="notice"><%= notice %></p>
+            <% end %>
+            <!-- <p id="notice"><%= notice %></p> -->
+            <div class="h1-style-user">Contact Us</div>
+          </div>
+          <div class="row">
+            <ul class="nav nav-tabs ">
+              <li class="active contact-btn-left">
+                <a href="#inbox" class="btn btn-user-fade" data-toggle="tab" id="inbox-btn">
+                  Inbox
+                </a>
+              </li>
+              <li class="contact-btn-left">
+                <a href="#sendbox" class="btn btn-user-fade" data-toggle="tab" id="sendbox-btn">
+                  Sendbox
+                </a>
+              </li>
+
+              <li class="contact-btn-right">
+                <button type="button" class="btn btn-user-delete" id="delete">DELETE</button>
+              </li>
+              <li class="contact-btn-right">
+                <%= link_to 'New Message', new_message_path, :class => "btn-user" %>
+              </li>
+            </ul>
+          </div>
+          <div class="row">
+            <div class="tab-content">
+              <div id="inbox" class="tab-pane fade in active">
+                <%= render "inbox_message" %>
+              </div>
+              <div id="sendbox" class="tab-pane fade">
+                <%= render "sendbox_message" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%=render "/users/footer" %>
+
+<script>
+$('#inbox-btn').click(function () {
+  box = null;
+  message_id = [];
+  user_id = null;
+  to_user_id = null;
+  $('input:checkbox').prop('checked', false);
+  $('#inbox').load('/inbox_reload');
+});
+$('#sendbox-btn').click(function () {
+  box = null;
+  message_id = [];
+  user_id = null;
+  to_user_id = null;
+  $('input:checkbox').prop('checked', false);
+  $('#sendbox').load('/sendbox_reload');
+});
+
+  $('#delete').click(function (e) {
+    if ($(':checkbox:checked')) {
+      var box = $($(':checkbox:checked')).next('input[type=hidden]').val();
+      var message_id = [];
+      var to_user_id = "";
+      var user_id = "";
+      $(':checkbox:checked').each(function (i) {
+        message_id[i] = $(this).val();
+      });
+      if (box == 'inbox') {
+        to_user_id = <%= @current_user.id %>;
+
+      } else if (box == 'sendbox') {
+        user_id = <%= @current_user.id %>;
+      }
+    }
+    if(!$('input[type=checkbox]').is(':checked')){
+      e.preventDefault();
+      return false;
+      // this.style.pointEvents = 'none';
+        // $(this).addClass('pointer-events');
+    }
+
+    // console.log(box) console.log(message_id) console.log(user_id) box = null; message_id = []; user_id = null;
+    $('input:checkbox').prop('checked', false);
+
+    $.post("/message_delete", {
+      box: box,
+      message_id: message_id,
+      user_id: user_id,
+      to_user_id: to_user_id
+    }, function (data, status) {
+      if (data.status == "false") {
+        console.log("Data: " + data.status);
+        console.log("Data: " + data.message);
+        return;
+      } else {
+        console.log("Data: " + data.status);
+        console.log("Data: " + data.message);
+      }
+    });
+  });
+    $(document).ready(function () {
+  if(!$("input[name='inbox_message']").is(':checked')){
+      // $('#check-all-inbox').prop("checked", false);
+  }
+});
+</script>

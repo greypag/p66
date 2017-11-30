@@ -1,0 +1,100 @@
+<%=render "header" %>
+<div class="check-out">
+  <div class="container section">
+    <div class="col-md-12">
+      <div class="h1-style">Check out</div>
+      <div id="accordion" class="panel-group">
+        <div class="panel">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a href="#panelBodyOne" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion">
+                <span>Billing Information</span>
+              </a>
+            </h4>
+          </div>
+          <div id="panelBodyOne" class="panel-collapse collapse in">
+            <div class="panel-body">
+              <div class="col-md-8">
+                <form>
+                  <div class="form-group">
+                    <input type="name" class="form-control" id="InputFirstname" aria-describedby="checkout" placeholder="Firstname*">
+                  </div>
+                  <div class="form-group">
+
+                    <input type="name" class="form-control" id="InputLastname" aria-describedby="checkout" placeholder="Lastname*">
+                  </div>
+                  <div class="form-group">
+                    <input type="email" class="form-control" id="InputEmail1" aria-describedby="checkout" placeholder="Email*">
+                  </div>
+                  <div class="form-group">
+                    <input type="address" class="form-control" id="InputAddress" aria-describedby="checkout" placeholder="Address">
+                  </div>
+                  <div class="form-group">
+                    <select id="countries_states1" class="form-control input-medium bfh-countries" data-country="US"></select>
+                    <select id="countries_states2"class="form-control input-medium bfh-states" data-country="countries_states1"></select>
+                  </div>
+
+                </form>
+                <button type="button" class="btn btn-color" id="Continue">Continue</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel" id="Continue-panel">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a href="#panelBodyTwo" class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion">
+                <span>Order Review</span>
+              </a>
+            </h4>
+          </div>
+          <div id="panelBodyTwo" class="panel-collapse collapse">
+            <div class="panel-body">
+
+              <table class="table-order-review col-md-12">
+                <thead>
+                  <th>Item(s)</th>
+                  <th>Amount (US$)</th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Test Item 01</td>
+                    <td>15</td>
+                  </tr>
+                  <tr>
+                    <td>Subtotal:</td>
+                    <td>75</td>
+                  </tr>
+                  <tr>
+                    <td>Grand Total:</td>
+                    <td>75</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="here">
+                        <a href="#">Cancel Order</div>
+                      </a>
+                    </td>
+                    <td>
+                      <div class="btn btn-color"><%= link_to 'Place Order', thankyoupurchase_path %></div>
+                    </td>
+                  </tr>
+
+                </tbody>
+
+              </table>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+  <%=render "footer" %>
+  <script>
+    $("#Continue").on("click", function () {
+      $("#panelBodyTwo").collapse('show');
+    });
+  </script>

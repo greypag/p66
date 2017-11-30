@@ -1,0 +1,100 @@
+<%=render "/users/header" %>
+<div class="container-fluid">
+  <div class="row" id="content-outter">
+    <%=render "/users/siderbar" %>
+    <div class="col-md-10">
+      <div class="content container-fluid">
+        <div class="contact-us">
+          <div class="row">
+            <% if notice %>
+              <p id="notice"><%= notice %></p>
+            <% end %>
+            <div class="h1-style-user">Prompts</div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 flex">
+              <button type="button" name="button" class="btn btn-user-link flex-item"><%= link_to 'Create Prompts', new_prompt_path %></button>
+              <button type="button" name="button" class="btn btn-user-link flex-item"><%= link_to 'Create QAR', new_qar_path %></button>
+              <!-- <div class="input-group stylish-input-group tests-search flex-item">
+                    <input type="text" class="form-control">
+                    <span class="input-group-addon">
+                        <button type="submit">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
+                </div> -->
+              <!-- <button type="button" name="button" class="btn btn-user-icon flex-item"><i class="fa fa-filter" aria-hidden="true"></i></button> -->
+              </div>
+              <div class="col-md-6 text-right flex-end">
+                <!-- <div class="page-number flex-item">1 - 15 of 42</div> -->
+                <!-- <div class="btn btn-user-icon flex-item"><i class="fa fa-chevron-left" aria-hidden="true"></i></div>
+                <div class="btn btn-user-icon flex-item"><i class="fa fa-chevron-right" aria-hidden="true"></i></div> -->
+                <%= will_paginate @prompts, renderer: 'PaginateHelper::LinkRenderer' %>
+              </div>
+          </div>
+          <div class="row">
+            <table class="tb-admin-tests">
+              <thead>
+                <tr>
+                  <th>Prompts Titles</th>
+                  <th>Language</th>
+                  <th>Industry</th>
+                  <th class="sortable-level asc">Level</th>
+                  <th>Link BMR</th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th>Edit</th>
+                  <th>Trash</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @prompts.each do |prompt| %>
+                  <tr>
+                    <td><%= prompt.title %></td>
+                    <td><%= prompt.language %></td>
+                    <td><%= prompt.industry %></td>
+                    <td><%= prompt.level %></td>
+                    <% bmr = Response.find_by_id(prompt.bmr.to_i) %>
+                    <td><%= bmr.title %></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><%= link_to edit_prompt_path(prompt) do %><i class="fa fa-pencil" aria-hidden="true"></i><% end %></td>
+                    <td><%= link_to prompt, method: :delete, data: { confirm: 'Are you sure?' } do %><i class="fa fa-trash" aria-hidden="true"></i><% end %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%=render "/users/footer" %>
+<script type="text/javascript">
+$( "li.admin-prompts" ).addClass( "active" );
+$(".sortable-level").click(function(){
+    var o = $(this).hasClass('asc') ? 'desc' : 'asc';
+    $(".sortable-level").removeClass('asc').removeClass('desc');
+    $(this).addClass(o);
+    var colIndex = $(this).prevAll().length;
+    var tbod = $(this).closest("table").find("tbody");
+    var rows = tbod.find("tr");
+
+    rows.sort(function(a,b){
+        var A = $(a).find("td").eq(colIndex).text();
+        var B = $(b).find("td").eq(colIndex).text();
+
+        if (!isNaN(A)) A = Number(A);
+        if (!isNaN(B)) B = Number(B);
+
+        return o == 'asc' ? A > B : B > A;
+    });
+
+    $.each(rows, function(index, ele){
+        tbod.append(ele);
+    });
+});
+</script>

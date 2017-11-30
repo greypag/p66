@@ -1,0 +1,53 @@
+<!-- sidebar -->
+<div class="col-md-2">
+  <nav class="nav-sidebar">
+    <ul class="nav">
+      <li class="logo">
+        <%= image_tag ( "homepage/logo-86x85.png") %>
+      </li>
+      <!-- admin -->
+      <% if @current_user.is_admin? %>
+        <li class="siderbar-item admin-home"><%= link_to 'Home', "/dashboard" %></li>
+        <li class="siderbar-item admin-tests">
+            <%= link_to 'Tests', tests_path %>
+            <div class="submenu-item" id="create-tests"><%= link_to 'Create Tests', new_test_path %></div>
+        </li>
+        <li class="siderbar-item admin-prompts">
+          <%= link_to 'Prompts', prompts_path %>
+          <div class="submenu-item" id="create-prompts"><%= link_to 'Create Prompts', new_prompt_path %></div>
+          <div class="submenu-item" id="qar"><%= link_to 'QAR', qars_path %></div>
+          <div class="submenu-item" id="create-qar"><%= link_to 'Create QAR', new_qar_path %></div>
+        </li>
+        <li class="siderbar-item admin-response">
+          <%= link_to 'Response', responses_path %>
+          <div class="submenu-item" id="create-response"><%= link_to 'Create Response', new_response_path %></div>
+        </li>
+        <li class="siderbar-item admin-users">
+        <%= link_to 'Users', users_path %>
+        <div class="submenu-item" id="invite-user"><%= link_to 'Invite User', invite_path %></div>
+        </li>
+        <li class="siderbar-item admin-cashflow">
+          <%= link_to 'Cashflow', cashflow_path %>
+          <div class="submenu-item" id="rater-paycheck"><%= link_to 'Rater Paycheck', payout_records_path %></div>
+        </li>
+        <li class="siderbar-item admin-account"><%= link_to 'Account', edit_user_path %></li>
+      <% else %>
+        <!-- user -->
+        <li class="siderbar-item user-home"><%= link_to 'Home', "/home" %></li>
+        <li class="siderbar-item user-response"><%= link_to 'Response', rater_available_path %></li>
+        <li class="siderbar-item user-tests">
+            <%= link_to 'Tests', test_records_path %>
+            <div class="submenu-item" id="send-scores"><%= link_to 'Send Rating', "/sendscores" %></div>
+            <div class="submenu-item" id="rating-history"><%= link_to 'History', "/rating_history" %></div>
+        </li>
+
+        <li class="siderbar-item user-payments"><%= link_to 'Payments', payment_records_path  %></li>
+        <li class="siderbar-item user-account"><%= link_to 'Account', edit_user_path %></li>
+      <% end %>
+    </ul>
+  </nav>
+</div>
+
+<script>
+
+</script>

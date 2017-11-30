@@ -1,0 +1,47 @@
+<%=render "/users/header" %>
+<div class="container-fluid">
+  <div class="row" id="content-outter">
+    <%=render "/users/siderbar" %>
+    <div class="col-md-10">
+      <div class="content container-fluid">
+
+        <div class="new-msg">
+          <div class="col-md-6">
+          <div class="h1-style-user">Contact Us</div>
+          <%= link_to 'Back to Inbox', messages_path, :class => "btn btn-user" %>
+          <% if notice %>
+            <p class="alert alert-success"><%= notice %></p>
+          <% end %>
+          <% if alert %>
+            <p class="alert alert-danger"><%= alert %></p>
+          <% end %>
+          <%= simple_form_for @message do |f| %>
+            <%= f.error_notification %>
+            <div class="form-inputs">
+              <% if @current_user.admin? %>
+                <label>To</label>
+                <%= f.input :email, include_blank: false, :label => false, collection: @email_list %>
+              <% end %>
+              <div class="clearfix"></div>
+              <label>Subject</label>
+              <%= f.input :subject, :label => false %>
+              <div class="clearfix"></div>
+              <label>Message</label>
+              <%= f.input :content, :as => :text, :label => false %>
+              <div class="clearfix"></div>
+              <span id="send_error_msg" style="color:red;"></span>
+            </div>
+            <div class="form-actions">
+              <%= f.button :submit, "Send", :class => "btn-user", :id => "send" %>
+              <button type="button" class="btn btn-user-fade" id="discard">Reset</button>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<%=render "/users/footer" %>
+<%= javascript_include_tag "js/messages.js" %>

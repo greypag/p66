@@ -1,0 +1,200 @@
+<%=render "/users/header" %>
+<div class="container-fluid">
+  <div class="row" id="content-outter">
+    <%=render "/users/siderbar" %>
+    <div class="col-md-10">
+      <div class="content container-fluid">
+        <div class="contact-us">
+          <div class="row">
+            <% if notice %>
+              <p id="notice"><%= notice %></p>
+            <% end %>
+            <div class="h1-style-user">Response</div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 flex">
+              <button type="button" name="button" class="btn btn-user-link flex-item"><%= link_to 'Create Response', new_response_path %></button>
+              <!-- <div class="input-group stylish-input-group tests-search flex-item">
+                    <input type="text" class="form-control">
+                    <span class="input-group-addon">
+                        <button type="submit">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
+                </div> -->
+              <button type="button" name="button" class="btn btn-user-icon flex-item"><i class="fa fa-filter" aria-hidden="true"></i></button>
+              </div>
+              <div class="col-md-6 text-right flex-end">
+                <!-- <div class="page-number flex-item">1 - 15 of 42</div>
+                <div class="btn btn-user-icon flex-item"><i class="fa fa-chevron-left" aria-hidden="true"></i></div>
+                <div class="btn btn-user-icon flex-item"><i class="fa fa-chevron-right" aria-hidden="true"></i></div> -->
+                <%= will_paginate @responses, renderer: 'PaginateHelper::LinkRenderer' %>
+              </div>
+          </div>
+          <div class="row">
+            <table class="tb-admin-tests">
+              <thead>
+                <tr>
+                  <th>Set as BMR</th>
+                  <th>Response Titles</th>
+                  <th>Language</th>
+                  <th>Industry</th>
+                  <th class="sortable-level asc">Level</th>
+                  <th class="sortable-p-date asc">Publish Date</th>
+                  <th class="sortable-rating asc">Rating</th>
+                  <th class="sortable-parrot-id asc">Parrot ID</th>
+                  <th>Edit</th>
+                  <th>Trash</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <% @responses.each do |response| %>
+                  <tr>
+                    <td>
+                      <label class="switch">
+                        <% if response.response_type == 1 %>
+                          <input type="checkbox" value="<%= response.id %>" class="btn-on-off" checked="true">
+                        <% else %>
+                          <input type="checkbox" value="<%= response.id %>" class="btn-on-off">
+                        <% end %>
+                      <span class="slider"></span>
+                      </label>
+                   </td>
+                    <td><%= response.title %></td>
+                    <td><%= response.language %></td>
+                    <td><%= response.industry %></td>
+                    <td><%=response.level %></td>
+                    <td><%= response.created_at %></td>
+                    <td><%= response.score %></td>
+                    <td><%= User.find_by_id(response.user_id).parrot_id %></td>
+                    <td><%= link_to edit_response_path(response) do %><i class="fa fa-pencil" aria-hidden="true"></i><% end %></td>
+                    <td><%= link_to response, method: :delete, data: { confirm: 'Are you sure?' } do %><i class="fa fa-trash" aria-hidden="true"></i><% end %></td>
+                  </tr>
+                  <% end %>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%=render "/users/footer" %>
+<script>
+$( "li.admin-response" ).addClass( "active" );
+$(".sortable-level").click(function(){
+    var o = $(this).hasClass('asc') ? 'desc' : 'asc';
+    $(".sortable-level").removeClass('asc').removeClass('desc');
+    $(this).addClass(o);
+    var colIndex = $(this).prevAll().length;
+    var tbod = $(this).closest("table").find("tbody");
+    var rows = tbod.find("tr");
+
+    rows.sort(function(a,b){
+        var A = $(a).find("td").eq(colIndex).text();
+        var B = $(b).find("td").eq(colIndex).text();
+
+        if (!isNaN(A)) A = Number(A);
+        if (!isNaN(B)) B = Number(B);
+
+        return o == 'asc' ? A > B : B > A;
+    });
+
+    $.each(rows, function(index, ele){
+        tbod.append(ele);
+    });
+});
+$(".sortable-p-date").click(function(){
+    var o = $(this).hasClass('asc') ? 'desc' : 'asc';
+    $(".sortable-p-date").removeClass('asc').removeClass('desc');
+    $(this).addClass(o);
+    var colIndex = $(this).prevAll().length;
+    var tbod = $(this).closest("table").find("tbody");
+    var rows = tbod.find("tr");
+
+    rows.sort(function(a,b){
+        var A = $(a).find("td").eq(colIndex).text();
+        var B = $(b).find("td").eq(colIndex).text();
+
+        if (!isNaN(A)) A = Number(A);
+        if (!isNaN(B)) B = Number(B);
+
+        return o == 'asc' ? A > B : B > A;
+    });
+
+    $.each(rows, function(index, ele){
+        tbod.append(ele);
+    });
+});
+$(".sortable-rating").click(function(){
+    var o = $(this).hasClass('asc') ? 'desc' : 'asc';
+    $(".sortable-rating").removeClass('asc').removeClass('desc');
+    $(this).addClass(o);
+    var colIndex = $(this).prevAll().length;
+    var tbod = $(this).closest("table").find("tbody");
+    var rows = tbod.find("tr");
+
+    rows.sort(function(a,b){
+        var A = $(a).find("td").eq(colIndex).text();
+        var B = $(b).find("td").eq(colIndex).text();
+
+        if (!isNaN(A)) A = Number(A);
+        if (!isNaN(B)) B = Number(B);
+
+        return o == 'asc' ? A > B : B > A;
+    });
+
+    $.each(rows, function(index, ele){
+        tbod.append(ele);
+    });
+});
+$(".sortable-parrot-id").click(function(){
+    var o = $(this).hasClass('asc') ? 'desc' : 'asc';
+    $(".sortable-parrot-id").removeClass('asc').removeClass('desc');
+    $(this).addClass(o);
+    var colIndex = $(this).prevAll().length;
+    var tbod = $(this).closest("table").find("tbody");
+    var rows = tbod.find("tr");
+
+    rows.sort(function(a,b){
+        var A = $(a).find("td").eq(colIndex).text();
+        var B = $(b).find("td").eq(colIndex).text();
+
+        if (!isNaN(A)) A = Number(A);
+        if (!isNaN(B)) B = Number(B);
+
+        return o == 'asc' ? A > B : B > A;
+    });
+
+    $.each(rows, function(index, ele){
+        tbod.append(ele);
+    });
+});
+// AJAX for on-off-button
+
+$('.btn-on-off').click(function() {
+  var response_type = 0;
+  if ($(this).is(':checked')) {
+    response_type = 1;
+  }else {
+    response_type = 0;
+  }
+  var response_id = $(this).val();
+  console.log('response_type =' + response_type);
+  console.log('response_id = ' + response_id);
+  $.ajax({
+    url: '/change_response_type',
+    type: 'post',
+    data: {
+      response_type : response_type,
+      response_id : response_id
+    },
+    // success: function() {console.log(data);},
+    // error: function() {console.log('error');}
+  });
+  // console.log(data);
+});
+</script>

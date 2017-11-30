@@ -1,0 +1,93 @@
+<%=render "/users/header" %>
+<div class="container-fluid">
+  <div class="row" id="content-outter">
+    <%=render "/users/siderbar" %>
+    <div class="col-md-10">
+      <div class="content container-fluid">
+        <div class="contact-us">
+          <div class="row">
+            <% if notice %>
+              <p id="notice"><%= notice %></p>
+            <% end %>
+            <!-- <p id="notice"><%= notice %></p> -->
+            <div class="h1-style-user">Cashflow</div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+            <div class="h2-style-user">Purchase</div>
+          </div>
+          <div class="col-md-6 download-btn text-right flex-end">
+            <!-- <select class="form-control time-selector flex-item" aria-describedby="showing">
+              <option>June-Jul, 2017</option>
+              <option>June-Jul, 2017</option>
+              <option>June-Jul, 2017</option>
+              <option>June-Jul, 2017</option>
+              <option selected>June-Jul, 2017</option>
+            </select> -->
+          <button type="button" name="button" class="btn btn-user flex-item">Download Statement</button>
+            </div>
+          </div>
+          <div class="row">
+                <table class="tb-cashflow">
+                  <thead class="th-user">
+                    <tr>
+                      <th>Test Name</th>
+                      <th>Candidate</th>
+                      <th>Parrot ID</th>
+                      <th></th>
+                      <th></th>
+                      <th>Purchase Date</th>
+                      <th>Amount(US$)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @payment_records.each do |payment_record| %>
+                      <tr>
+                        <td><%= payment_record.test_name %></td>
+                        <td><%= User.find_by_id(payment_record.user_id).email %></td>
+                        <td><%= User.find_by_id(payment_record.user_id).parrot_id %></td>
+                        <td></td>
+                        <td></td>
+                        <td><%= payment_record.payment_time %></td>
+                        <td><%= payment_record.price %></td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+          </div>
+          <div class="row down-padding">
+            <div class="col-md-6 flex">
+              <!-- <div class="flex-item">Show</div>
+              <div class="flex-item">
+                <select class="form-control amount" aria-describedby="showing">
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                  <option selected>6</option>
+                </select>
+              </div> -->
+
+
+              </div>
+              <div class="col-md-6 text-right flex-end">
+                <!-- <div class="page-number flex-item">1 - 15 of 42</div>
+                <div class="btn btn-user-icon flex-item"><i class="fa fa-chevron-left" aria-hidden="true"></i></div>
+                <div class="btn btn-user-icon flex-item"><i class="fa fa-chevron-right" aria-hidden="true"></i></div> -->
+                <%= will_paginate @payment_records, renderer: 'PaginateHelper::LinkRenderer' %>
+              </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%=render "/users/footer" %>
+
+<script>
+$( "li.admin-cashflow" ).addClass( "active" );
+</script>

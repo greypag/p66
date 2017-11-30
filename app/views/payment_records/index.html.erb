@@ -1,0 +1,86 @@
+<%=render "/users/header" %>
+<div class="container-fluid">
+  <div class="row" id="content-outter">
+    <%=render "/users/siderbar" %>
+    <div class="col-md-10">
+      <div class="content container-fluid">
+        <div class="contact-us">
+          <div class="row">
+            <% if notice %>
+              <p id="notice"><%= notice %></p>
+            <% end %>
+            <!-- <p id="notice"><%= notice %></p> -->
+            <div class="h1-style-user">Payment</div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+            <div class="h2-style-user">Purchase History</div>
+          </div>
+            <div class="col-md-6 download-btn">
+            <button type="button" name="button" class="btn btn-user">Download Statement</button>
+              </div>
+          </div>
+          <div class="row">
+                <table class="tb-payment">
+                  <thead class="th-user">
+                    <tr>
+                      <th>Test Name</th>
+                      <th>Purchase Date</th>
+                      <th>Amount(US$)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @payment_records.each do |payment_record| %>
+                      <tr>
+                        <td><%= payment_record.test_name %></td>
+                        <td><%= payment_record.payment_time %></td>
+                        <td><%= payment_record.price %></td>
+                        <!-- <td><%= link_to 'Show', payment_record %></td>
+                        <td><%= link_to 'Edit', edit_payment_record_path(payment_record) %></td>
+                        <td><%= link_to 'Destroy', payment_record, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+                        <!-- <%= link_to 'Check Out', checkout_path %> -->
+                        <!-- <%= link_to 'New Payment Record', new_payment_record_path %> -->
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+            <div class="h2-style-user">Rater Transaction</div>
+          </div>
+            <div class="col-md-6 download-btn">
+            <button type="button" name="button" class="btn btn-user">Download Statement</button>
+              </div>
+          </div>
+          <div class="row">
+                <table class="tb-payment">
+                  <thead class="th-user">
+                    <tr>
+                      <th>Paycheck ID</th>
+                      <th>Transaction Date</th>
+                      <th>Amount(US$)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @payout_records.each do |payout_record| %>
+                      <tr>
+                        <td><%= payout_record.payout_id %></td>
+                        <td><%= payout_record.updated_at %></td>
+                        <td><%= payout_record.amount %></td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%=render "/users/footer" %>
+
+<script>
+$( "li.user-payments" ).addClass( "active" );
+</script>

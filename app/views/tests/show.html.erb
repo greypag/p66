@@ -1,0 +1,393 @@
+<!-- take-test-header -->
+<div class="header-user">
+  <nav class="navbar navbar-default" role="navigation">
+  <div class="container">
+    <div class="test-title">Begin: <%= @test.title %></div>
+  </div>
+  </nav>
+</div>
+<!-- take-test-body -->
+<div class="take-test">
+  <div class="container">
+    <div class="take-test-inner">
+      <div class="row section-b">
+        <div class="col-md-2"><%= image_tag ( "homepage/logo-86x85.png") %></div>
+        <div class="col-md-4">
+          <p>Your remaining time</p>
+          <span id="clock"></span>
+       </div>
+      </div>
+      <div class="quiz-page section-b">
+          <div class="quiz-container">
+            <div id="quiz"></div>
+          </div>
+          <div class="">
+          <!-- <button class="btn btn-user" id="previous">Previous Question</button> -->
+          <button class="btn btn-user answer" id="next">Next Question</button>
+          <button class="btn btn-user answer" id="submit" data-toggle="modal" data-target="#loading-modal">Submit Quiz</button>
+         </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<%=render "/users/footer" %>
+<!-- loading modal -->
+<div id="loading-modal" class="modal fade">
+  <div class="modal-out">
+    <div class="modal-dialog">
+      <div class="circle spinner2"></div>
+    </div>
+  </div>
+</div>
+<!-- timing modal -->
+<div id="timing-modal" class="modal fade">
+  <div class="modal-out">
+    <div class="modal-dialog">
+      <div class="timeup">time's up!</div>
+      <div class="circle spinner2"></div>
+    </div>
+  </div>
+</div>
+<%= javascript_include_tag "js/tests.js" %>
+<script type="text/javascript">
+
+// countdown clock
+var countdown = <%= @test.time.to_i %> * 60 * 1000;
+var timerId = setInterval(function(){
+  countdown -= 1000;
+  var min = Math.floor(countdown / (60 * 1000));
+  var sec = Math.floor((countdown - (min * 60 * 1000)) / 1000);
+
+  if (countdown <= 0) {
+    //  alert("Times Up");
+    $('#timing-modal').modal('show');
+     clearInterval(timerId);
+
+    //  clost test
+    var test_record_id = '<%= @test_record.id %>';
+    $.ajax({
+      url: '/close_test',
+      data: test_record_id,
+      cache: false,
+      contentType: false,
+      processData: false,
+      type: 'POST'
+    });
+
+
+  }else if (countdown <= .5*60*1000) {
+    $("#clock").html(min + " : " + sec);
+    $("#clock").css('color','red');
+    // alert('hi');
+
+  } else {
+     $("#clock").html(min + " : " + sec);
+  }
+
+}, 1000); //1000ms. = 1sec.
+
+
+// user response
+$('.answer').click(function(){
+  var d = new Date();
+  var month = d.getMonth()+1;
+  var day = d.getDate();
+  var output = d.getFullYear() + '/' + ((''+month).length<2 ? '0' : '') + month + '/' + ((''+day).length<2 ? '0' : '') + day;
+
+
+  var title = '<%= @current_user.f_name %> <%= @current_user.l_name %> <%= @test.title %> question ' + $('.active-slide .number').val() + " " + output;
+  var language = '<%= @test.language %>';
+  var industry = '<%= @test.industry %>';
+  var test_record_id = '<%= @test_record.id %>';
+  var prompt_id = $('.active-slide .prompt_id').val();
+  var order = $('.active-slide .order').val();
+  var level = $('.active-slide .level').val();
+
+  var obj = {"title": title, "language": language, "industry": industry, "level": level, "order": order, "test_record_id": test_record_id, "prompt_id": prompt_id}
+
+  $.each(obj, function(key, value){
+    data.append(key, value);
+  });
+
+  // console.log(data);
+
+  $.ajax({
+    url: '/test_answer',
+    data: data,
+    cache: false,
+    contentType: false,
+    processData: false,
+    type: 'POST'
+  });
+  // console.log("hahaha");
+  // if (level == 5 && order == 2) {
+  //   window.location.href = "/test_end_camera";
+  // }
+});
+
+//test steps
+(function() {
+  const myQuestions = [
+    {
+        questionNum:1,
+        question: '<%= @ilr1_prompt1.text.to_json if !@ilr1_prompt1.text.nil? %>',
+        prompt_id: '<%= @ilr1_prompt1.id %>',
+        level: '<%= @ilr1_prompt1.level %>',
+        order: '1',
+        video: '<%= video_tag(@ilr1_prompt1.video, controls: true) unless @ilr1_prompt1.video.blank? %>',
+        audio: '<%= audio_tag(@ilr1_prompt1.audio, controls: true) unless @ilr1_prompt1.audio.blank? %>',
+        image: '<%= image_tag @ilr1_prompt1.image unless @ilr1_prompt1.image.blank? %>',
+        record:'<div class="btn-record-class"><button type="button" name="button" class="btn btn-user btn-record response-start-record" id="recorder_btn_1" onclick="startRecording();"><i class="fa fa-microphone" aria-hidden="true"></i>Start Recording</button> <button type="button" name="button" class="btn btn-user btn-record response-stop-record" onclick="stopRecording();"><i class="fa fa-microphone" aria-hidden="true"></i>Stop Recording<div class="loading"><span></span><span></span><span></span></div></button></button><ul id="recordingslist" class="recordingslist file_data"></ul></div>'
+    },
+    {
+        questionNum:2,
+        question: '<%= @ilr1_prompt2.text.to_json if !@ilr1_prompt2.text.nil? %>',
+        prompt_id: '<%= @ilr1_prompt2.id %>',
+        level: '<%= @ilr1_prompt2.level %>',
+        order: '2',
+        video: '<%= video_tag(@ilr1_prompt2.video, controls: true) unless @ilr1_prompt2.video.blank? %>',
+        audio: '<%= audio_tag(@ilr1_prompt2.audio, controls: true) unless @ilr1_prompt2.audio.blank? %>',
+        image: '<%= image_tag @ilr1_prompt2.image unless @ilr1_prompt2.image.blank? %>',
+        record:'<button type="button" name="button" class="btn btn-user btn-record response-start-record" id="recorder_btn_2" onclick="startRecording();"><i class="fa fa-microphone" aria-hidden="true"></i>Start Recording</button> <button type="button" name="button" class="btn btn-user btn-record response-stop-record" onclick="stopRecording();"><i class="fa fa-microphone" aria-hidden="true"></i>Stop Recording<div class="loading"><span></span><span></span><span></span></div></button></button><ul id="recordingslist" class="recordingslist file_data"></ul>'
+    },
+    {
+        questionNum:3,
+        question: '<%= @ilr1plus_prompt1.text.to_json if !@ilr1plus_prompt1.text.nil? %>',
+        prompt_id: '<%= @ilr1plus_prompt1.id %>',
+        level: '<%= @ilr1plus_prompt1.level %>',
+        order: '1',
+        video: '<%= video_tag(@ilr1plus_prompt1.video, controls: true) unless @ilr1plus_prompt1.video.blank? %>',
+        audio: '<%= audio_tag(@ilr1plus_prompt1.audio, controls: true) unless @ilr1plus_prompt1.audio.blank? %>',
+        image: '<%= image_tag @ilr1plus_prompt1.image unless @ilr1plus_prompt1.image.blank? %>',
+        record:'<button type="button" name="button" class="btn btn-user btn-record response-start-record" id="recorder_btn_3" onclick="startRecording();"><i class="fa fa-microphone" aria-hidden="true"></i>Start Recording</button> <button type="button" name="button" class="btn btn-user btn-record response-stop-record" onclick="stopRecording();"><i class="fa fa-microphone" aria-hidden="true"></i>Stop Recording<div class="loading"><span></span><span></span><span></span></div></button></button><ul id="recordingslist" class="recordingslist file_data"></ul>'
+    },
+    {
+        questionNum:4,
+        question: '<%= @ilr1plus_prompt2.text.to_json if !@ilr1plus_prompt2.text.nil? %>',
+        prompt_id: '<%= @ilr1plus_prompt2.id %>',
+        level: '<%= @ilr1plus_prompt2.level %>',
+        order: '2',
+        video: '<%= video_tag(@ilr1plus_prompt2.video, controls: true) unless @ilr1plus_prompt2.video.blank? %>',
+        audio: '<%= audio_tag(@ilr1plus_prompt2.audio, controls: true) unless @ilr1plus_prompt2.audio.blank? %>',
+        image: '<%= image_tag @ilr1plus_prompt2.image unless @ilr1plus_prompt2.image.blank? %>',
+        record:'<button type="button" name="button" class="btn btn-user btn-record response-start-record" id="recorder_btn_4" onclick="startRecording();"><i class="fa fa-microphone" aria-hidden="true"></i>Start Recording</button> <button type="button" name="button" class="btn btn-user btn-record response-stop-record" onclick="stopRecording();"><i class="fa fa-microphone" aria-hidden="true"></i>Stop Recording<div class="loading"><span></span><span></span><span></span></div></button></button><ul id="recordingslist" class="recordingslist file_data"></ul>'
+    },
+    {
+        questionNum:5,
+        question: '<%= @ilr2_prompt1.text.to_json if !@ilr2_prompt1.text.nil? %>',
+        prompt_id: '<%= @ilr2_prompt1.id %>',
+        level: '<%= @ilr2_prompt1.level %>',
+        order: '1',
+        video: '<%= video_tag(@ilr2_prompt1.video, controls: true) unless @ilr2_prompt1.video.blank? %>',
+        audio: '<%= audio_tag(@ilr2_prompt1.audio, controls: true) unless @ilr2_prompt1.audio.blank? %>',
+        image: '<%= image_tag @ilr2_prompt1.image unless @ilr2_prompt1.image.blank? %>',
+        record:'<button type="button" name="button" class="btn btn-user btn-record response-start-record" id="recorder_btn_5" onclick="startRecording();"><i class="fa fa-microphone" aria-hidden="true"></i>Start Recording</button> <button type="button" name="button" class="btn btn-user btn-record response-stop-record" onclick="stopRecording();"><i class="fa fa-microphone" aria-hidden="true"></i>Stop Recording<div class="loading"><span></span><span></span><span></span></div></button></button><ul id="recordingslist" class="recordingslist file_data"></ul>'
+    },
+    {
+        questionNum:6,
+        question: '<%= @ilr2_prompt2.text.to_json if !@ilr2_prompt2.text.nil? %>',
+        prompt_id: '<%= @ilr2_prompt2.id %>',
+        level: '<%= @ilr2_prompt2.level %>',
+        order: '2',
+        video: '<%= video_tag(@ilr2_prompt2.video, controls: true) unless @ilr2_prompt2.video.blank? %>',
+        audio: '<%= audio_tag(@ilr2_prompt2.audio, controls: true) unless @ilr2_prompt2.audio.blank? %>',
+        image: '<%= image_tag @ilr2_prompt2.image unless @ilr2_prompt2.image.blank? %>',
+        record:'<button type="button" name="button" class="btn btn-user btn-record response-start-record" id="recorder_btn_6" onclick="startRecording();"><i class="fa fa-microphone" aria-hidden="true"></i>Start Recording</button> <button type="button" name="button" class="btn btn-user btn-record response-stop-record" onclick="stopRecording();"><i class="fa fa-microphone" aria-hidden="true"></i>Stop Recording<div class="loading"><span></span><span></span><span></span></div></button></button><ul id="recordingslist" class="recordingslist file_data"></ul>'
+    },
+    {
+        questionNum:7,
+        question: '<%= @ilr2plus_prompt1.text.to_json if !@ilr2plus_prompt1.text.nil? %>',
+        prompt_id: '<%= @ilr2plus_prompt1.id %>',
+        level: '<%= @ilr2plus_prompt1.level %>',
+        order: '1',
+        video: '<%= video_tag(@ilr2plus_prompt1.video, controls: true) unless @ilr2plus_prompt1.video.blank? %>',
+        audio: '<%= audio_tag(@ilr2plus_prompt1.audio, controls: true) unless @ilr2plus_prompt1.audio.blank? %>',
+        image: '<%= image_tag @ilr2plus_prompt1.image unless @ilr2plus_prompt1.image.blank? %>',
+        record:'<button type="button" name="button" class="btn btn-user btn-record response-start-record" id="recorder_btn_7" onclick="startRecording();"><i class="fa fa-microphone" aria-hidden="true"></i>Start Recording</button> <button type="button" name="button" class="btn btn-user btn-record response-stop-record" onclick="stopRecording();"><i class="fa fa-microphone" aria-hidden="true"></i>Stop Recording<div class="loading"><span></span><span></span><span></span></div></button></button><ul id="recordingslist" class="recordingslist file_data"></ul>'
+    },
+    {
+        questionNum:8,
+        question: '<%= @ilr2plus_prompt2.text.to_json if !@ilr2plus_prompt2.text.nil? %>',
+        prompt_id: '<%= @ilr2plus_prompt2.id %>',
+        level: '<%= @ilr2plus_prompt2.level %>',
+        order: '2',
+        video: '<%= video_tag(@ilr2plus_prompt2.video, controls: true) unless @ilr2plus_prompt2.video.blank? %>',
+        audio: '<%= audio_tag(@ilr2plus_prompt2.audio, controls: true) unless @ilr2plus_prompt2.audio.blank? %>',
+        image: '<%= image_tag @ilr2plus_prompt2.image unless @ilr2plus_prompt2.image.blank? %>',
+        record:'<button type="button" name="button" class="btn btn-user btn-record response-start-record" id="recorder_btn_8" onclick="startRecording();"><i class="fa fa-microphone" aria-hidden="true"></i>Start Recording</button> <button type="button" name="button" class="btn btn-user btn-record response-stop-record" onclick="stopRecording();"><i class="fa fa-microphone" aria-hidden="true"></i>Stop Recording<div class="loading"><span></span><span></span><span></span></div></button></button><ul id="recordingslist" class="recordingslist file_data"></ul>'
+    },
+    {
+        questionNum:9,
+        question: '<%= @ilr3_prompt1.text.to_json if !@ilr3_prompt1.text.nil? %>',
+        prompt_id: '<%= @ilr3_prompt1.id %>',
+        level: '<%= @ilr3_prompt1.level %>',
+        order: '1',
+        video: '<%= video_tag(@ilr3_prompt1.video, controls: true) unless @ilr3_prompt1.video.blank? %>',
+        audio: '<%= audio_tag(@ilr3_prompt1.audio, controls: true) unless @ilr3_prompt1.audio.blank? %>',
+        image: '<%= image_tag @ilr3_prompt1.image unless @ilr3_prompt1.image.blank? %>',
+        record:'<button type="button" name="button" class="btn btn-user btn-record response-start-record" id="recorder_btn_9" onclick="startRecording();"><i class="fa fa-microphone" aria-hidden="true"></i>Start Recording</button> <button type="button" name="button" class="btn btn-user btn-record response-stop-record" onclick="stopRecording();"><i class="fa fa-microphone" aria-hidden="true"></i>Stop Recording<div class="loading"><span></span><span></span><span></span></div></button></button><ul id="recordingslist" class="recordingslist file_data"></ul>'
+    },
+    {
+        questionNum:10,
+        question: '<%= @ilr3_prompt2.text.to_json if !@ilr3_prompt2.text.nil? %>',
+        prompt_id: '<%= @ilr3_prompt2.id %>',
+        level: '<%= @ilr3_prompt2.level %>',
+        order: '2',
+        video: '<%= video_tag(@ilr3_prompt2.video, controls: true) unless @ilr3_prompt2.video.blank? %>',
+        audio: '<%= audio_tag(@ilr3_prompt2.audio, controls: true) unless @ilr3_prompt2.audio.blank? %>',
+        image: '<%= image_tag @ilr3_prompt2.image unless @ilr3_prompt2.image.blank? %>',
+        record:'<button type="button" name="button" class="btn btn-user btn-record response-start-record" id="recorder_btn_10" onclick="startRecording();"><i class="fa fa-microphone" aria-hidden="true"></i>Start Recording</button> <button type="button" name="button" class="btn btn-user btn-record response-stop-record" onclick="stopRecording();"><i class="fa fa-microphone" aria-hidden="true"></i>Stop Recording<div class="loading"><span></span><span></span><span></span></div></button></button><ul id="recordingslist" class="recordingslist file_data"></ul>'
+    }
+  ];
+
+  function buildQuiz() {
+    // we'll need a place to store the HTML output
+    const output = [];
+
+    // for each question...
+    myQuestions.forEach((currentQuestion, questionNumber) => {
+      // we'll want to store the list of answer choices
+      const answers = [];
+
+      // and for each available answer...
+      for (letter in currentQuestion.answers) {
+        // ...add an HTML radio button
+        answers.push(
+          `<label>
+             <input type="radio" name="question${questionNumber}" value="${letter}">
+              ${letter} :
+              ${currentQuestion.answers[letter]}
+           </label>`
+        );
+      }
+
+      // add this question and its answers to the output
+      output.push(
+        `<div class="slide">
+           <div class="quizItem-1">
+             <div class="q-num">Question ${currentQuestion.questionNum} of 10</div>
+           </div>
+           <div class="quizItem-2">
+           <div class="question"><p> ${currentQuestion.question} </p></div>
+           <input type="hidden" class="number" value="${currentQuestion.questionNum}"></input>
+           <input type="hidden" class="prompt_id" value="${currentQuestion.prompt_id}"></input>
+           <input type="hidden" class="level" value="${currentQuestion.level}"></input>
+           <input type="hidden" class="order" value="${currentQuestion.order}"></input>
+           <div class="test-video"> ${currentQuestion.video}<div class="hide-d"></div> </div>
+           <div class="test-audio"><div class="hide-download"> ${currentQuestion.audio}</div> </div>
+           <div class="test-image"> ${currentQuestion.image} </div>
+           <div class="record"> ${currentQuestion.record} </div>
+           </div>
+         </div>`
+      );
+    });
+
+    // finally combine our output list into one string of HTML and put it on the page
+    quizContainer.innerHTML = output.join("");
+  }
+
+  function showResults() {
+    // gather answer containers from our quiz
+    const answerContainers = quizContainer.querySelectorAll(".answers");
+
+    // keep track of user's answers
+    let numCorrect = 0;
+
+    // for each question...
+    myQuestions.forEach((currentQuestion, questionNumber) => {
+      // find selected answer
+      const answerContainer = answerContainers[questionNumber];
+      const selector = `input[name=question${questionNumber}]:checked`;
+      const userAnswer = (answerContainer.querySelector(selector) || {}).value;
+
+      // if answer is correct
+      if (userAnswer === currentQuestion.correctAnswer) {
+        // add to the number of correct answers
+        numCorrect++;
+
+        // color the answers green
+        answerContainers[questionNumber].style.color = "lightgreen";
+      } else {
+        // if answer is wrong or blank
+        // color the answers red
+        answerContainers[questionNumber].style.color = "red";
+      }
+    });
+
+    // show number of correct answers out of total
+    resultsContainer.innerHTML = `${numCorrect} out of ${myQuestions.length}`;
+  }
+
+  function showSlide(n) {
+    slides[currentSlide].classList.remove("active-slide");
+    slides[n].classList.add("active-slide");
+    currentSlide = n;
+
+    // if (currentSlide === 0) {
+    //   previousButton.style.display = "none";
+    // } else {
+    //   previousButton.style.display = "inline-block";
+    // }
+
+    if (currentSlide === slides.length - 1) {
+      nextButton.style.display = "none";
+      submitButton.style.display = "inline-block";
+    } else {
+      nextButton.style.display = "inline-block";
+      submitButton.style.display = "none";
+    }
+  }
+
+  function showNextSlide() {
+    showSlide(currentSlide + 1);
+  }
+
+  // function showPreviousSlide() {
+  //   showSlide(currentSlide - 1);
+  // }
+
+  const quizContainer = document.getElementById("quiz");
+  const resultsContainer = document.getElementById("results");
+  const submitButton = document.getElementById("submit");
+
+  // display quiz right away
+  buildQuiz();
+
+  // const previousButton = document.getElementById("previous");
+  const nextButton = document.getElementById("next");
+  const slides = document.querySelectorAll(".slide");
+  let currentSlide = 0;
+
+  showSlide(0);
+
+  // on submit, show results
+  // submitButton.addEventListener("click", showResults);
+  // previousButton.addEventListener("click", showPreviousSlide);
+  nextButton.addEventListener("click", showNextSlide);
+})();
+
+
+  // window focus detect
+  $(document).ready(function(){
+    // Active
+    // proctor.addEventListener('focus', windowFocus);
+    // Inactive
+    $(window).one('blur', function(){
+      console.log('blur');
+      alert("Warning!: Cheating detected! Test failed.");
+      window.location.href = "/test_records";
+      return;
+    });
+
+  });
+
+  //Disable cut copy paste
+  $('body').bind('cut copy paste', function (e) {
+      e.preventDefault();
+  });
+
+  //Disable mouse right click
+  $("body").on("contextmenu",function(e){
+      return false;
+  });
+</script>

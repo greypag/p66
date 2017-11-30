@@ -1,0 +1,336 @@
+<%=render "header" %>
+<div class="container-fluid">
+  <div class="row"  id="content-outter">
+    <!-- sidebar -->
+    <%=render "siderbar" %>
+    <!-- content -->
+
+    <div class="col-md-10">
+      <div class="content container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <% if notice %>
+              <p class="alert alert-success"><%= notice %></p>
+            <% end %>
+            <% if alert %>
+              <p class="alert alert-danger"><%= alert %></p>
+            <% end %>
+            <div class="h1-style-user">Overview</div>
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-8">
+            <div class="h2-style-user">User</div>
+
+            <canvas id="chartUser" style="width: 100%; height: 300px;display: inline-block;"></canvas>
+          </div>
+          <div class="col-md-4">
+            <div class="row">
+
+              <table class="col-xs-6 col-sm-6 col-md-6 tb-overview light-green">
+                <tr>
+                <th>New Users</th>
+
+                </tr>
+                <tr><td><%= @new_users %></td></tr>
+              </table>
+              <table class="col-xs-6 col-sm-6 col-md-6 tb-overview light-green">
+                <tr>
+                <th>All Users</th>
+
+                </tr>
+                <tr><td><%= User.all.count %><span class="veiw-details"><%= link_to 'veiw details', users_path %></span></td></tr>
+              </table>
+            </div>
+            <div class="row">
+              <table class="col-xs-12 col-sm-12 col-md-12 tb-overview dark-green">
+                <tr>
+                <th>Raters</th>
+
+                </tr>
+                <tr><td><%= @total_raters %><span class="veiw-details"><%= link_to 'veiw details', users_path %></span></td></tr>
+              </table>
+
+            </div>
+
+
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-8">
+            <div class="h2-style-user">Test</div>
+            <canvas id="chartTest" style="width: 100%; height: 300px;display: inline-block;"></canvas>
+          </div>
+          <div class="col-md-4"></div>
+
+        </div>
+        <div class="row">
+          <div class="col-md-8">
+            <div class="h2-style-user">Cashflow</div>
+            <canvas id="chartCashflow" style="width: 100%; height: 300px;display: inline-block;"></canvas>
+          </div>
+          <div class="col-md-4">
+            <div class="row">
+
+              <table class="col-xs-6 col-sm-6 col-md-6 tb-overview light-green">
+                <tr>
+                <th>Purchase</th>
+
+                </tr>
+                <tr><td>$<%= @total_revenue %></td></tr>
+              </table>
+              <table class="col-xs-6 col-sm-6 col-md-6 tb-overview light-green">
+                <tr>
+                <th>Rater Paycheck</th>
+
+                </tr>
+                <tr><td>$<%= @total_paycheck %></td></tr>
+              </table>
+            </div>
+            <div class="row">
+              <table class="col-xs-12 col-sm-12 col-md-12 tb-overview grey">
+                <tr>
+                <th>Total Balance</th>
+
+                </tr>
+                <tr><td>$<%= @total_balance %> <%= link_to 'veiw details', cashflow_path %></td></tr>
+              </table>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+</div>
+</div>
+<%=render "footer" %>
+<script>
+$( "li.admin-home" ).addClass( "active" );
+
+$( document ).ready(function() {
+
+  // user line chart
+  var x_axis = <%= @users_hash.keys.to_json.html_safe %>;
+  var ctx_user = document.getElementById("chartUser").getContext('2d');
+  var chartUser = new Chart(ctx_user, {
+      type: 'line',
+      data: {
+          labels: x_axis,
+          datasets: [
+
+            {
+              label: 'users',
+              data: <%= @users_hash.values %>,
+              backgroundColor: 'rgba(140, 198, 62,.6)',
+              borderColor: 'rgba(140, 198, 62,1)',
+              pointColor : "rgba(220,220,220,1)",
+              pointBackgroundColor:'rgba(140, 198, 62,1)',
+              pointStrokeColor : "#fff",
+              borderWidth: 2,
+              bezierCurve : false,
+              // fill:undefined,
+              fill:1,
+
+          },
+          {
+            label: 'raters',
+            data: <%= @raters_hash.values %>,
+            strokeColor : "rgba(0, 111, 58,1)",
+            pointColor : "rgba(220,220,220,1)",
+            pointStrokeColor : "#fff",
+            pointBackgroundColor:'rgba(0, 111, 58,1)',
+            backgroundColor: 'rgba(0, 111, 58,.8)',
+            borderColor: 'rgba(0, 111, 58,1)',
+            borderWidth: 2,
+            // fill:-1,
+
+          },
+
+        ]
+      },
+      options: {
+
+          elements: {
+              line: {
+                  tension: 0, // disables bezier curves
+              }
+          },
+
+          scales: {
+            xAxes: [{
+               gridLines: {
+                   display:false,
+               }
+           }],
+              yAxes: [{
+                  ticks: {
+                      beginAtZero:true
+                  }
+              }]
+          }
+      }
+  });
+
+
+// test line chart
+  var ctx_test = document.getElementById("chartTest").getContext('2d');
+  var chartTest = new Chart(ctx_test, {
+      type: 'line',
+      data: {
+          labels: x_axis,
+          datasets: [
+
+            {
+              label: 'ILR1',
+              data: <%= @ilr1_records_hash.values %>,
+              backgroundColor: 'rgba(140, 198, 62,.6)',
+              borderColor: 'rgba(140, 198, 62,1)',
+              pointColor : "rgba(220,220,220,1)",
+              pointBackgroundColor:'rgba(140, 198, 62,1)',
+              pointStrokeColor : "#fff",
+              borderWidth: 2,
+              bezierCurve : false,
+              // fill:undefined,
+              // fill:1,
+
+          },
+          {
+            label: 'ILR1+',
+            data: <%= @ilr1plus_records_hash.values %>,
+            strokeColor : "rgba(0, 111, 58,1)",
+            pointBackgroundColor:'rgba(0, 111, 58,1)',
+            backgroundColor: 'rgba(0, 111, 58,.6)',
+            borderColor: 'rgba(0, 111, 58,1)',
+            borderWidth: 2,
+            // fill:-1,
+
+          },
+          {
+            label: 'ILR2',
+            data: <%= @ilr2_records_hash.values %>,
+            strokeColor : "rgba(247, 147, 30,1)",
+            pointBackgroundColor:"rgba(247, 147, 30,1)",
+            backgroundColor: "rgba(247, 147, 30,.6)",
+            borderColor: "rgba(247, 147, 30,1)",
+            borderWidth: 2,
+            // fill:-1,
+
+
+          },
+          {
+            label: 'ILR2+',
+            data: <%= @ilr2plus_records_hash.values %>,
+            strokeColor : "rgba(126, 166, 218,1)",
+            pointBackgroundColor:"rgba(126, 166, 218,1)",
+            backgroundColor: "rgba(126, 166, 218,.6)",
+            borderColor: "rgba(126, 166, 218,1)",
+            borderWidth: 2,
+            // fill:-1,
+
+          },
+          {
+            label: 'ILR3',
+            data: <%= @ilr3_records_hash.values %>,
+            strokeColor : "rgba(167, 130, 84,1)",
+            pointBackgroundColor:"rgba(167, 130, 84,1)",
+            backgroundColor: "rgba(167, 130, 84,.6)",
+            borderColor: "rgba(167, 130, 84,1)",
+            borderWidth: 2,
+            // fill:-1,
+
+          },
+
+
+        ]
+      },
+      options: {
+
+          elements: {
+              line: {
+                  tension: 0, // disables bezier curves
+              }
+          },
+
+          scales: {
+            xAxes: [{
+               gridLines: {
+                   display:false,
+               }
+           }],
+              yAxes: [{
+                  ticks: {
+                      beginAtZero:true
+                  }
+              }]
+          }
+      }
+  });
+
+
+// payment line chart
+  var ctx_payment = document.getElementById("chartCashflow").getContext('2d');
+  var chartCashflow = new Chart(ctx_payment, {
+      type: 'line',
+      data: {
+          labels: x_axis,
+          datasets: [
+
+            {
+              label: 'Purchase',
+              data: <%= @payment_records_hash.values %>,
+              backgroundColor: 'rgba(140, 198, 62,.6)',
+              borderColor: 'rgba(140, 198, 62,1)',
+              pointColor : "rgba(220,220,220,1)",
+              pointBackgroundColor:'rgba(140, 198, 62,1)',
+              pointStrokeColor : "#fff",
+              borderWidth: 2,
+              bezierCurve : false,
+              // fill:undefined,
+              fill:1,
+
+          },
+          {
+            label: 'Raters Paycheck',
+            data: <%= @payout_records_hash.values %>,
+            strokeColor : "rgba(0, 111, 58,1)",
+            pointColor : "rgba(220,220,220,1)",
+            pointStrokeColor : "#fff",
+            pointBackgroundColor:'rgba(0, 111, 58,1)',
+            backgroundColor: 'rgba(0, 111, 58,.8)',
+            borderColor: 'rgba(0, 111, 58,1)',
+            borderWidth: 2,
+            // fill:-1,
+
+          },
+
+        ]
+      },
+      options: {
+
+          elements: {
+              line: {
+                  tension: 0, // disables bezier curves
+              }
+          },
+
+          scales: {
+            xAxes: [{
+               gridLines: {
+                   display:false,
+               }
+           }],
+              yAxes: [{
+                  ticks: {
+                      beginAtZero:true
+                  }
+              }]
+          }
+      }
+  });
+});
+</script>

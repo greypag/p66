@@ -1,0 +1,153 @@
+<%=render "homes/header" %>
+<div class="check-out">
+  <div class="container section">
+    <div class="col-md-12">
+      <% if notice %>
+        <p class="alert alert-success"><%= notice %></p>
+      <% end %>
+      <% if alert %>
+        <p class="alert alert-danger"><%= alert %></p>
+      <% end %>
+      <div class="h1-style">Cart</div>
+
+      <div class="row container-fluid">
+        <table class="tb-cart">
+          <thead>
+            <th>Item(s)</th>
+            <th>Amount (US$)</th>
+            <th></th>
+          </thead>
+          <tbody>
+            <% @cart_items.each do |cart_item| %>
+            <% <% test = Test.find_by_id(cart_item) %> %>
+              <tr>
+                <td><%= test.title %></td>
+                <td><%= test.price %></td>
+                <td>
+
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <div class="cart-bottom">
+          <div class="col-md-6"></div>
+          <div class="col-md-6 cart-bottom-inner">
+        <table class="tb-total">
+          <tbody>
+            <tr>
+              <td>Subtotal:</td>
+              <td><%= cart_total_price(current_cart) %> US$</td>
+            </tr>
+            <tr>
+              <td>Grand Total:</td>
+              <td><%= cart_total_price(current_cart) %> US$</td>
+            </tr>
+
+          </tbody>
+        </table>
+
+          <div class="btn-cart">
+            <div class="btn-cart-item here"></div>
+            <div class="btn-cart-item btn btn-color"><%= link_to 'View More Tests', aboutthetests_path %></div>
+            <div class="btn-cart-item btn btn-color modal-btn"><a href="#modal-cart-login" data-toggle="modal" class="modal-activate" id="cart-login-btn">Check Out</a></div>
+          </div>
+          </div>
+          </div>
+
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<%=render "homes/footer" %>
+
+<!-- login-modal -->
+<div id="modal-cart-login" class="modal fade">
+  <div class="modal-out">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <div class="modal-header">
+          <h4 class="modal-title"><%= image_tag ( "homepage/logo-86x85.png") %></h4>
+          <div class="h1-top-style">Login Your Parrot Account</div>
+        </div>
+        <div class="modal-body">
+          <form id="login">
+            <div class="form-group">
+              <input type="email" class="form-control" id="cartEmail" name="login_cart_email" aria-describedby="emailHelp" placeholder="Email">
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control" id="cartPassword" name="login_cart_password" placeholder="Password">
+            </div>
+          </form>
+
+          <span id="cart_login_error_msg" style="color:red;"></span>
+          <br />
+
+          <div class="forgot">
+            <a href="#modal-forgot-email" data-toggle="modal" class="modal-activate"  id="forgot-email-btn" data-dismiss="modal">Forgot Email?</a>
+            <a href="#modal-forgot-pass" data-toggle="modal" class="modal-activate"  id="forgot-pass-btn" data-dismiss="modal">Forgot Password?</a>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-color" id="cart_login_submit">Welcome Back!</button>
+          <span class="new-user forgot">  <%=
+              link_to new_user_path do
+              %>
+            New User?
+            <% end %></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+
+
+var price = <%= cart_total_price(current_cart) %>;
+var cart_items = JSON.stringify(<%= items %>.map(String));
+
+// cart login
+$("#cart_login_submit").click(function () {
+
+  $( "#cart_login_error_msg" ).empty();
+
+  var email = $('#cartEmail').val();
+  var password = $('#cartPassword').val();
+
+    if(email == ""){
+        $( "#cart_login_error_msg" ).append( "<p style='color:red;'>Please Type an Email</p>" );
+
+        return;
+    }
+
+    if(password == ""){
+        $( "#cart_login_error_msg" ).append( "<p style='color:red;'>Please Type a Password</p>" );
+
+        return;
+    }
+
+
+    $.post("/cart_login", {
+      email: email,
+      password: password,
+      price: price,
+      cart_items: cart_items
+    }, function (data, status) {
+      if(data.status == "false"){
+        $( "#cart_login_error_msg" ).append( "<p style='color:red;'>"+data.message+"</p>" );
+        return;
+      }else{
+        console.log("Data: " + data.status);
+        console.log("Data: " + data.message);
+      }
+    });
+});
+</script>

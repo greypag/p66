@@ -1,0 +1,35 @@
+<%=render "header" %>
+<div class="active-link fail">
+  <div class="container section">
+    <div class="col-md-12">
+      <div class="h1-style">Sorry, your link has expired...</div>
+      <p>Unfortunately, your account activation link has just expired. Please sign up again. If you have any trouble, please let us know at <a href="mailto:help@parrot66.com">help@parrot66.com</a>.</p>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<script>
+    $("#resend").click(function () {
+
+      var email = $('#email').val();
+      var token = $('#new_token').val();
+
+      $.post("/resendtoken", {
+      }, function (data, status) {
+      	if(status == "success"){
+      		if(data.status == "true"){
+      			window.location.replace("/thankyou");
+      		}else{
+      			console.log("Error msg here.");
+      		}
+      	}else{
+      		console.log("Data: " + data.message + "\nStatus: " + status);
+      	}
+
+      });
+    });
+</script>
+
+<%=render "footer" %>

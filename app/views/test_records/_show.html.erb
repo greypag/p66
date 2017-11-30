@@ -1,0 +1,30 @@
+<div class="modal-out">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <div class="modal-header">
+        <h4 class="modal-title">
+          <!-- <div class="modal-h1-top">Response > Create Response > <span class="preview_response_title">Sample Response Title 01</span></div> -->
+          <div class="h1-style"><span class="preview_response_title"><%= @test.title %></span></div>
+        </h4>
+      </div>
+      <div class="modal-body">
+      <p><%= @test.description %></p>
+        <button type="button" name="button" class="btn btn-user-color"><%= link_to 'Start Test', test_begin_camera_path %></button>
+
+
+
+      </div>
+      <!-- <div class="modal-footer">
+
+        <p>Instruction:</p>
+        <ul>
+          <li>1. Exam Conditions.</li>
+          <li>2. Exam Conditions.</li>
+          <li>3. Exam Conditions.</li>
+        </ul>
+          <button type="button" name="button" class="btn btn-user" data-dismiss="modal" aria-hidden="true">Close</button>
+      </div> -->
+    </div>
+  </div>
+</div>

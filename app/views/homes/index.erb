@@ -1,0 +1,168 @@
+<%=render "header" %>
+
+<!-- slider -->
+<div id="carousel-generic" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#carousel-generic" data-slide-to="0" class="active"></li>
+    <li data-target="#carousel-generic" data-slide-to="1"></li>
+    <li data-target="#carousel-generic" data-slide-to="2"></li>
+    <li data-target="#carousel-generic" data-slide-to="3"></li>
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner">
+    <div class="item active">
+      <%= image_tag ( "homepage/banner-1920x719-01.jpg") %>
+      <div class="carousel-caption b1">
+        <div class="h1-style">Get Certified with Parrot</div>
+        <div class="h2-style">Bilinguals can earn up to</div>
+        <div class="h3-style">10% more than those with <span>only one language!</span></div>
+        <div class="btn btn-color">Sign Up Now!</div>
+      </div>
+    </div>
+    <div class="item">
+      <%= image_tag ( "homepage/banner-1920x719-02.jpg") %>
+      <div class="carousel-caption b2">
+        <div class="h1-style">The job is yours! </div>
+        <div class="h2-style">Just get our highest rating and</div>
+        <div class="h3-style">Start earrning up to $20/hr!</div>
+        <div class="btn btn-color">Learn More!</div>
+      </div>
+    </div>
+    <div class="item banner3">
+      <%= image_tag ( "homepage/banner-1920x719-03.jpg") %>
+      <div class="carousel-caption b1">
+        <div class="h1-style">Join our team today</div>
+        <div class="h2-style"></div>
+        <div class="h3-style">Become one of our <span>parrot rater!</span></div>
+        <div class="btn btn-color">Join Now!</div>
+      </div>
+    </div>
+    <div class="item banner4">
+      <%= image_tag ( "homepage/banner-1920x719-04.jpg") %>
+      <div class="carousel-caption b1">
+        <div class="h1-style">Mobile Coming Soon</div>
+        <div class="h2-style"></div>
+        <div class="h3-style">iOS and Android apps <span>coming soon!</span></div>
+        <div class="btn btn-color">Learn More</div>
+      </div>
+    </div>
+  </div>
+  <!-- Controls -->
+  <a class="left carousel-control" href="#carousel-generic" data-slide="prev">
+    <!-- <span class="glyphicon glyphicon-chevron-left"></span> -->
+    <span><i class="fa fa-angle-left"></i></span>
+  </a>
+  <a class="right carousel-control" href="#carousel-generic" data-slide="next">
+    <!-- <span class="glyphicon glyphicon-chevron-right"></span> -->
+    <span><i class="fa fa-angle-right"></i></span>
+  </a>
+</div>
+<!-- section 1 - why-parrot -->
+<div class="section why-parrot">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 why">
+        <div class="h1-style">Why Parrot?</div>
+        <p>Parrot is a new approach to getting a better job using your language skills. The tests are online and on-demand, and can be taken on PC or Mac. Tablets and smartphones are not quite ready yet – this is an official test, so mobile is a bit harder than usual! – but we are working on it, and you will have it your App Store this year!!</p>
+<p>This company was started by people who know how hard it is for a candidate to just guess at their own level of ability, and then to also get someone else to believe them from just seeing it on their resume!!  Put this to an end – get certified, and don’t leave your next job to chance!</p>
+<p>Parrot66 is home of the US Government’s ILR Ratings, which means more companies and government agencies will now KNOW what your language ability is AND believe it to be true, than you could get with any other foreign language rating scale in the United States!!
+</p>
+      </div>
+      <div class="col-md-6 earn-up-to">
+        <div class="col-md-5">
+          <%= image_tag ( "homepage/icon/earn_parrot_rater_155x155.png"), :class=>'img-size-circle' %>
+        </div>
+        <div class="col-md-7">
+          <div class="h2-style">Earn up to $20 per hour as a Parrot Rater</div>
+          <p>We are rating the language proficiency of people from all over the world, so you can be any where in the world as well!  All we need to know is that you are over 18, and that your own language skills are up to par.  We know that, and you can start working today!!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- section 2 - how-it-works -->
+<div class="section how-it-works">
+  <div class="container">
+    <div class="row how-top">
+      <div class="col-md-12">
+        <div class="h1-style-center">How it Works</div>
+        <p>Anytime, anywhere.  Give us 20min and $24, and you will be on your way to receiving the recognition bilinguals deserve!  Don’t wait another day!!</p>
+      </div>
+    </div>
+    <div class="row how-bottom">
+      <div class="col-md-4" class="how-link">
+        <a href="#">
+          <%= image_tag ( "homepage/signup-145x143.png"), :class=>'img-size-circle' %>
+          <div class="h2-style">Sign up today!</div>
+          <p>Ready yet? Just remember the longer you wait, the more you lose your advantage – instead of it being a plus to be recognized, it will just be a minus not to be!! Stand out while you still can, and get your recognition today!!</p>
+          <div class="h5-style">Sign up now</div>
+        </a>
+      </div>
+      <div class="col-md-4" class="how-link">
+        <a href="#">
+          <%= image_tag ( "homepage/icon/prepare_take_test-145x143.png") ,:class=>'img-size-circle'; %>
+          <div class="h2-style">Prepare and take the test.</div>
+          <p>We'll give you all you need to prepare and do your best, so that once time to take your test you'll be confident and ready to go!</p>
+          <div class="h5-style">Request a demo</div>
+        </a>
+      </div>
+      <div class="col-md-4" class="how-link">
+        <a href="#">
+          <%= image_tag ( "homepage/scholarship-143x143.png"), :class=>'img-size-circle' %>
+          <div class="h2-style">Get Certified. Get Paid.</div>
+          <p>If you score at the top of our scale, you can rate other people for us too!  We need solid bilinguals just like everyone else!</p>
+          <div class="h5-style">Why get certified</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- section 3 - linkedin -->
+<div class="banner-txt-pic linkedin">
+  <div class="container">
+  <div class="row">
+      <div class="col-md-7 txt">
+        <div class="h1-style-two-line">Linkedin will post your certification</div>
+        <p>We know the value a Parrot Certification, and soon you will too! After you take your test, just click on the allow button, and LinkedIn will update your profile the world’s leading language certification, and the world will take notice!</p>
+      </div>
+    <div class="col-md-5 pic"><%= image_tag ( "homepage/linkedin-840x409.jpg") %></div>
+  </div>
+  </div>
+</div>
+<!-- section 4 - no-app -->
+<div class="banner-pic-txt no-app">
+  <div class="row">
+    <div class="col-md-5 pic"><%= image_tag ( "homepage/no-appointment-845x322.jpg") %></div>
+
+    <div class="container">
+      <div class="col-md-7 txt">
+        <div class="h1-style">No appointment required!</div>
+        <p>We are ready when you are.  Oh, and in case you’re worried, no appointments also mean no cancelation fees! </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- section 5 - percent -->
+<div class="section percent">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 p-item">
+        <div class="h3-style">83%</div>
+        <p>Percentage of small and mid sized companies that say international expansion is a top priority.</p>
+      </div>
+      <div class="col-md-4 p-item">
+        <div class="h3-style">3</div>
+        <p>The minimum amount of Certified Raters reviewing each test before a final rating is issued.</p>
+      </div>
+      <div class="col-md-4 p-item">
+        <div class="h3-style">80%</div>
+        <p>Percentage of companies that have hired candidates based on false language skills.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%=render "footer" %>

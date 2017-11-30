@@ -1,0 +1,151 @@
+<!-- header -->
+<div class="header-user">
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="">
+
+        <a href="#modal-certification" data-toggle="modal" class="modal-activate"><i class="fa fa-bolt"></i>Verify Results</a>
+
+      </li>
+    </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="hello-user">
+          <span>Hello,</span><span><%= @current_user.f_name %></span><span><%= @current_user.l_name %></span>
+        </li>
+        <li>
+        <div class="notice-bell">
+            <i class="fa fa-bell-o"></i>
+        </div>
+          <div class="notification">
+            <div class="h2-style-user">Notification</div>
+            <p>24 new Messages<span class="user-more"><%= link_to 'View More', messages_path %></span></p>
+            <p>Invite 24 users to become rater<span class="user-more"><%= link_to 'Invite Now', users_path %></span></p>
+
+
+          </div>
+        </li>
+        <li>
+          <%= link_to 'Contact Us', messages_path %>
+        </li>
+        <li>
+          <%= link_to '/logout' do %>
+            <i class="fa fa-sign-out"></i>
+            Log Out
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <!-- verify result modal -->
+  <div id="modal-verify-result" class="modal fade">
+    <div class="modal-out">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <div class="modal-header">
+            <div class="modal-h1-top">Claim a candidate’s Certification</div>
+            <h4 class="modal-title">
+              <div class="h1-style">Verify Results</div>
+
+            </h4>
+          </div>
+          <div class="modal-body">
+              <p>Not sure of a score?! Enter their information below to verify their result! (The candidate must provide you with their “Certificate Number” in order to access their test information.)</p>
+            <form>
+              <div class="form-group">
+                <input type="email" class="form-control" id="InputCertificateNumber" aria-describedby="emailHelp" placeholder="Certificate Number">
+              </div>
+
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-color" id="Certificate-Number-Submit">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- certification modal -->
+  <div id="modal-certification" class="modal fade">
+    <div class="modal-out">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <div class="modal-header">
+            <div class="modal-h1-top">Show me the result!</div>
+
+            <h4 class="modal-title">
+              <div class="h1-style">Parrod ID <%= @current_user.parrot_id %></div>
+              <div class="user-avatar"><%= image_tag @current_user.avatar %></div>
+            </h4>
+          </div>
+          <div class="modal-body">
+            <div class="modal-h1-top">Personal Information</div>
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>First Name:</td>
+                  <td><%= @current_user.f_name %></td>
+                </tr>
+                <tr>
+                  <td>Last Name:</td>
+                  <td><%= @current_user.l_name %></td>
+                </tr>
+                <tr>
+                  <td>Date of Birth:</td>
+                  <td><%= @current_user.date_of_birth %></td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="modal-h1-top">Parrot Certification</div>
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td class="test-title">Test Title 01</td>
+                </tr>
+                <tr>
+                  <td>Language:</td>
+                  <td><%= @current_user.native_language %></td>
+                </tr>
+                <tr>
+                  <td>Rating:</td>
+                  <td>ILR 1 (Elementary Proficiency)</td>
+                </tr>
+                <tr>
+                  <td>Certification Date:</td>
+                  <td>March 16 2017</td>
+                </tr>
+                <tr>
+                  <td>Certificate Expiration Date:</td>
+                  <td>March 17 2019</td>
+                </tr>
+                <tr>
+                  <td>Certificate Number:</td>
+                  <td>16DHK12</td>
+                </tr>
+              </tbody>
+            </table>
+            <p><span class="here"><a href="#">Click here to learn more about our rating scale.</a></span></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-color" id="download-certificate">Download Certificate</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+<script type="text/javascript">
+$(".notice-bell").click(function(){
+    $(".notification").toggle();
+});
+</script>

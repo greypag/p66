@@ -1,0 +1,72 @@
+<%=render "users/header" %>
+<div class="container-fluid">
+  <div class="row" id="content-outter">
+    <!-- sidebar -->
+    <%=render "users/siderbar" %>
+    <!-- content -->
+
+    <div class="col-md-10">
+      <div class="content container-fluid">
+        <div class="create-prompts">
+          <div class="row">
+            <% if notice %>
+            <p id="notice"><%= notice %></p>
+            <% end %>
+            <div class="h1-style-user col-md-4">Create Response</div>
+          </div>
+          <div class="row">
+            <div class="col-md-5">
+              <%= simple_form_for @response do |f| %>
+                <%= f.error_notification %>
+                <div class="form-inputs">
+                  <div class="clearfix"></div>
+                  <label>Title</label>
+                  <%= f.input :title, placeholder: 'Response Name', label: false %>
+                  <div class="clearfix"></div>
+                  <label>Language</label>
+                  <%= f.input :language, prompt: 'Select Language', label: false, collection:  [ "English", "Spanish"] %>
+                  <div class="clearfix"></div>
+                  <label>Industry</label>
+                  <%= f.input :industry, prompt: 'Select Industry', label: false, collection:  [ "Customer Service", "Retail Banking", "Health Care", "Insurance"] %>
+                  <div class="clearfix"></div>
+                  <label>Level</label>
+                  <%= f.input :level, prompt: 'Select Level', label: false, collection: [ "Elementary – ILR 1", "Elementary Plus – ILR 1+", "Limited Working – ILR 2", "Limited Working Plus – ILR 2+", "General Professional – ILR 3"] %>
+                  <div class="clearfix"></div>
+                  <label>Upload File</label>
+                  <div class="inline-button">
+                    <%= f.file_field :avatar, placeholder: 'Upload audio file', label: false %>
+
+                    <div class="">-or-</div>
+                    <button type="button" name="button" class="btn btn-user btn-record" onclick="startRecording();"><span class="start-record"><i class="fa fa-microphone" aria-hidden="true"></i>Start Recording</span></button>
+                    <button type="button" name="button" class="btn btn-user btn-record" onclick="stopRecording();"><span class="stop-record"><span class="stop-record"><i class="fa fa-microphone" aria-hidden="true"></i>Stop Recording</span></button>
+                      <ul id="recordingslist"></ul>
+                  </div>
+                  <div class="clearfix"></div>
+                  <label>Type</label>
+                  <%= f.input :response_type, prompt:'Select BMR or Response', label: false, collection: [['Response', 0], ['BMR', 1]] %>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="form-actions flex">
+                  <div class="" data-toggle="modal" data-target="#loading-modal"><%= f.button :submit, "Save", :class => "btn-user flex-item" %></div>
+
+                  <button type="button" name="button" class="btn btn-user flex-item" data-toggle="modal" data-target="#preview-response-modal">Preview</button>
+                  <div class="more-user flex-item"><%= link_to 'Back to Responses', responses_path %></div>
+                </div>
+              <% end %>
+
+
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<%=render "users/footer" %>
+<%= javascript_include_tag "js/responses.js" %>

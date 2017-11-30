@@ -1,0 +1,2 @@
+class Qar < ApplicationRecord
+end

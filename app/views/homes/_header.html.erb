@@ -1,0 +1,405 @@
+<div id="header">
+  <header>
+    <!-- header navbar -->
+    <nav class="navbar navbar-default" role="navigation">
+      <!-- top -->
+      <div class="top">
+        <div class="container">
+          <!-- <ul class="nav navbar-nav">
+            <li class="modal-btn">
+              <i class="fa fa-bolt"></i>Verify Results
+            <a href="#modal-verify-result" data-toggle="modal" class="modal-activate"></a>
+          </li>
+        </ul> -->
+        <ul class="nav navbar-nav navbar-right">
+          <li><%= link_to 'How to Become a Parrot Rater', howtobecomeaparrotrater_path %></li>
+          <li><%= link_to 'Rater Benefits', '/' %></li>
+          <li><%= link_to 'Contact Us', contactus_path %></li>
+          <li>
+            <%=
+            	#link_to new_user_registration_path do f
+            	link_to new_user_path do
+            	%>
+            <i class="fa fa-user"></i>
+            Sign Up
+            <% end %>
+          </li>
+
+
+          <li class="modal-btn">
+            <%= link_to '/' do %>
+            <i class="fa fa-sign-in"></i>Login
+            <% end %>
+            <a href="#modal-login" data-toggle="modal" class="modal-activate" id="login-btn"></a>
+          </li>
+          <li>
+            <%= link_to cart_path, :class => 'cart' do %>
+              <i class="fa fa-shopping-cart"></i>Cart(<%= render_cart_items_count %>)
+            <% end %>
+          </li>
+          </ul>
+          </div>
+        </div>
+        <!-- menu -->
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"></a>
+          </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="navbar">
+            <ul class="nav navbar-nav">
+              <li class="active">
+                <%= image_tag ( "homepage/logo-86x85.png") %>
+              </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li class="menuitem"><%= link_to 'Home', root_path %></li>
+              <li class="menuitem"><%= link_to 'How It Works', howitworks_path %></li>
+              <li class="menuitem"><%= link_to 'About The Tests', aboutthetests_path %></li>
+              <li class="menuitem"><%= link_to 'About Parrot', aboutparrot_path %></li>
+              <li class="menuitem"><%= link_to 'Parrot for Business', parrotforbusiness_path %></li>
+              <li class="menuitem">
+                <span>
+                  <i class="fa fa-phone"></i>833-66-TESTS</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+  </div>
+  <!-- login-modal -->
+  <div id="modal-login" class="modal fade">
+    <div class="modal-out">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <div class="modal-header">
+            <h4 class="modal-title"><%= image_tag ( "homepage/logo-86x85.png") %></h4>
+            <div class="h1-top-style">Login Your Parrot Account</div>
+          </div>
+          <div class="modal-body">
+            <form id="login">
+              <div class="form-group">
+                <input type="email" class="form-control" id="InputEmail1" name="login_email" aria-describedby="emailHelp" placeholder="Email">
+              </div>
+              <div class="form-group">
+
+                <input type="password" class="form-control" id="InputPassword1" name="login_password" placeholder="Password">
+              </div>
+            </form>
+
+            <span id="login_error_msg" style="color:red;"></span>
+            <br />
+
+            <div class="forgot">
+              <a href="#modal-forgot-email" data-toggle="modal" class="modal-activate"  id="forgot-email-btn" data-dismiss="modal">Forgot Email?</a>
+              <a href="#modal-forgot-pass" data-toggle="modal" class="modal-activate"  id="forgot-pass-btn" data-dismiss="modal">Forgot Password?</a>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-color" id="login_submit">Welcome Back!</button>
+            <span class="new-user forgot">  <%=
+              	#link_to new_user_registration_path do f
+              	link_to new_user_path do
+              	%>
+              New User?
+              <% end %></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- forgot email modal -->
+  <div id="modal-forgot-email" class="modal fade">
+    <div class="modal-out">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <div class="modal-header">
+
+            <h4 class="modal-title">
+              <div class="h1-style">retrieve your email</div>
+            </h4>
+          </div>
+          <div class="modal-body">
+            <p>Please enter your information below.</p>
+            <form id="forget_email">
+              <div class="form-group">
+                <input type="name" class="form-control" id="InputFirstname" name="forget_f_name" aria-describedby="emailHelp" placeholder="Firstname">
+              </div>
+              <div class="form-group">
+
+                <input type="name" class="form-control" id="InputLastname" name="forget_l_name" aria-describedby="emailHelp" placeholder="Lastname">
+              </div>
+              <div class="form-group email-birthday">
+                <div class="form-group date optional user_date_of_birth">
+                  <div class="form-inline">
+                    <select id="user_date_of_birth_1i" name="user[date_of_birth(1i)]" class="form-control date optional">
+                      <option value="">Year of Birth</option>
+                      <option value="2017">2017</option>
+                      <option value="2016">2016</option>
+                      <option value="2015">2015</option>
+                      <option value="2014">2014</option>
+                      <option value="2013">2013</option>
+                      <option value="2012">2012</option>
+                      <option value="2011">2011</option>
+                      <option value="2010">2010</option>
+                      <option value="2009">2009</option>
+                      <option value="2008">2008</option>
+                      <option value="2007">2007</option>
+                      <option value="2006">2006</option>
+                      <option value="2005">2005</option>
+                      <option value="2004">2004</option>
+                      <option value="2003">2003</option>
+                      <option value="2002">2002</option>
+                      <option value="2001">2001</option>
+                      <option value="2000">2000</option>
+                      <option value="1999">1999</option>
+                      <option value="1998">1998</option>
+                      <option value="1997">1997</option>
+                      <option value="1996">1996</option>
+                      <option value="1995">1995</option>
+                      <option value="1994">1994</option>
+                      <option value="1993">1993</option>
+                      <option value="1992">1992</option>
+                      <option value="1991">1991</option>
+                      <option value="1990">1990</option>
+                      <option value="1989">1989</option>
+                      <option value="1988">1988</option>
+                      <option value="1987">1987</option>
+                      <option value="1986">1986</option>
+                      <option value="1985">1985</option>
+                      <option value="1984">1984</option>
+                      <option value="1983">1983</option>
+                      <option value="1982">1982</option>
+                      <option value="1981">1981</option>
+                      <option value="1980">1980</option>
+                      <option value="1979">1979</option>
+                      <option value="1978">1978</option>
+                      <option value="1977">1977</option>
+                      <option value="1976">1976</option>
+                      <option value="1975">1975</option>
+                      <option value="1974">1974</option>
+                      <option value="1973">1973</option>
+                      <option value="1972">1972</option>
+                      <option value="1971">1971</option>
+                      <option value="1970">1970</option>
+                      <option value="1969">1969</option>
+                      <option value="1968">1968</option>
+                      <option value="1967">1967</option>
+                      <option value="1966">1966</option>
+                      <option value="1965">1965</option>
+                      <option value="1964">1964</option>
+                      <option value="1963">1963</option>
+                      <option value="1962">1962</option>
+                      <option value="1961">1961</option>
+                      <option value="1960">1960</option>
+                      <option value="1959">1959</option>
+                      <option value="1958">1958</option>
+                      <option value="1957">1957</option>
+                      <option value="1956">1956</option>
+                      <option value="1955">1955</option>
+                      <option value="1954">1954</option>
+                      <option value="1953">1953</option>
+                      <option value="1952">1952</option>
+                      <option value="1951">1951</option>
+                      <option value="1950">1950</option>
+                      <option value="1949">1949</option>
+                      <option value="1948">1948</option>
+                      <option value="1947">1947</option>
+                      <option value="1946">1946</option>
+                      <option value="1945">1945</option>
+                      <option value="1944">1944</option>
+                      <option value="1943">1943</option>
+                      <option value="1942">1942</option>
+                      <option value="1941">1941</option>
+                      <option value="1940">1940</option>
+                      <option value="1939">1939</option>
+                      <option value="1938">1938</option>
+                      <option value="1937">1937</option>
+                      <option value="1936">1936</option>
+                      <option value="1935">1935</option>
+                      <option value="1934">1934</option>
+                      <option value="1933">1933</option>
+                      <option value="1932">1932</option>
+                      <option value="1931">1931</option>
+                      <option value="1930">1930</option>
+                      <option value="1929">1929</option>
+                      <option value="1928">1928</option>
+                      <option value="1927">1927</option>
+                      <option value="1926">1926</option>
+                      <option value="1925">1925</option>
+                      <option value="1924">1924</option>
+                      <option value="1923">1923</option>
+                      <option value="1922">1922</option>
+                      <option value="1921">1921</option>
+                      <option value="1920">1920</option>
+                      <option value="1919">1919</option>
+                      <option value="1918">1918</option>
+                      <option value="1917">1917</option>
+                    </select>
+                    <select id="user_date_of_birth_2i" name="user[date_of_birth(2i)]" class="form-control date optional">
+                      <option value="">Month</option>
+                      <option value="1">January</option>
+                      <option value="2">February</option>
+                      <option value="3">March</option>
+                      <option value="4">April</option>
+                      <option value="5">May</option>
+                      <option value="6">June</option>
+                      <option value="7">July</option>
+                      <option value="8">August</option>
+                      <option value="9">September</option>
+                      <option value="10">October</option>
+                      <option value="11">November</option>
+                      <option value="12">December</option>
+                    </select>
+                    <select id="user_date_of_birth_3i" name="user[date_of_birth(3i)]" class="form-control date optional">
+                      <option value="">Date</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                      <option value="10">10</option>
+                      <option value="11">11</option>
+                      <option value="12">12</option>
+                      <option value="13">13</option>
+                      <option value="14">14</option>
+                      <option value="15">15</option>
+                      <option value="16">16</option>
+                      <option value="17">17</option>
+                      <option value="18">18</option>
+                      <option value="19">19</option>
+                      <option value="20">20</option>
+                      <option value="21">21</option>
+                      <option value="22">22</option>
+                      <option value="23">23</option>
+                      <option value="24">24</option>
+                      <option value="25">25</option>
+                      <option value="26">26</option>
+                      <option value="27">27</option>
+                      <option value="28">28</option>
+                      <option value="29">29</option>
+                      <option value="30">30</option>
+                      <option value="31">31</option>
+                    </select>
+                  </div>
+                </div>
+
+              </div>
+
+            </form>
+            <span id="forget_email_error_msg" style="color:red;"></span>
+          </div>
+          <div class="modal-footer">
+            <!-- <a href="#modal-forgot-pass" data-toggle="modal" class="modal-activate"  id="forgot-pass-btn" data-dismiss="modal">Forgot Password?</a> -->
+            <button type="submit" class="btn btn-color" data-toggle="modal" aria-hidden="true" id="forgot-email-submit">Submit</button>
+            <!-- <button type="button" class="btn btn-color" data-toggle="modal" data-target="#modal-thankyou-email" id="forgot-email-submit">Submit</button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- thankyou email modal -->
+  <div id="modal-thankyou-email" class="modal fade">
+    <div class="modal-out">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <div class="modal-header">
+
+            <h4 class="modal-title">
+              <div class="h1-style">Thank you</div>
+            </h4>
+          </div>
+          <div class="modal-body">
+
+            <p>We have just send you a confirmation email.</p>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-color" data-toggle="modal" data-target="#modal-login"  aria-hidden="true" id="back-to-login" data-dismiss="modal">Back to Login</button>
+            <div class="forgot"><a href="#modal-forgot-pass" data-toggle="modal" class="modal-activate" data-dismiss="modal">Forgot Password?</a></div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- forgot password modal -->
+  <div id="modal-forgot-pass" class="modal fade">
+    <div class="modal-out">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <div class="modal-header">
+
+            <h4 class="modal-title">
+              <div class="h1-style">Retrieve your password</div>
+            </h4>
+          </div>
+          <div class="modal-body">
+            <p>Please enter your email address below. You will receive a link to reset your password.</p>
+            <form id="forget_password">
+              <div class="form-group">
+                <input type="email" class="form-control" id="InputEmailForgotPass" name="forget_email" aria-describedby="emailHelp" placeholder="Email">
+              </div>
+
+            </form>
+            <span id="forget_password_error_msg" style="color:red;"></span>
+            <div class="forgot">
+              <a href="#modal-forgot-email"  data-toggle="modal" class="modal-activate" data-dismiss="modal">Forgot Email?</a>
+            </div>
+          </div>
+          <div class="modal-footer">
+              <!-- <a href="#modal-forgot-pass" data-toggle="modal" class="modal-activate"  id="forgot-pass-btn" data-dismiss="modal">Forgot Password?</a> -->
+            <button type="submit" class="btn btn-color" data-toggle="modal" id="forgot-pass-submit">Reset Password</button>
+            <!-- <button type="button" class="btn btn-color" data-toggle="modal" data-target="#modal-thankyou-password" id="forgot-pass-submit">Reset Password</button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- thankyou Password modal -->
+  <div id="modal-thankyou-password" class="modal fade">
+    <div class="modal-out">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <div class="modal-header">
+
+            <h4 class="modal-title">
+              <div class="h1-style">Thank you</div>
+            </h4>
+          </div>
+          <div class="modal-body">
+            <p>Thank you. We just sent you a password reset link to your email.</p>
+            <!-- <p>Here’s a hint:  cin@gmail.com.</p> -->
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-color" data-toggle="modal" data-target="#modal-login" aria-hidden="true" id="back-to-login" data-dismiss="modal">Ready to login?</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<%= javascript_include_tag "js/homes.js" %>

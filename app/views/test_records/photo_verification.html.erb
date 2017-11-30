@@ -1,0 +1,50 @@
+<%=render "/users/header" %>
+<div class="container-fluid">
+  <div class="row" id="content-outter">
+    <%=render "/users/siderbar" %>
+    <div class="col-md-10">
+      <div class="content container-fluid">
+        <div class="photo-verify">
+          <div class="h1-style-user">Photo Verification</div>
+          <div class="col-md-6">
+            <div class="">Before the Test</div>
+            <div class="photo_begin">
+              <%= image_tag @test_record.test_begin_photo %>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="">After the Test</div>
+            <div class="photo_end">
+              <%= image_tag @test_record.test_end_photo %>
+            </div>
+          </div>
+          <div class="rating-test-section">
+            <div class="cr-title">Verify Option</div>
+              <label class="radio-inline"><input type="radio" name="optradio" value="1">the same</label>
+              <label class="radio-inline"><input type="radio" name="optradio" value="2">different</label>
+          </div>
+          <div class="flex">
+            <div class="flex-item">  <button type="button" class="btn btn-user-fade" id="submit">Submit</button></div>
+            <div class="flex-item"> <%= link_to 'Cancel', rater_available_path, :class=>"btn btn-user-fade" %></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%=render "/users/footer" %>
+<script>
+$('#submit').click(function() {
+
+  var test_record = <%= @test_record.id %>;
+  var verify = $('input[name=optradio]:checked').val();
+  // console.log(rating);
+  $.ajax({
+    url: '/post_photo_verification',
+    type: 'post',
+    data: {
+      test_record: test_record,
+      verify: verify
+    }
+  });
+});
+</script>

@@ -1,0 +1,84 @@
+<%=render "header" %>
+<div class="contact-us-homepage">
+  <div class="container-fluid banner-right contact-us-head">
+    <div class="container">
+      <div class="h1-style-right">Contact Us</div>
+    </div>
+  </div>
+  <div class="container section">
+    <div class="col-md-8">
+      <div class="h1-style">Send a Message</div>
+      <p>Did we miss something?!  If you can’t find your answer online (or just don’t want to look!), let us know and we’ll get back to you within 24hrs (that includes the weekend).  Remember, there is no such thing as a stupid question, so don’t hold back!! We would love to hear from you…</p>
+
+
+      <form class="send-msg-form">
+        <div class="form-group">
+          <input type="name" class="form-control" id="InputFirstname" aria-describedby="SendMsg" placeholder="Name">
+        </div>
+        <div class="form-group">
+          <input type="email" class="form-control" id="InputEmail1" aria-describedby="SendMsg" placeholder="Email">
+        </div>
+        <div class="form-group">
+          <select class="form-control" id="SelectSubject" aria-describedby="SendMsg" placeholder="Subject">
+            <option selected>Subject</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" id="exampleTextarea" rows="3" placeholder="Comments"></textarea>
+        </div>
+        <button type="button" class="btn btn-color">Send</button>
+
+      </form>
+    </div>
+    <div class="col-md-4">
+      <div class="btn-info-block">
+        <div class="u-title">Contact Information</div>
+        <p>Call or email us – If you choose to call, we are available from 7am to 7pm EST; if you email us, give us 24hrs and you’ll have a response in your inbox!</p>
+        <p>
+          <i class="fa fa-phone"></i>+1 917 722 2391</p>
+        <p>
+          <i class="fa fa-envelope"></i>info@parrot.com</p>
+
+      </div>
+      <div class="under-info-block">
+        <div class="u-title">Get Social</div>
+        <ul>
+          <li>
+            <a href="#">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="fa fa-linkedin"></i>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- section 2 - no-app -->
+  <div class="banner-pic-txt">
+    <div class="row">
+      <div class="col-md-5 pic"><%= image_tag ( "homepage/Internal/contact-us-join-team-802x326.jpg") %></div>
+      <div class="container">
+        <div class="col-md-7 txt">
+          <div class="h1-style-two-line">Join our team and become a parrot rater</div>
+          <div class="btn btn-color">Join Now</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%=render "footer" %>

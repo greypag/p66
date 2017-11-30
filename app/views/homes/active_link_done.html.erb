@@ -1,0 +1,15 @@
+<%=render "header" %>
+<div class="active-link done">
+  <div class="container section">
+    <div class="col-md-8">
+      <div class="h1-style">Your account has been confirmed!</div>
+      <p>Congratulations, your account is now ready to go! To login, please click "Login" below.</p>
+      <p>Good luck and enjoy!</p>
+      <button href="#modal-login" data-toggle="modal" class="modal-login btn btn-color">Login</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<% session[:sign_up_email] = nil%>
+<%=render "footer" %>

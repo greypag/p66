@@ -1,0 +1,154 @@
+<%= render "homes/header" %>
+<div class="container section">
+  <div class="row container-fluid">
+    <% if notice %>
+      <p id="notice"><%= notice %></p>
+    <% end %>
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+      <div class="h1-top-style">CREATE A USER ACCOUNT</div>
+      <div class="h1-style">SIGN UP</div>
+
+	  <%
+	  # simple_form_for(User.new, as: :user, url: registration_path(:user)) do |f|
+	  %>
+      <%= simple_form_for(User.new, as: :user, url: "/users") do |f| %>
+        <%= f.error_notification %>
+
+        <div class="form-inputs">
+          <%= f.input :f_name, placeholder: 'First Name*', label: false, required: true, autofocus: true %>
+          <%= f.input :l_name, placeholder: 'Last Name', label: false, autofocus: true %>
+          <%= f.input :date_of_birth, as: :date,label: false, start_year: Date.today.year,
+                              end_year: Date.today.year - 100,:prompt => { :day => 'Day', :month => 'Month', :year => 'Year of Birth' },
+                              order: [:month , :day, :year] %>
+          <%= f.input :native_language, prompt: 'Native Language', label: false, collection: Language.all %>
+          <%= f.input :email, placeholder: 'Email*', label: false, required: true, autofocus: true %>
+          <%= f.input :email_confirmation, placeholder: 'Email Confirmation*', label: false, required: true, autofocus: true %>
+          <%= f.input :password, placeholder: 'Password*', label: false, required: true %>
+          <%= f.input :password_confirmation, placeholder: 'Password Confirmation*', label: false, required: true %>
+        </div>
+        <div class="reminder">*By clicking submit, you agree to the Parrot Private Policy and user agreement</div>
+
+        <div class="form-actions">
+          <%= f.button :submit, "Submit", :class => "btn-color", :id => "sign-up-submit" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<script>
+$(document).ready(function() {
+
+  FormValidation.Validator.securePassword = {
+    validate: function(validator, $field, options) {
+        var value = $field.val();
+        if (value === '') {
+            return true;
+        }
+
+        // Check the password strength
+        if (value.length < 6) {
+            return {
+                valid: false,
+                message: 'The password must be more than 6 characters long'
+            };
+        }
+
+        return true;
+    }
+};
+
+    $('#new_user').formValidation({
+        framework: 'bootstrap',
+        icon: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            'user[password]': {
+                validators: {
+                    notEmpty: {
+                        message: 'The password is required and cannot be empty'
+                    },
+                    securePassword: {
+                        message: 'The password is not valid'
+                    }
+                }
+            },
+            'user[password_confirmation]': {
+                validators: {
+                    identical: {
+                        field: 'user[password]',
+                        message: "Make sure the password is the same"
+                    }
+                }
+            },
+            'user[email_confirmation]': {
+                validators: {
+                    identical: {
+                        field: 'user[email]',
+                        message: "Make sure the email is the same"
+                    }
+                }
+            },
+            'user[email]': {
+              validators: {
+                  regexp: {
+                      regexp: '^[^@\\s]+@([^@\\s]+\\.)+[^@\\s]+$',
+                      message: 'The value is not a valid email address'
+                  }
+              }
+           }
+        }
+    }).on('err.validator.fv', function(e, data) {
+            // $(e.target)    --> The field element
+            // data.fv        --> The FormValidation instance
+            // data.field     --> The field name
+            // data.element   --> The field element
+            // data.validator --> The current validator name
+            data.element
+                .data('fv.messages')
+                // Hide all the messages
+                .find('.help-block[data-fv-for="' + data.field + '"]').hide()
+                // Show only message associated with current validator
+                .filter('[data-fv-validator="' + data.validator + '"]').show();
+        });
+});
+
+$('#sign-up-submit').on('click', function(){
+
+    $('input[type="text"]').each(function(){
+        var id = $(this).attr('id');
+        var value = $(this).val();
+       localStorage.setItem(id, value);
+
+    });
+    $('select').each(function(){
+        var id = $(this).attr('id');
+        var value = $(this).val();
+       localStorage.setItem(id, value);
+
+    });
+});
+
+$(document).ready(function() {
+    $('input[type="text"]').each(function(){
+        var id = $(this).attr('id');
+        var value = localStorage.getItem(id);
+
+        $(this).val(value);
+
+    });
+    $('select').each(function(){
+        var id = $(this).attr('id');
+        var value = localStorage.getItem(id);
+
+        $(this).val(value);
+
+    });
+});
+
+
+</script>
+
+<%= render "homes/footer" %>

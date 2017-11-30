@@ -1,0 +1,289 @@
+<%=render "users/header" %>
+<div class="container-fluid">
+  <div class="row" id="content-outter">
+    <!-- sidebar -->
+    <%=render "users/siderbar" %>
+    <!-- content -->
+    <div class="col-md-10">
+      <div class="content container-fluid">
+        <div class="create-prompts">
+          <div class="row">
+            <% if notice %>
+            <p id="notice"><%= notice %></p>
+            <% end %>
+            <div class="h1-style-user col-md-4">Edit Prompt</div>
+          </div>
+          <div class="row">
+            <div class="col-md-5">
+              <%= simple_form_for @prompt do |f| %>
+                <%= f.error_notification %>
+                <div class="form-inputs">
+                  <div class="clearfix"></div>
+                  <label>Title</label>
+                  <%= f.input :title, placeholder: 'Prompt Name', label: false %>
+                  <div class="clearfix"></div>
+                  <label>Language</label>
+                  <%= f.input :language, prompt: 'Select Language', label: false, :input_html => { :class => "bmr_select" }, collection:  [ "English", "Spanish"] %>
+                  <div class="clearfix"></div>
+                  <label>Industry</label>
+                  <%= f.input :industry, prompt: 'Select Industry', label: false, :input_html => { :class => "bmr_select" }, collection:  [ "Customer Service", "Retail Banking", "Health Care", "Insurance"] %>
+                  <div class="clearfix"></div>
+                  <label>Level</label>
+                  <%= f.input :level, prompt: 'Select Level', label: false, :input_html => { :class => "bmr_select" }, collection: [ "Elementary – ILR 1", "Elementary Plus – ILR 1+", "Limited Working – ILR 2", "Limited Working Plus – ILR 2+", "General Professional – ILR 3"] %>
+                  <div class="clearfix"></div>
+                  <label>Upload Image</label>
+                  <div class="inline-button">
+                  <%= f.file_field :image, placeholder: 'Uplopad', label: false %>
+                  </div>
+                  <div class="clearfix"></div>
+                  <label>Upload Video</label>
+                  <div class="inline-button">
+                  <%= f.file_field :video, placeholder: 'Uplopad', label: false %>
+                  </div>
+                  <div class="clearfix"></div>
+                  <label>Upload Audio</label>
+                  <div class="inline-button">
+                  <%= f.file_field :audio, placeholder: 'Uplopad', label: false %>
+                  </div>
+                  <div class="clearfix"></div>
+                  <label>Text</label>
+                  <%= f.input :text, placeholder: 'Text', label: false %>
+                  <div class="clearfix"></div>
+                  <label>Link BMR</label>
+                  <div class="form-group select optional prompt_bmr" id="bmr">
+                    <select class="form-control select optional" name="prompt[bmr]" id="prompt_bmr">
+                      <option value="" disabled selected>Use Language, Industry, Level to filtering options</option>
+					          </select>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="form-actions flex">
+                <div class="" data-toggle="modal" data-target="#loading-modal">  <%= f.button :submit, "Save", :class => "btn-user flex-item" %></div>
+                  <button type="button" name="button" class="btn btn-user flex-item" data-toggle="modal" data-target="#preview-prompt-modal" id="prompt_preview">Preview</button>
+                  <div class="more-user flex-item"><%= link_to 'Back to Prompts', prompts_path %></div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- loading modal -->
+<div id="loading-modal" class="modal fade">
+  <div class="modal-out">
+    <div class="modal-dialog">
+      <div class="circle spinner2"></div>
+    </div>
+  </div>
+</div>
+<!-- preview-prompt-modal -->
+<div id="preview-prompt-modal" class="modal fade">
+  <div class="modal-out">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <div class="modal-header">
+          <h4 class="modal-title">
+            <div class="modal-h1-top">Prompt > Create Prompts > <span class="preview_prompt_title">Sample Prompt Title 01</span></div>
+            <div class="h1-style"><span class="preview_prompt_title">Sample Prompt Title 01</span></div>
+          </h4>
+        </div>
+        <div class="modal-body">
+          <table>
+            <tr>
+              <td>Language</td>
+              <td class="preview_prompt_lang">English</td>
+            </tr>
+            <tr>
+              <td>Industry</td>
+              <td class="preview_prompt_ind">Accounting</td>
+            </tr>
+            <tr>
+              <td>Level</td>
+              <td class="preview_prompt_level">ILR 1 (Elementary Proficiency)</td>
+            </tr>
+          </table>
+          <div class="">
+            <div class="play-prompt"><span class="play-test"><i class="fa fa-play-circle-o" aria-hidden="true"></i>Listen to the Benchmark Response(BMR)</span><span class="stop-test"><i class="fa fa-stop-circle-o" aria-hidden="true"></i>Stop the Benchmark Response(BMR)</span></div>
+            <div class="change-bmr more-user">Change</div>
+          </div>
+          <div>
+
+          </div>
+        </div>
+        <div class="modal-footer">
+
+          <button type="button" name="button" class="btn btn-user" data-dismiss="modal" aria-hidden="true">Close</button>
+          <button type="button" name="button" class="btn btn-user" data-dismiss="modal" aria-hidden="true">Edit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%=render "users/footer" %>
+
+<script>
+
+  $("li.admin-prompts").addClass("active");
+  $("#create-prompts").addClass("active");
+  $('.play-prompt').click(function(){
+    $('span.play-test').toggle();
+    $('span.stop-test').toggle();
+  });
+
+  // image preview
+  $(function() {
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+          $('#img_prev').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    $("#avatar-upload").change(function(){
+      $('#img_prev').removeClass('hidden');
+      readURL(this);
+    });
+  });
+
+
+  //upload img onclick
+  $(function(){
+      $('#upload-img').click(function(e){
+          e.preventDefault();
+          $('#avatar-upload').click();}
+      );
+  });
+// cookie
+
+  $(document).ready(function() {
+      $('#prompt_preview').click(function(){
+      var prompt_title = ($("#prompt_title").val());
+      $.cookie('prompt_title', prompt_title );
+      console.log($.cookie('prompt_title'));
+      var prompt_language = ($("#prompt_language").val());
+      $.cookie('prompt_language', prompt_language );
+      console.log($.cookie('prompt_language'));
+      var prompt_industry = ($("#prompt_industry").val());
+      $.cookie('prompt_industry', prompt_industry );
+      console.log($.cookie('prompt_industry'));
+      var prompt_level = ($("#prompt_level").val());
+      $.cookie('prompt_level', prompt_level );
+      console.log($.cookie('prompt_level'));
+
+     $('.preview_prompt_title').html($.cookie('prompt_title'));
+     $('.preview_prompt_lang').html($.cookie('prompt_language'));
+     $('.preview_prompt_ind').html($.cookie('prompt_industry'));
+     $('.preview_prompt_level').html($.cookie('prompt_level'));
+     $('.preview_prompt_level').html($.cookie('prompt_level'));
+      // console.log($('input[name="prompt[title]"]').val());
+        });
+  });
+
+  // select option
+  $('.bmr_select').change(function(){
+    var language = $('#prompt_language').val();
+    var industry = $('#prompt_industry').val();
+    var level = $('#prompt_level').val();
+
+    var id_arr_filter = [];
+
+    var all_response_hash = JSON.parse('<%= @all_response_hash.to_json.html_safe%>');
+	  var all_lang_response_hash = JSON.parse('<%= @all_lang_response_hash.to_json.html_safe%>');
+	  var all_industry_response_hash = JSON.parse('<%= @all_industry_response_hash.to_json.html_safe%>');
+	  var all_level_response_hash = JSON.parse('<%= @all_level_response_hash.to_json.html_safe%>');
+    // console.log(all_response_hash);
+
+
+	if(language != ""){
+		// console.log(language);
+
+		Object.keys(all_lang_response_hash).forEach(function(key) {
+			if(key == language){
+
+				if(id_arr_filter.length == 0){
+					id_arr_filter = id_arr_filter.concat(all_lang_response_hash[key]);
+				}else{
+
+					var different_in_array = $(id_arr_filter).not(all_lang_response_hash[key]);
+					different_in_array = different_in_array.toArray();
+          // console.log(different_in_array);
+
+					id_arr_filter = $(id_arr_filter).not(different_in_array);
+					id_arr_filter = id_arr_filter.toArray();
+
+				}
+				// console.log(all_lang_response_hash[key]);
+			}
+		})
+
+		// console.log(id_arr_filter);
+	}
+
+	if(industry != ""){
+		// console.log(industry);
+
+		Object.keys(all_industry_response_hash).forEach(function(key) {
+			if(key == industry){
+				if(id_arr_filter.length == 0){
+					id_arr_filter = id_arr_filter.concat(all_industry_response_hash[key]);
+				}else{
+
+					var different_in_array = $(id_arr_filter).not(all_industry_response_hash[key]);
+					different_in_array = different_in_array.toArray();
+          // console.log(different_in_array);
+
+					id_arr_filter = $(id_arr_filter).not(different_in_array);
+					id_arr_filter = id_arr_filter.toArray();
+				}
+				// console.log(all_industry_response_hash[key]);
+			}
+		})
+
+		// console.log(id_arr_filter);
+	}
+
+	if(level != ""){
+		// console.log(level);
+
+		Object.keys(all_level_response_hash).forEach(function(key) {
+			if(key == level){
+				if(id_arr_filter.length == 0){
+					id_arr_filter = id_arr_filter.concat(all_level_response_hash[key]);
+				}else{
+					var different_in_array = $(id_arr_filter).not(all_level_response_hash[key]);
+					different_in_array = different_in_array.toArray();
+          // console.log(different_in_array);
+
+					id_arr_filter = $(id_arr_filter).not(different_in_array);
+					id_arr_filter = id_arr_filter.toArray();
+				}
+				// console.log(all_level_response_hash[key]);
+			}
+		})
+	}
+
+	console.log(id_arr_filter);
+
+// generate response options
+  var bmr_select = '<option value="" disabled selected>Use Language, Industry, Level to filtering options</option>';
+  $.each(id_arr_filter , function(i, val) {
+    if (all_response_hash.hasOwnProperty(id_arr_filter [i])) {
+      var bmr_name = all_response_hash[id_arr_filter [i]]["title"]
+      // console.log(bmr_name);
+    }
+    bmr_select += '<option value="' + id_arr_filter [i] + '">' + bmr_name + '</option>';
+  });
+  $('#prompt_bmr').html(bmr_select);
+
+  });
+
+</script>

@@ -1,0 +1,2 @@
+class PayoutRecord < ApplicationRecord
+end

@@ -1,0 +1,793 @@
+// Place all the styles related to the homes controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+@import "reset";
+$background-grey: #f5f5f5;
+$light-green: #8cc63e;
+$dark-green: #006F3A;
+$grey: #666666;
+
+body {
+  font-family: 'Lato', sans-serif;
+}
+// h1 - Medium 32px light-green
+
+.h1-style {
+  font-size: 32px;
+  font-weight: 500;
+  color: $light-green;
+  text-transform: uppercase;
+  line-height: 1.5em;
+  margin-bottom: 25px;
+  position: relative;
+
+  &:before {
+    content: '';
+    display: block;
+    width: 30px;
+    border-bottom: 2px solid $light-green;
+    position: absolute;
+    top: 50px;
+  }
+
+  &:after {
+    content: '';
+    display: block;
+    width: 60px;
+    // left: 40px;
+    // right:40px;
+    border-bottom: 2px solid $grey;
+    position: absolute;
+    top: 50px;
+  }
+}
+// h1 - right
+
+.h1-style-right {
+  @extend .h1-style;
+  text-align: right;
+
+  &:before {
+    right: 70px !important;
+  }
+
+  &:after {
+    right: 0;
+  }
+}
+//h1 - center
+
+.h1-style-center {
+  @extend .h1-style;
+  text-align: center;
+  // width: 300px;
+  // margin: auto auto 25px;
+  &:before {
+    left: 45%;
+  }
+
+  &:after {
+    left: 49%;
+  }
+}
+// h1 - top
+
+.h1-top-style {
+  color: $grey;
+  font-weight: 13px;
+  text-transform: uppercase;
+  padding-bottom: 20px;
+}
+// Medium 20px grey
+
+.h2-style {
+  font-size: 20px;
+  font-weight: 500;
+  color: $grey;
+  line-height: 1.5em;
+}
+// Semibold 60px light-green
+
+.h3-style {
+  font-size: 60px;
+  font-weight: 600;
+  color: $light-green;
+  text-align: center;
+  line-height: 1.5em;
+}
+//Medium 20px light-green
+
+.h4-style {
+  font-size: 20px;
+  font-weight: 500;
+  color: $light-green;
+  text-transform: uppercase;
+  line-height: 1.5em;
+  margin: 10px 0;
+}
+
+.h5-style {
+  font-size: 13px;
+  font-weight: 600;
+  color: $grey;
+  line-height: 1.5em;
+  padding-bottom: 20px;
+}
+// Regular 20pt grey
+
+.h6-style {
+  font-size: 20px;
+  font-weight: normal;
+  color: $grey;
+  line-height: 1.5em;
+}
+//body text
+
+p {
+  font-size: 14px;
+  font-weight: normal;
+  color: #000;
+  line-height: 1.5em;
+}
+// Regular 20pt black
+
+.p-lg {
+  font-weight: normal;
+  font-size: 20px;
+  color: #000;
+  line-height: 1.5em;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+.fa {
+  color: $light-green;
+  margin-right: 10px;
+}
+
+.here {
+  a {
+    text-decoration: underline !important;
+    color: black !important;
+
+    &:hover {
+      color: $light-green !important;
+    }
+  }
+}
+
+.test-title {
+  font-weight: bold;
+}
+//btn
+
+.btn-color {
+  background-color: $light-green;
+  color: #fff;
+  border: 0;
+  text-transform: uppercase;
+  margin-top: 20px;
+  padding: 10px 25px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $dark-green;
+    color: #fff !important;
+  }
+
+  a {
+    color: #fff;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+}
+// placeholder
+
+::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  color: $grey;
+  font-style: italic;
+}
+
+::-moz-placeholder {
+  /* Firefox 19+ */
+  color: $grey;
+  font-style: italic;
+}
+
+:-ms-input-placeholder {
+  /* IE 10+ */
+  color: $grey;
+  font-style: italic;
+}
+
+:-moz-placeholder {
+  /* Firefox 18- */
+  color: $grey;
+  font-style: italic;
+}
+
+select {
+  color: $grey !important;
+  font-style: italic !important;
+}
+// banner
+
+.banner {
+  display: flex;
+  align-items: center;
+  text-align: left;
+  height: 185px;
+}
+
+.banner-right {
+  @extend .banner;
+  text-align: right;
+}
+// sections
+
+.section {
+  padding: 80px 0;
+}
+// nav
+
+.navbar {
+  background-color: #fff !important;
+  margin-bottom: 0 !important;
+}
+// top
+
+.top {
+  a {
+    color: $dark-green !important;
+
+    &:hover {}
+  }
+
+  .fa {
+    color: $dark-green;
+  }
+}
+// menu
+
+.navbar-collapse {
+  padding-right: 0;
+  padding-left: 0;
+
+  span {
+    display: block;
+    font-weight: bold;
+    color: $grey;
+    line-height: 20px;
+    font-size: 14px;
+    padding: 10px 0 10px 10px;
+    margin: 35px 0 35px 15px;
+  }
+
+  li > a {
+    text-transform: uppercase;
+    padding: 10px !important;
+    color: $grey !important;
+    font-weight: bold;
+    margin: 35px 0 35px 15px;
+    background-color: #fff !important;
+    text-align: center;
+
+    &:hover {
+      color: $light-green !important;
+    }
+
+    .menuitem {
+      text-align: center;
+      padding: 10px;
+
+      &:hover {
+        background-color: $light-green;
+      }
+    }
+    @media (max-width: 1199px) {
+      margin: 35px 0;
+    }
+  }
+
+  a.logo {
+    padding: 5px 15px;
+    @media (max-width: 1199px) {
+      padding: 5px 0;
+    }
+  }
+}
+// slider
+//control
+
+.fa-angle-left {
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  line-height: 40px;
+  color: #fff;
+  background-color: $light-green;
+  text-shadow: none;
+  position: absolute;
+  top: 47%;
+  left: 15%;
+  font-size: 30px!important;
+  cursor: pointer;
+
+  &:before {
+    position: relative;
+    top: 4px;
+    right: 2px;
+  }
+}
+
+.fa-angle-right {
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  line-height: 40px;
+  color: #fff;
+  background-color: $light-green;
+  text-shadow: none;
+  position: absolute;
+  top: 47%;
+  right: 15%;
+  font-size: 30px!important;
+  cursor: pointer;
+
+  &:before {
+    position: relative;
+    top: 4px;
+    left: 2px;
+  }
+}
+
+.carousel-inner {
+  position: relative;
+
+  .carousel-caption {
+    position: absolute;
+    //width: 48%; // width: 705px;
+    top: 20%;
+
+    span {
+      display: block;
+    }
+
+    .h1-style {
+      font-weight: bold;
+      font-size: 26px;
+      color: $light-green;
+      text-transform: capitalize;
+
+      &:before {
+        box-shadow: 0 1px 2px rgba(0,0,0,.6);
+      }
+
+      &:after {
+        box-shadow: 0 1px 2px rgba(0,0,0,.6);
+      }
+    }
+
+    .h2-style {
+      font-weight: bold;
+      font-size: 30px;
+      color: #fff;
+      text-transform: uppercase;
+
+      a:hover {
+        color: $light-green;
+      }
+    }
+
+    .h3-style {
+      font-weight: normal;
+      font-size: 48px;
+      color: #fff;
+      text-transform: uppercase;
+      text-align: left;
+    }
+
+    .btn-color {
+      box-shadow: 0 1px 2px rgba(0,0,0,.6);
+    }
+
+    &.b1 {
+      text-align: left;
+      left: 10%;
+    }
+
+    &.b2 {
+      text-align: right;
+      right: 10%;
+
+      .h1-style {
+        &:before {
+          left: 91%;
+        }
+
+        &:after {
+          left: 95%;
+        }
+      }
+
+      .h3-style {
+        text-align: right;
+      }
+    }
+  }
+}
+// why-parrot
+
+.why-parrot {
+  .why {
+    padding: 0 20px 60px;
+  }
+
+  .earn-up-to {
+    background-color: $background-grey;
+    border-right: 2px solid $light-green;
+    padding: 40px 20px;
+    box-sizing: border-box;
+  }
+}
+// how-it-works
+
+.how-it-works {
+  background-color: $background-grey;
+  text-align: center;
+
+  .how-top {
+    margin-bottom: 80px;
+
+    .h1-style {
+      width: 250px;
+      margin: auto auto 25px;
+
+      &:before {
+        left: 25%;
+      }
+
+      &:after {
+        left: 42%;
+      }
+    }
+  }
+
+  .how-bottom {
+    p {
+      margin: 20px;
+    }
+
+    a {
+      color: $grey;
+      display: block;
+
+      &:hover {
+        .h2-style,
+        .h5-style {
+          color: $light-green;
+        }
+      }
+    }
+  }
+}
+// linkedin
+
+.linkedin {
+  overflow: hidden;
+  // height: 400px;
+  .col-md-5.pic {
+    padding: 0;
+  }
+  @media (min-width: 991px) {
+    .h1-style {
+      &:before {
+        top: 100px;
+      }
+
+      &:after {
+        top: 100px;
+      }
+    }
+  }
+}
+
+.txt {
+  // width: 650px;
+  padding: 80px 20px;
+  @media (max-width: 767px) {
+    width: 80%;
+    text-align: center;
+  }
+}
+// no-app
+
+.no-app {
+  overflow: hidden;
+  background-color: #e1e6ea;
+
+  .txt {
+    padding: 80px 0 60px 80px;
+  }
+
+  .pic {
+    overflow: hidden;
+  }
+}
+// percent
+
+.percent {
+  p {
+    font-size: 19px;
+    font-weight: normal;
+    color: $dark-green;
+    text-align: center;
+    padding: 0 8px;
+    position: relative;
+  }
+
+  .p-item {
+    + .p-item:before {
+      content: '';
+      display: block;
+      border-right: 1px solid $light-green;
+      width: 0;
+      height: 150px;
+      position: absolute;
+      top: 5px;
+      left: -5px;
+      @media (min-width: 991px) {}
+    }
+  }
+}
+// footer
+
+.footer {
+  padding: 40px 0;
+  background-color: $dark-green;
+  position: relative;
+
+  .footer-item-2 {
+    padding-left: 60px;
+  }
+
+  p {
+    margin: 20px 0;
+    color: #fff;
+  }
+
+  .footer-top {
+    margin-bottom: 80px;
+
+    ul > li {
+      line-height: 2.2em;
+      color: #fff;
+
+      a {
+        color: #fff;
+
+        &:hover {
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  .copyright {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background-color: $light-green;
+
+    .fa {
+      color: #fff;
+    }
+  }
+}
+// thankyou
+
+.thankyou-head {
+  @extend .banner;
+  background-image: url('homepage/Internal/FAQ-banner-1920x186.jpg');
+}
+
+.how-it-works-head {
+  @extend .banner;
+  background-image: url('homepage/Internal/how-it-works-banner-1920x186.jpg');
+}
+
+.back-home {
+  padding-top: 20px;
+
+  a {
+    color: black;
+
+    &:hover {
+      color: $light-green;
+    }
+  }
+}
+// modal btn
+
+.modal-btn {
+  position: relative;
+
+  .modal-activate {
+    position: absolute;
+    display: block;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.modal {
+  .modal-out {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+  }
+
+  .close {
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
+    display: block;
+    color: #fff;
+    background-color: $grey;
+    opacity: 0.8;
+    text-align: center;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  .modal-content {
+    border-radius: 0 !important;
+    padding: 30px;
+    width: 120%;
+  }
+
+  .modal-h1-top {
+    color: $grey;
+    font-weight: 13px;
+    text-transform: uppercase;
+    padding-bottom: 20px;
+  }
+
+  .form-control {
+    font-style: italic;
+    width: 90%;
+  }
+
+  .modal-header {
+    border-bottom: 0 !important;
+    margin-top: 20px;
+  }
+
+  .modal-body {
+    padding: 0 15px;
+  }
+
+  .forgot {
+    text-align: left;
+    font-style: italic;
+    text-decoration: underline;
+    font-size: 12px;
+    font-weight: 300;
+
+    a {
+      margin-right: 20px;
+      color: #949494;
+    }
+  }
+
+  .modal-footer {
+    border-top: 0 !important;
+    margin-bottom: 20px;
+    text-align: left;
+
+    .btn-color {
+      // text-transform: none;
+      margin-top: 0;
+    }
+  }
+}
+// active-link
+
+.active-link {
+  margin: 25px;
+}
+
+table td {
+  border-top: 0 !important;
+}
+// how-it-works-inner
+
+.practice {
+  .container-fluid {
+    background-color: $background-grey;
+  }
+}
+// sign up
+
+.form-inputs {
+  padding-top: 30px;
+}
+
+#user_date_of_birth_1i {
+  width: 50%;
+}
+
+#user_date_of_birth_3i {
+  width: 24%;
+}
+
+#user_date_of_birth_2i {
+  width: 24.5%;
+}
+
+.sign-up-now {
+  background-color: $background-grey;
+}
+// Tabs
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:focus,
+.nav-pills > li.active > a:hover {
+  background-color: $light-green !important;
+}
+
+.nav-pills {
+  li {
+    a {
+      padding:10px;
+      background-color: #D8d8d8;
+      color: black;
+      font-size: 20px;
+    }
+  }
+}
+.tab-pane{
+  padding: 20px;
+}
+
+#exTab1 .tab-content {
+  background-color: #fff;
+  border-right: 5px solid $light-green;
+  padding: 5px 15px;
+}
+
+#exTab2 h3 {
+  color: white;
+  background-color: $light-green;
+  padding: 5px 15px;
+}
+/* remove border radius for the tab */
+#exTab1 .nav-pills > li > a {
+  border-radius: 0;
+}
+/* change border radius for the tab , apply corners on top*/
+#exTab3 .nav-pills > li > a {
+  border-radius: 4px 4px 0 0;
+}
+
+#exTab3 .tab-content {
+  background-color: $light-green;
+  padding: 5px 15px;
+}

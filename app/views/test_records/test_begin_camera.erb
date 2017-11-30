@@ -1,0 +1,67 @@
+<!-- take-test-header -->
+<div class="header-user">
+  <nav class="navbar navbar-default" role="navigation">
+  <div class="container">
+    <div class="test-title"><%= @test.title %></div>
+  </div>
+  </nav>
+</div>
+<div class="take-test">
+  <div class="container">
+    <div class="take-test-inner">
+      <div class="row section-b">
+        <div class="col-md-2"><%= image_tag ( "homepage/logo-86x85.png") %></div>
+        <div class="col-md-6"><div class="h1-style-user">Please take your own picture</div></div>
+      </div>
+      <div class="quiz-page section-b">
+          <div class="quiz-container">
+            <div id="my_camera"></div>
+            <div id="my_result"></div>
+          </div>
+          <div class="">
+            <button class="btn btn-user" onclick="take_snapshot()">Take Snapshot</button>
+            <button class="btn btn-user" id="post_photo">Test Start</button>
+            <span id="photo_error_msg" style="color:red;"></span>
+         </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<%=render "/users/footer" %>
+
+<script language="JavaScript">
+  Webcam.set({
+    width: 640,
+    height: 480,
+    dest_width: 640,
+    dest_height: 480,
+    image_format: 'jpeg',
+    jpeg_quality: 90,
+    force_flash: false,
+    fps: 60
+  });
+  Webcam.attach( '#my_camera' );
+
+  var img;
+  function take_snapshot() {
+    Webcam.snap( function(data_uri) {
+      document.getElementById('my_result').innerHTML = '<img src="'+data_uri+'"/>';
+      img = data_uri;
+      // console.log(data_uri);
+
+    } );
+  }
+
+  $('#post_photo').click(function(){
+
+    if (img == null) {
+      $("#photo_error_msg").append( "<p style='color:red;'>Please take a picture</p>" );
+      return;
+    }
+    // console.log(img);
+    $.post("/post_test_begin_photo", {
+      img: img
+    });
+  });
+</script>

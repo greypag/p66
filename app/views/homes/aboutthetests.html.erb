@@ -1,0 +1,222 @@
+<%=render "header" %>
+<div class="about-the-tests-inner">
+  <!-- banner -->
+  <div class="container-fluid banner-right about-the-tests-head">
+    <div class="container">
+      <div class="h1-style-right">About The Tests</div>
+    </div>
+  </div>
+  <!-- section 1 - BENEFITS OF A PARROT CERTIFICATION -->
+  <div class="container section">
+    <div class="row Benefits-of-Parrot-top">
+      <div class="col-md-12">
+        <div class="h1-style-center" id="bene-pr-section">Benefits of a Parrot Certification</div>
+        <p>Parrot66 not only uses the scale you need, but also provides an industry specific certification, which is what your employer, or future employer will need. The best part is that we do all this in a way that doesn’t require you to go to some sort of antiquated testing center, but we do it remotely using the technology of today – this is not something earth-shattering, but it actually kind of is in the world of language evaluation. Other companies either don’t offer it, or charge over $100 for their test!! Maybe they don’t know how it is easy it is to take someone’s picture, or perhaps they just want a whole bunch more profit than we feel is appropriate.  Parrot was formed by bilinguals, for bilinguals.  The last thing we want to do is make the certification so expensive that it can’t be used by a wide range of people.
+Parrot was also validated in 2017, making it a legally defensible test – which means the courts will trust it, in addition to the companies!</p>
+      </div>
+    </div>
+    <div class="row Benefits-of-Parrot-bottom">
+      <div class="col-md-2" class="how-link"></div>
+      <div class="col-md-4" class="how-link">
+        <a href="#">
+          <%= image_tag ( "homepage/icon/Secure-Testing.png"), :class=>'img-size-circle' %>
+          <div class="h2-style">Secure Testing</div>
+          <p>We’ll take your picture throughout the test, and put it on your certificate, so that employers can be sure that it was you who took the test.</p>
+          <div class="h5-style">Click here for a demo!</div>
+        </a>
+      </div>
+      <div class="col-md-4" class="how-link">
+        <a href="#">
+          <%= image_tag ( "homepage/Internal/ic_rated_US_about-the-tests.png"), :class=>'img-size-circle' %>
+          <div class="h2-style">Rated using the US Government’s Scale</div>
+          <p>Parrot66 is home of the US Government’s ILR Ratings, which means more companies and government agencies will now KNOW what your language ability is AND believe it to be true, than you could get with any other foreign language rating scale in the United States!!</p>
+          <div class="h5-style">Why get Certified</div>
+        </a>
+      </div>
+      <div class="col-md-2" class="how-link"></div>
+    </div>
+  </div>
+
+</div>
+</div>
+<!-- section 2 - AVAILABLE TESTS -->
+<div class="Available-test practice">
+<div class="container-fluid">
+  <div class="container section">
+    <div class="h1-style-center" id="ave-test-section">Available Tests</div>
+    <div class="row search-test">
+      <form class="form-search-test">
+        <div class="form-group col-md-2"></div>
+        <div class="form-group col-md-3"><select class="form-control bfh-languages" data-language="en" aria-describedby="SearchTest" placeholder="Language"></select></div>
+        <div class="form-group col-md-3">  <select class="form-control" id="SelectIndustry" aria-describedby="SearchTest" placeholder="Subject">
+            <option selected>Industry</option>
+            <option>Medical</option>
+            <option>Hospitality</option>
+            <option>Finance</option>
+            <option>Retail</option>
+            <option>Airlines</option>
+            <option>Telecommunications</option>
+          </select>
+          <!-- <input type="text" class="form-control" id="Key-Word" aria-describedby="SearchTest" placeholder="Key Word"> -->
+        </div>
+        <div class="form-group col-md-2"><button type="button" name="button" class="btn btn-lightgreen">Search Tests</button></div>
+        <div class="form-group col-md-2"></div>
+
+
+      </form>
+
+    </div>
+
+    <div class="row">
+      <% @tests.each do |test| %>
+        <div class="col-md-6">
+          <div class="test-info">
+            <div class="test-title-price">
+            <div class="test-title"><%= test.title %></div>
+            <div class="test-price">$ <%= test.price %></div>
+            <div class="clearfix"></div>
+            </div>
+            <p><%= test.description %>
+              <span class="more">
+                <a href="#">Know More</a>
+              </span>
+            </p>
+            <div class="test-icon">
+              <span>
+                <i class="fa fa-star"></i>
+                Health Care</span>
+              <span>
+                <i class="fa fa-hourglass-end"></i>
+                <%= test.time %></span>
+            </div>
+            <%= session[:test_items] %>
+            <div class="btn-group btn-group-sm">
+              <button type="button" name="button" class="btn btn-lightgreen add_to_cart" data-toggle="modal" data-target="#add-to-cart" value="<%= test.id %>">Add to Cart</button>
+              <button type="button" name="button" class="btn btn-darkgreen" data-toggle="modal" data-target="#try-prompt">Try Test</button>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<!-- Add to Cart -->
+<!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#add-to-cart">add-to-cart</button> -->
+<div id="add-to-cart" class="modal fade">
+  <div class="modal-out">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="cart_number_reload">&times;</button>
+        <div class="modal-header">
+        </div>
+        <div class="modal-body">
+          <p>The item is added to your cart.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-color cart"><%= link_to 'Check Out', cart_path %></button>
+            <button type="button" class="btn btn-color keep-looking" data-dismiss="modal" aria-hidden="true">Keep Looking</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- try-prompt -->
+<!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#try-prompt">try-prompt</button> -->
+<div id="try-prompt" class="modal fade">
+  <div class="modal-out">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <div class="modal-header">
+          <h4 class="modal-title">
+            <div class="modal-h1-top">About the test > Try a prompt ></div>
+            <div class="h1-style">English Test Title 01</div>
+          </h4>
+        </div>
+        <div class="modal-body">
+          <table>
+            <tr>
+              <td>Language</td>
+              <td>English</td>
+            </tr>
+            <tr>
+              <td>Industry</td>
+              <td>Accounting</td>
+            </tr>
+            <tr>
+              <td>Level</td>
+              <td>ILR 1 (Elementary Proficiency)</td>
+            </tr>
+          </table>
+          <div class="play-prompt"><span class="play-test"><i class="fa fa-play-circle-o" aria-hidden="true"></i>Play Prompt</span><span class="stop-test"><i class="fa fa-stop-circle-o" aria-hidden="true"></i>Stop Prompt</span></div>
+          <p>Listen to prompts (you can listen twice) and then click Start Recording once you're ready to record.</p>
+        </div>
+        <div class="modal-footer">
+          <div class="record-response">Record Your Response</div>
+          <button type="button" name="button" class="btn btn-record"><span class="start-record"><i class="fa fa-microphone" aria-hidden="true"></i>Start Recording</span> <span class="stop-record"><i class="fa fa-microphone" aria-hidden="true"></i>Stop Recording</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- thank-you-try -->
+<!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#thank-you-try">thank-you-try</button> -->
+<div id="thank-you-try" class="modal fade">
+  <div class="modal-out">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <div class="modal-header">
+          <h4 class="modal-title">
+            <div class="h1-style">Thank you</div>
+          </h4>
+        </div>
+        <div class="modal-body">
+
+        </div>
+        <div class="modal-footer clearfix">
+          <div class="float-left btn btn-user"><a href="#">See Similar Tests</a></div>
+          <div class="float-left here"><a href="/home">Back to Homepage</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%=render "footer" %>
+<script>
+$('.play-prompt').click(function(){
+  $('span.play-test').toggle();
+  $('span.stop-test').toggle();
+});
+$('.btn-record').click(function(){
+  $('span.start-record').toggle();
+  $('span.stop-record').toggle();
+});
+// var tests = [];
+$('.add_to_cart').click(function(){
+  var test = $(this).val();
+  // console.log(test);
+
+  $.post("/add_to_cart", {
+    test: test
+  }, function (data, status) {
+    if(data.status == "false"){
+      console.log("Data: " + data.status);
+      console.log("Data: " + data.message);
+    }else{
+      console.log("Data: " + data.status);
+      console.log("Data: " + data.message);
+    }
+  });
+
+  // console.log(tests);
+});
+
+// reload the numbers of cart items
+$('#cart_number_reload').click(function(){
+  $('#header').load('/cart_number_reload');
+});
+</script>

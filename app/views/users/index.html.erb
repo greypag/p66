@@ -1,0 +1,94 @@
+<%=render "/users/header" %>
+<div class="container-fluid">
+  <div class="row" id="content-outter">
+    <%=render "/users/siderbar" %>
+    <div class="col-md-10">
+      <div class="content container-fluid">
+        <div class="contact-us">
+          <div class="row">
+            <% if notice %>
+              <p id="notice"><%= notice %></p>
+            <% end %>
+            <div class="h1-style-user">Users</div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 flex">
+              <button type="button" name="button" class="btn btn-user-link flex-item"><%= link_to 'Invite Users', invite_path %></button>
+              <!-- <button type="button" name="button" class="btn btn-user-icon flex-item"><i class="fa fa-filter" aria-hidden="true"></i></button> -->
+              <!-- <button type="button" name="button" class="btn btn-user-icon flex-item"><i class="fa fa-trash" aria-hidden="true"></i></button> -->
+              <!-- <button type="button" name="button" class="btn btn-user-link flex-item"><a href="">Deactivate</a></button> -->
+              </div>
+              <div class="col-md-6 text-right flex-end">
+                <!-- <div class="page-number flex-item">1 - 15 of 42</div>
+                <div class="btn btn-user-icon flex-item"><i class="fa fa-chevron-left" aria-hidden="true"></i></div>
+                <div class="btn btn-user-icon flex-item"><i class="fa fa-chevron-right" aria-hidden="true"></i></div> -->
+                <%= will_paginate @users, renderer: 'PaginateHelper::LinkRenderer' %>
+              </div>
+          </div>
+          <div class="row">
+            <table class="tb-admin-users">
+              <thead>
+                <tr>
+                  <!-- <th>
+                    <input type="checkbox" name="" value="">
+                  </th> -->
+                  <th>User Name</th>
+                  <th class="sortable-level asc">Parrot ID</th>
+                  <th class="sortable-level asc">Type</th>
+                  <th class="sortable-level asc">Status</th>
+                  <th>Email</th>
+                  <th>Verify Data</th>
+                  <th></th>
+                  <th>Cheating</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @users.each do |user| %>
+                  <tr>
+                  <!-- <td><input type="checkbox" name="" value=""></td> -->
+                  <td><%= user.f_name %> <%= user.l_name %></td>
+                  <td><%= user.parrot_id %></td>
+                  <% if user.is_admin? %>
+                    <td>admin</td>
+                  <% elsif user.is_rater? %>
+                    <td>rater</td>
+                  <% else %>
+                    <td>user</td>
+                  <% end %>
+                  <td>
+                    <label class="switch">
+                      <% if user.status == "1"%>
+                        <input type="checkbox" value="<%= user.status %>" class="btn-on-off" checked="true">
+                        <!-- activated -->
+                      <% else %>
+                        <input type="checkbox" value="<%= user.status %>" class="btn-on-off">
+                        <!-- inactivated -->
+                      <% end %>
+                    <span class="slider"></span>
+                    </label>
+                  </td>
+                  <td><%= user.email %></td>
+                  <td></i><%= link_to user, {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '.modal-window'} do %><i class="fa fa-file-o" aria-hidden="true"><% end %></td>
+                  <td>
+
+                  </td>
+                  <td>-</td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modal-window" class="modal fade modal-window" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+
+
+<%=render "/users/footer" %>
+<script type="text/javascript">
+$( "li.admin-users" ).addClass( "active" );
+
+</script>

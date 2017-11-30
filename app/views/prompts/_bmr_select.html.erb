@@ -1,0 +1,6 @@
+<select class="form-control select optional" name="prompt[bmr]" id="prompt_bmr">
+  <option value="">BMR.mp3</option>
+  <% @responses.each do |response| %>
+    <option value="<%= response.id %>"><%= response.title %></option>
+  <% end %>
+</select>

@@ -1,0 +1,425 @@
+<%=render "users/header" %>
+<div class="container-fluid">
+  <div class="row" id="content-outter">
+    <!-- sidebar -->
+    <%=render "users/siderbar" %>
+    <!-- content -->
+    <div class="col-md-10">
+      <div class="content container-fluid">
+        <div class="create-qar">
+          <div class="row">
+            <% if notice %>
+            <p id="notice"><%= notice %></p>
+            <% end %>
+            <div class="h1-style-user col-md-4">Edit QAR</div>
+          </div>
+          <div class="row">
+            <div class="col-md-5">
+              <%= simple_form_for @qar do |f| %>
+                <%= f.error_notification %>
+                <div class="form-inputs">
+                  <div class="clearfix"></div>
+                  <label>Title</label>
+                  <%= f.input :title, placeholder: 'QAR Name', label: false %>
+                  <div class="clearfix"></div>
+                  <label>Language</label>
+                  <%= f.input :language, prompt: 'Select Language', label: false, :input_html => { :class => "select_filter" }, collection:  [ "English", "Spanish"] %>
+                  <div class="clearfix"></div>
+                  <label>Industry</label>
+                  <%= f.input :industry, prompt: 'Select Industry', label: false, :input_html => { :class => "select_filter" }, collection:  [ "Customer Service", "Retail Banking", "Health Care", "Insurance"] %>
+                  <div class="clearfix"></div>
+                  <label>Level</label>
+                  <%= f.input :level, prompt: 'Select Level', label: false, :input_html => { :class => "select_filter" }, collection: [ "Elementary – ILR 1", "Elementary Plus – ILR 1+", "Limited Working – ILR 2", "Limited Working Plus – ILR 2+", "General Professional – ILR 3"] %>
+                  <div class="clearfix"></div>
+                  <label>Link files</label>
+                    <div class="inline-button">
+                      <div class="form-group select optional qar_prompt" id="prompt">
+                        <select class="form-control select optional" name="qar[prompt]" id="qar_prompt">
+                          <option value="" disabled selected>Select Prompt</option>
+    					          </select>
+                      </div>
+                      <div class="form-group select optional qar_bmr" id="bmr">
+                        <select class="form-control select optional" name="qar[bmr]" id="qar_bmr">
+                          <option value="" disabled selected>Select BMR</option>
+    					          </select>
+                      </div>
+                      <div class="form-group select optional qar_response" id="response">
+                        <select class="form-control select optional" name="qar[response]" id="qar_response">
+                          <option value="" disabled selected>Select Response</option>
+    					          </select>
+                      </div>
+                    </div>
+                  <div class="clearfix"></div>
+                  <label>Rating</label>
+                  <%= f.input :rating, prompt: 'Select Rating', label: false, collection: [ "better than", "as good as", "worse than"] %>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="form-actions flex">
+                <div class="" data-toggle="modal" data-target="#loading-modal">  <%= f.button :submit, "Save", :class => "btn-user flex-item" %></div>
+                  <button type="button" name="button" class="btn btn-user flex-item" data-toggle="modal" data-target="#preview-qar-modal" id="qar_preview">Preview</button>
+                  <div class="more-user flex-item"><%= link_to 'Back to QAR', qars_path %></div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- loading modal -->
+<div id="loading-modal" class="modal fade">
+  <div class="modal-out">
+    <div class="modal-dialog">
+      <div class="circle spinner2"></div>
+    </div>
+  </div>
+</div>
+<!-- preview-qar-modal -->
+<div id="preview-qar-modal" class="modal fade">
+  <div class="modal-out">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <div class="modal-header">
+          <h4 class="modal-title">
+            <div class="modal-h1-top">QAR > Create QAR > <span class="preview_qar_title">Sample QAR Title 01</span></div>
+            <div class="h1-style"><span class="preview_qar_title">Sample QAR Title 01</span></div>
+          </h4>
+        </div>
+        <div class="modal-body">
+          <table>
+            <tr>
+              <td>Language</td>
+              <td class="preview_qar_lang">English</td>
+            </tr>
+            <tr>
+              <td>Industry</td>
+              <td class="preview_qar_ind">Accounting</td>
+            </tr>
+            <tr>
+              <td>Level</td>
+              <td class="preview_qar_level">ILR 1 (Elementary Proficiency)</td>
+            </tr>
+            <tr>
+              <td>Link Files</td>
+              <td></td>
+
+            </tr>
+            <tr>
+              <td>Prompt</td>
+              <td class="preview_qar_prompt"></td>
+            </tr>
+            <tr>
+              <td>BMR</td>
+              <td class="preview_qar_bmr"></td>
+            </tr>
+            <tr>
+              <td>Response</td>
+              <td class="preview_qar_response"></td>
+            </tr>
+            <tr>
+              <td>Rating</td>
+              <td class="preview_qar_rating"></td>
+
+            </tr>
+          </table>
+
+          <div>
+
+          </div>
+        </div>
+        <div class="modal-footer">
+
+          <button type="button" name="button" class="btn btn-user" data-dismiss="modal" aria-hidden="true">Close</button>
+          <button type="button" name="button" class="btn btn-user" data-dismiss="modal" aria-hidden="true">Edit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%=render "users/footer" %>
+<script>
+// cookie
+
+  $(document).ready(function() {
+      $('#qar_preview').click(function(){
+      var qar_title = ($("#qar_title").val());
+      $.cookie('qar_title', qar_title );
+      console.log($.cookie('qar_title'));
+      var qar_language = ($("#qar_language").val());
+      $.cookie('qar_language', qar_language );
+      console.log($.cookie('qar_language'));
+      var qar_industry = ($("#qar_industry").val());
+      $.cookie('qar_industry', qar_industry );
+      console.log($.cookie('qar_industry'));
+      var qar_level = ($("#qar_level").val());
+      $.cookie('qar_level', qar_level );
+      console.log($.cookie('qar_level'));
+      var qar_rating = ($("#qar_rating").val());
+      $.cookie('qar_rating', qar_rating );
+      console.log($.cookie('qar_rating'));
+      var qar_prompt = ($("#qar_prompt").val());
+      $.cookie('qar_prompt', qar_prompt );
+      console.log($.cookie('qar_prompt'));
+      var qar_bmr = ($("#qar_bmr").val());
+      $.cookie('qar_bmr', qar_bmr );
+      console.log($.cookie('qar_bmr'));
+      var qar_response = ($("#qar_response").val());
+      $.cookie('qar_response', qar_response );
+      console.log($.cookie('qar_response'));
+
+     $('.preview_qar_title').html($.cookie('qar_title'));
+     $('.preview_qar_lang').html($.cookie('qar_language'));
+     $('.preview_qar_ind').html($.cookie('qar_industry'));
+     $('.preview_qar_level').html($.cookie('qar_level'));
+     $('.preview_qar_rating').html($.cookie('qar_rating'));
+     $('.preview_qar_prompt').html($.cookie('qar_prompt'));
+     $('.preview_qar_bmr').html($.cookie('qar_bmr'));
+     $('.preview_qar_response').html($.cookie('qar_response'));
+      // console.log($('input[name="prompt[title]"]').val());
+        });
+  });
+// select option
+$('.select_filter').change(function(){
+  var language = $('#qar_language').val();
+  var industry = $('#qar_industry').val();
+  var level = $('#qar_level').val();
+
+  var prompt_arr_filter = [];
+  var bmr_arr_filter = [];
+  var response_arr_filter = [];
+
+  var all_prompt_hash = JSON.parse('<%= @all_prompt_hash.to_json.html_safe%>');
+  var all_lang_prompt_hash = JSON.parse('<%= @all_lang_prompt_hash.to_json.html_safe%>');
+  var all_industry_prompt_hash = JSON.parse('<%= @all_industry_prompt_hash.to_json.html_safe%>');
+  var all_level_prompt_hash = JSON.parse('<%= @all_level_prompt_hash.to_json.html_safe%>');
+
+  var all_bmr_hash = JSON.parse('<%= @all_bmr_hash.to_json.html_safe%>');
+  var all_lang_bmr_hash = JSON.parse('<%= @all_lang_bmr_hash.to_json.html_safe%>');
+  var all_industry_bmr_hash = JSON.parse('<%= @all_industry_bmr_hash.to_json.html_safe%>');
+  var all_level_bmr_hash = JSON.parse('<%= @all_level_bmr_hash.to_json.html_safe%>');
+
+  var all_response_hash = JSON.parse('<%= @all_response_hash.to_json.html_safe%>');
+  var all_lang_response_hash = JSON.parse('<%= @all_lang_response_hash.to_json.html_safe%>');
+  var all_industry_response_hash = JSON.parse('<%= @all_industry_response_hash.to_json.html_safe%>');
+  var all_level_response_hash = JSON.parse('<%= @all_level_response_hash.to_json.html_safe%>');
+  // console.log(all_response_hash);
+
+
+if(language != ""){
+  // console.log(language);
+
+  Object.keys(all_lang_prompt_hash).forEach(function(key) {
+    if(key == language){
+
+      if(prompt_arr_filter.length == 0){
+        prompt_arr_filter = prompt_arr_filter.concat(all_lang_prompt_hash[key]);
+      }else{
+
+        var different_in_array = $(prompt_arr_filter).not(all_lang_prompt_hash[key]);
+        different_in_array = different_in_array.toArray();
+        // console.log(different_in_array);
+
+        prompt_arr_filter = $(prompt_arr_filter).not(different_in_array);
+        prompt_arr_filter = prompt_arr_filter.toArray();
+
+      }
+    }
+  })
+
+  Object.keys(all_lang_bmr_hash).forEach(function(key) {
+    if(key == language){
+
+      if(bmr_arr_filter.length == 0){
+        bmr_arr_filter = bmr_arr_filter.concat(all_lang_bmr_hash[key]);
+      }else{
+
+        var different_in_array = $(bmr_arr_filter).not(all_lang_bmr_hash[key]);
+        different_in_array = different_in_array.toArray();
+        // console.log(different_in_array);
+
+        bmr_arr_filter = $(bmr_arr_filter).not(different_in_array);
+        bmr_arr_filter = bmr_arr_filter.toArray();
+
+      }
+    }
+  })
+
+  Object.keys(all_lang_response_hash).forEach(function(key) {
+    if(key == language){
+
+      if(response_arr_filter.length == 0){
+        response_arr_filter = response_arr_filter.concat(all_lang_response_hash[key]);
+      }else{
+
+        var different_in_array = $(response_arr_filter).not(all_lang_response_hash[key]);
+        different_in_array = different_in_array.toArray();
+        // console.log(different_in_array);
+
+        response_arr_filter = $(response_arr_filter).not(different_in_array);
+        response_arr_filter = response_arr_filter.toArray();
+
+      }
+    }
+  })
+}
+
+if(industry != ""){
+  // console.log(industry);
+
+  Object.keys(all_industry_prompt_hash).forEach(function(key) {
+    if(key == industry){
+
+      if(prompt_arr_filter.length == 0){
+        prompt_arr_filter = prompt_arr_filter.concat(all_industry_prompt_hash[key]);
+      }else{
+
+        var different_in_array = $(prompt_arr_filter).not(all_industry_prompt_hash[key]);
+        different_in_array = different_in_array.toArray();
+        // console.log(different_in_array);
+
+        prompt_arr_filter = $(prompt_arr_filter).not(different_in_array);
+        prompt_arr_filter = prompt_arr_filter.toArray();
+
+      }
+    }
+  })
+
+  Object.keys(all_industry_bmr_hash).forEach(function(key) {
+    if(key == industry){
+
+      if(bmr_arr_filter.length == 0){
+        bmr_arr_filter = bmr_arr_filter.concat(all_industry_bmr_hash[key]);
+      }else{
+
+        var different_in_array = $(bmr_arr_filter).not(all_industry_bmr_hash[key]);
+        different_in_array = different_in_array.toArray();
+        // console.log(different_in_array);
+
+        bmr_arr_filter = $(bmr_arr_filter).not(different_in_array);
+        bmr_arr_filter = bmr_arr_filter.toArray();
+
+      }
+    }
+  })
+
+  Object.keys(all_industry_response_hash).forEach(function(key) {
+    if(key == industry){
+      if(response_arr_filter.length == 0){
+        response_arr_filter = response_arr_filter.concat(all_industry_response_hash[key]);
+      }else{
+
+        var different_in_array = $(response_arr_filter).not(all_industry_response_hash[key]);
+        different_in_array = different_in_array.toArray();
+        // console.log(different_in_array);
+
+        response_arr_filter = $(response_arr_filter).not(different_in_array);
+        response_arr_filter = response_arr_filter.toArray();
+      }
+      // console.log(all_industry_response_hash[key]);
+    }
+  })
+
+  // console.log(response_arr_filter);
+}
+
+if(level != ""){
+  // console.log(level);
+
+  Object.keys(all_level_prompt_hash).forEach(function(key) {
+    if(key == level){
+
+      if(prompt_arr_filter.length == 0){
+        prompt_arr_filter = prompt_arr_filter.concat(all_level_prompt_hash[key]);
+      }else{
+
+        var different_in_array = $(prompt_arr_filter).not(all_level_prompt_hash[key]);
+        different_in_array = different_in_array.toArray();
+        // console.log(different_in_array);
+
+        prompt_arr_filter = $(prompt_arr_filter).not(different_in_array);
+        prompt_arr_filter = prompt_arr_filter.toArray();
+
+      }
+    }
+  })
+
+  Object.keys(all_level_bmr_hash).forEach(function(key) {
+    if(key == level){
+
+      if(bmr_arr_filter.length == 0){
+        bmr_arr_filter = bmr_arr_filter.concat(all_level_bmr_hash[key]);
+      }else{
+
+        var different_in_array = $(bmr_arr_filter).not(all_level_bmr_hash[key]);
+        different_in_array = different_in_array.toArray();
+        // console.log(different_in_array);
+
+        bmr_arr_filter = $(bmr_arr_filter).not(different_in_array);
+        bmr_arr_filter = bmr_arr_filter.toArray();
+
+      }
+    }
+  })
+
+  Object.keys(all_level_response_hash).forEach(function(key) {
+    if(key == level){
+      if(response_arr_filter.length == 0){
+        response_arr_filter = response_arr_filter.concat(all_level_response_hash[key]);
+      }else{
+        var different_in_array = $(response_arr_filter).not(all_level_response_hash[key]);
+        different_in_array = different_in_array.toArray();
+        // console.log(different_in_array);
+
+        response_arr_filter = $(response_arr_filter).not(different_in_array);
+        response_arr_filter = response_arr_filter.toArray();
+      }
+      // console.log(all_level_response_hash[key]);
+    }
+  })
+}
+console.log(prompt_arr_filter);
+console.log(bmr_arr_filter);
+console.log(response_arr_filter);
+
+// generate prompt options
+var prompt_select = '<option value="" disabled selected>Select Prompt</option>';
+$.each(prompt_arr_filter , function(i, val) {
+  if (all_prompt_hash.hasOwnProperty(prompt_arr_filter [i])) {
+    var prompt_name = all_prompt_hash[prompt_arr_filter [i]]["title"]
+    // console.log(bmr_name);
+  }
+  prompt_select += '<option value="' + prompt_arr_filter [i] + '">' + prompt_name + '</option>';
+});
+$('#qar_prompt').html(prompt_select);
+
+// generate bmr options
+var bmr_select = '<option value="" disabled selected>Select BMR</option>';
+$.each(bmr_arr_filter , function(i, val) {
+  if (all_bmr_hash.hasOwnProperty(bmr_arr_filter [i])) {
+    var bmr_name = all_bmr_hash[bmr_arr_filter [i]]["title"]
+    // console.log(bmr_name);
+  }
+  bmr_select += '<option value="' + bmr_arr_filter [i] + '">' + bmr_name + '</option>';
+});
+$('#qar_bmr').html(bmr_select);
+
+// generate response options
+var response_select = '<option value="" disabled selected>Select Response</option>';
+$.each(response_arr_filter , function(i, val) {
+  if (all_response_hash.hasOwnProperty(response_arr_filter [i])) {
+    var response_name = all_response_hash[response_arr_filter [i]]["title"]
+    // console.log(bmr_name);
+  }
+  response_select += '<option value="' + response_arr_filter [i] + '">' + response_name + '</option>';
+});
+$('#qar_response').html(response_select);
+
+});
+//sidebar
+$("li.admin-prompts").addClass("active");
+$("#create-qar").addClass("active");
+</script>

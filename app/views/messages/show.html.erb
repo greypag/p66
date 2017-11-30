@@ -1,0 +1,139 @@
+<%= render "/users/header" %>
+
+<div class="container-fluid">
+  <div class="row" id="content-outter">
+    <%= render "/users/siderbar" %>
+    <div class="col-md-10">
+      <div class="content container-fluid">
+        <div class="contact-us-mail content-inner">
+          <div class="row container-fluid">
+            <div class="h4-style-user"><%= @message.subject %></div>
+            <%= link_to 'Back to Inbox', messages_path, :class => "btn btn-user" %>
+            <button type="button" class="btn btn-user" id="trash-mail">
+              <i class="fa fa-trash" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div class="msg-content">
+            <% if @message.parent %>
+              <% @message.ancestors.each do |message| %>
+                <div class="msg-row">
+                  <h2 class="no-display"><%= message.subject %></h2>
+                  <div class="create-date"><%= message.created_at %></div>
+                  <div class="message-content"><%= message.content %></div>
+                </div>
+              <% end %>
+            <% end %>
+            <div class="msg-row">
+              <div class="create-date"><%= @message.created_at %></div>
+              <div class="message-content"><%= @message.content %></div>
+            </div>
+          </div>
+        <% if @message.user_id.to_s != @current_user.id.to_s %>
+        <div class="row container-fluid">
+          <div class="msg-reply">
+          <form>
+            <div class="form-group">
+              <input type="hidden" class="" id="reply_user_email" aria-describedby="checkout" value="<%= @message.email %>">
+              <input type="hidden" class="" id="reply_subject" aria-describedby="checkout" value="Re: <%= @message.subject %>">
+              <textarea type="text" class="" id="reply_content" aria-describedby="checkout" name="reply_content"  placeholder="Your Message"></textarea>
+            </div>
+          </form>
+          <% if notice %>
+            <p class="alert alert-success"><%= notice %></p>
+          <% end %>
+          <% if alert %>
+            <p class="alert alert-danger"><%= alert %></p>
+          <% end %>
+          <span id="reply_error_msg" style="color:red;"></span>
+          <button type="button" class="btn btn-user" id="reply">Send</button>
+          <button type="button" class="btn btn-user" id="discard">Discard</button>
+        </div>
+        <% end %>
+        </div>
+        </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%=render "/users/footer" %>
+<!-- <p id="notice"><%= notice %></p> -->
+<!-- <%= link_to 'Edit', edit_message_path(@message) %> |
+<%= link_to 'Back', messages_path %> -->
+
+
+<script>
+// delete message
+  $('#trash-mail').click(function(){
+    var system_notification = <%= @message.is_system_notification %>;
+    var message_id = <%= @message.id %>;
+    var user_id = <%= @message.user_id.to_i %>;
+    var current_user = <%= @current_user.id %>;
+    var to_user_id = "";
+    if (system_notification == 1) {
+      to_user_id = current_user;
+    }else {
+      to_user_id = <%= @message.to_user_id.to_i %>;
+    }
+    var box = "";
+    if (user_id == current_user) {
+      box = "sendbox";
+    }else {
+      box = "inbox";
+    }
+    // console.log(system_notification);
+    // console.log(to_user_id);
+
+    $.post("/message_delete", {
+      box: box,
+      message_id: message_id,
+      user_id: user_id,
+      to_user_id: to_user_id
+    }, function (data, status) {
+      if (data.status == "false") {
+        console.log("Data: " + data.status);
+        console.log("Data: " + data.message);
+        return;
+      } else {
+        console.log("Data: " + data.status);
+        console.log("Data: " + data.message);
+      }
+    });
+  });
+
+// reply message
+  $('#reply').click(function () {
+    var reply_message_id = "<%= @message.id %>";
+    var reply_user_id = "<%= @message.user_id %>";
+    var reply_user_email = $("#reply_user_email").val();
+    var reply_subject = $("#reply_subject").val();
+    var reply_content = $("#reply_content").val();
+    if (reply_content == "") {
+      $( "#reply_error_msg" ).append( "<p style='color:red;'>Can not send an empty message</p>" );
+      return;
+    }
+    // console.log(reply_subject)
+
+    $.post("/message_reply", {
+      reply_message_id: reply_message_id,
+      reply_user_id: reply_user_id,
+      reply_user_email: reply_user_email,
+      reply_subject: reply_subject,
+      reply_content: reply_content
+    }, function (data, status) {
+      if (data.status == "false") {
+        console.log("Data: " + data.status);
+        console.log("Data: " + data.message);
+        return;
+      } else {
+        console.log("Data: " + data.status);
+        console.log("Data: " + data.message);
+      }
+    });
+  });
+
+
+</script>
+<%= javascript_include_tag "js/messages.js" %>

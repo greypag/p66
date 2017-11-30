@@ -1,0 +1,296 @@
+<%=render "/users/header" %>
+<div class="check-out">
+  <div class="container section">
+    <div class="col-md-12">
+      <% if notice %>
+        <p id="notice"><%= notice %></p>
+      <% end %>
+      <div class="h1-style">Check out</div>
+      <div id="accordion" class="panel-group clearfix">
+        <div class="panel">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a href="#panelBodyOne" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion">
+                <span>Payment Method</span>
+              </a>
+            </h4>
+          </div>
+          <div id="panelBodyOne" class="panel-collapse collapse in">
+            <div class="panel-body">
+              <div class="col-md-8">
+                <form>
+                  <div class="form-group">
+                    <select type="method" class="form-control" id="method" aria-describedby="checkout">
+                      <option value="">Choose Method</option>
+                      <option value="credit_card">Credit Card</option>
+                      <option value="paypal">Paypal</option>
+                    </select>
+                  </div>
+
+                </form>
+                <!-- <button type="submit" value="Submit" name="commit" class="btn btn-color" id="Continue">Continue</button> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel"  id="Continue-panel-1">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a href="#panelBodyTwo" class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" id="toggle-1">
+                <span>Billing Information</span>
+              </a>
+            </h4>
+          </div>
+          <div id="panelBodyTwo" class="panel-collapse collapse">
+            <div class="panel-body">
+              <div class="col-md-8">
+                <form id="billing_form">
+                  <div class="form-group">
+                    <input name="f_name" class="form-control" id="InputFirstname" aria-describedby="checkout" placeholder="Firstname*">
+                  </div>
+                  <div class="form-group">
+                    <input name="l_name" class="form-control" id="InputLastname" aria-describedby="checkout" placeholder="Lastname*">
+                  </div>
+                  <div class="form-group">
+                    <select name="card_type" class="form-control" id="InputCard_type" aria-describedby="checkout">
+                      <option value="">Card Type</option>
+                      <option value="visa">VISA</option>
+                      <option value="mastercard">Master Card</option>
+                      <option value="discover">Discover</option>
+                      <option value="amex">American Express</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <input name="card_number" class="form-control" id="InputCard_number" aria-describedby="checkout" placeholder="Card Number">
+                  </div>
+                  <div class="form-group">
+                    <input name="cvv2" class="form-control" id="InputCVV2" aria-describedby="checkout" placeholder="cvv2">
+                  </div>
+                  <div class="form-group">
+                    <select name="expire_month" class="form-control" id="expire_month" aria-describedby="checkout">
+                      <option value="">Expire Month</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                      <option value="10">10</option>
+                      <option value="11">11</option>
+                      <option value="12">12</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <select name="expire_year" class="form-control" id="expire_year" aria-describedby="checkout">
+                      <option value="">Expire Year</option>
+                      <option value="2017">17</option>
+                      <option value="2018">18</option>
+                      <option value="2019">19</option>
+                      <option value="2020">20</option>
+                      <option value="2021">21</option>
+                      <option value="2022">22</option>
+                      <option value="2023">23</option>
+                      <option value="2024">24</option>
+                      <option value="2025">25</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <input name="postal_code" class="form-control" id="InputPostal_code" aria-describedby="checkout" placeholder="Postal Code">
+                  </div>
+                  <div class="form-group">
+                    <input name="address" class="form-control" id="InputAddress" aria-describedby="checkout" placeholder="Address">
+                  </div>
+                  <div class="form-group">
+                    <input name="city" class="form-control" id="InputCity" aria-describedby="checkout" placeholder="City">
+                  </div>
+                  <div class="form-group">
+                    <select id="countries_states1" class="form-control input-medium bfh-countries bfh-countries-fix" data-country="US" name="country"></select>
+                    <select id="countries_states2" class="form-control input-medium bfh-states" data-country="countries_states1" name="state"></select>
+                  </div>
+                </form>
+                <button type="submit" name="commit" class="btn btn-color" id="Continue">Continue</button>
+
+                <!-- <button type="button" name="commit" class="btn btn-color" id="Continue">Continue</button> -->
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel" id="Continue-panel-2">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a href="#panelBodyThree" class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" id="toggle-2">
+                <span>Order Review</span>
+              </a>
+            </h4>
+          </div>
+          <div id="panelBodyThree" class="panel-collapse collapse">
+            <div class="panel-body">
+              <div class="row container-fluid">
+                <table class="tb-cart">
+                  <thead>
+                    <th>Purchase(s)</th>
+                    <th>Amount (US$)</th>
+
+                  </thead>
+                  <tbody>
+                    <% @cart_items.each do |cart_item| %>
+                      <% test = Test.find_by_id(cart_item) %>
+                      <tr>
+                        <td><%= test.title %></td>
+                        <td><%= test.price %></td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+                <div class="cart-bottom">
+                  <div class="col-md-6"></div>
+                  <div class="col-md-6 cart-bottom-inner">
+                    <div class="table-total">
+                    <table class="tb-total">
+                      <tbody>
+                        <tr>
+                          <td>Subtotal:</td>
+                          <td><%= @price %></td>
+                        </tr>
+                        <tr>
+                          <td>Grand Total:</td>
+                          <td><%= @price %></td>
+                        </tr>
+
+                      </tbody>
+                    </table>
+                    </div>
+
+                    <div class="btn-cart clearfix">
+                      <div class="btn-cart-item btn here" id="cancel_order" data-toggle="modal" data-target="#loading-modal">Cencal Order</div>
+                      <div class="btn-cart-item btn btn-color" id="place_order" data-toggle="modal" data-target="#loading-modal">Check Out</div>
+                      <div class="btn-cart-item btn btn-paypal" id="paypal-button">Paypal Check Out</div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+      <div class="some-space"></div>
+
+      <!-- loading modal -->
+      <div id="loading-modal" class="modal fade">
+        <div class="modal-out">
+          <div class="modal-dialog">
+            <div class="circle spinner2"></div>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+  </div>
+  <%=render "/users/footer" %>
+  <%= javascript_include_tag "js/bootstrap-formhelpers.min.js" %>
+  <%= javascript_include_tag "js/paypals.js" %>
+  <script>
+
+    // $('.bfh-countries-fix').bfhcountries({country:'US', blank:false});
+
+
+    // cancel order
+
+    $('#cancel_order').click(function(){
+      $.post("/cancel_order", {
+      });
+    });
+
+    // check out
+
+    var total = <%= @price %>;
+
+    $("#place_order").click(function () {
+
+      var card_type = $('#InputCard_type').val();
+      var card_f_name = $('#InputFirstname').val();
+      var card_l_name = $('#InputLastname').val();
+      var card_number = $('#InputCard_number').val();
+      var card_cvv2 = $('#InputCVV2').val();
+      var card_expire_month = $('#expire_month').val();
+      var card_expire_year = $('#expire_year').val();
+      var card_address = $('#InputAddress').val();
+      var card_city = $('#InputCity').val();
+      var card_country = $('#countries_states1').val();
+      var card_state = $('#countries_states2').val();
+      var card_postal_code = $('#InputPostal_code').val();
+
+      if(card_type == "" || card_f_name == "" || card_l_name == "" || card_number == "" || card_cvv2 == "" || card_expire_month == "" || card_expire_year == "" || card_address == "" || card_city == "" || card_country == "" || card_state == "" || card_postal_code == ""){
+        // $("#checkout_error_msg").append( "<p style='color:red;'>Please fill all the required field</p>" );
+          return;
+      }
+
+      $.post("/checkout_with_credit_card", {
+        card_type: card_type,
+        card_f_name: card_f_name,
+        card_l_name: card_l_name,
+        card_number: card_number,
+        card_cvv2: card_cvv2,
+        card_expire_month: card_expire_month,
+        card_expire_year: card_expire_year,
+        card_address: card_address,
+        card_city: card_city,
+        card_country: card_country,
+        card_state: card_state,
+        card_postal_code: card_postal_code,
+        total: total
+      });
+    });
+
+  paypal.Button.render({
+
+        env: 'sandbox', // Or 'sandbox'
+
+        client: {
+            sandbox:    'AbEZcdtN73Q1xVADkQ655m-xTMHD3tqYBMGLPu3QjE1CAhAaJec_B5xLB9ChhRPPhx3wYzUDOekFWf4z',
+            production: 'xxxxxxxxx'
+        },
+
+        commit: true, // Show a 'Pay Now' button
+
+        payment: function(data, actions) {
+            return actions.payment.create({
+                payment: {
+                    transactions: [
+                        {
+                            amount: { total: total, currency: 'USD' }
+                        }
+                    ]
+                }
+            });
+        },
+
+        onAuthorize: function(data, actions) {
+            return actions.payment.execute().then(function(payment) {
+              $.post("/checkout_with_paypal", {
+                paymentID: data.paymentID
+              });
+                // The payment is complete!
+                // You can now show a confirmation message to the customer
+            });
+        }
+
+    }, '#paypal-button');
+  // loading
+  // $(function() {
+  // function Spin($this) {
+  //   $this.addClass('loading');
+  //   $this.find('div.icon').removeClass('fa-refresh').addClass('fa-spinner');
+  // }
+
+  </script>

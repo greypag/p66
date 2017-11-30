@@ -1,0 +1,190 @@
+<%=render "users/header" %>
+<div class="container-fluid">
+  <div class="row" id="content-outter">
+    <!-- sidebar -->
+    <%=render "users/siderbar" %>
+    <!-- content -->
+
+    <div class="col-md-10">
+      <div class="content container-fluid">
+        <div class="create-prompts">
+          <div class="row">
+            <% if notice %>
+            <p id="notice"><%= notice %></p>
+            <% end %>
+            <div class="h1-style-user col-md-4">Create Response</div>
+          </div>
+          <div class="row">
+            <div class="col-md-5">
+              <form novalidate="novalidate" class="simple_form new_response" id="new_response" enctype="multipart/form-data" accept-charset="UTF-8" action="/responses" method="post">
+                <input name="utf8" type="hidden" value="✓">
+                <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                <div class="form-inputs">
+                  <div class="clearfix"></div>
+                  <label>Title</label>
+                  <div class="form-group string optional response_title">
+                    <input class="form-control string optional" placeholder="Response Name" type="text" name="response[title]" id="response_title">
+                  </div>
+                  <div class="clearfix"></div>
+                  <label>Language</label>
+                  <div class="form-group select optional response_language">
+                    <select class="form-control select optional" name="response[language]" id="response_language">
+                      <option value="">Select Language</option>
+                      <option value="English">English</option>
+                      <option value="Spanish">Spanish</option>
+                    </select>
+                  </div>
+                  <div class="clearfix"></div>
+                  <label>Industry</label>
+                  <div class="form-group select optional response_industry">
+                    <select class="form-control select optional" name="response[industry]" id="response_industry">
+                      <option value="">Select Industry</option>
+                      <option value="Customer Service">Customer Service</option>
+                      <option value="Retail Banking">Retail Banking</option>
+                      <option value="Health Care">Health Care</option>
+                      <option value="Insurance">Insurance</option>
+                    </select>
+                  </div>
+                  <div class="clearfix"></div>
+                  <label>Level</label>
+                  <div class="form-group select optional response_level">
+                    <select class="form-control select optional" name="response[level]" id="response_level">
+                      <option value="">Select Level</option>
+                      <option value="1">Elementary – ILR 1</option>
+                      <option value="2">Elementary Plus – ILR 1+</option>
+                      <option value="3">Limited Working – ILR 2</option>
+                      <option value="4">Limited Working Plus – ILR 2+</option>
+                      <option value="5">General Professional – ILR 3</option>
+                    </select>
+                  </div>
+                  <div class="clearfix"></div>
+                  <label>Upload File</label>
+                  <div class="inline-button">
+                    <input placeholder="Upload audio file" label="false" type="file" name="response[avatar]" id="response_avatar" class="file_data">
+                    <div class="">-or-</div>
+                    <button type="button" name="button" class="btn btn-user btn-record response-start-record" id="recorder_btn" onclick="startRecording();"><i class="fa fa-microphone" aria-hidden="true"></i>Start Recording</button>
+                    <button type="button" name="button" class="btn btn-user btn-record response-stop-record" onclick="stopRecording();"><span class="stop-record"><i class="fa fa-microphone" aria-hidden="true"></i>Stop Recording<div class="loading"><span></span><span></span><span></span></div></button></span></button>
+                    <ul id="recordingslist" class="file_data"></ul>
+                  </div>
+                  <div class="clearfix"></div>
+                  <label>Type</label>
+                  <div class="form-group select optional response_response_type">
+                    <select class="form-control select optional" name="response[response_type]" id="response_response_type">
+                      <option value="">Select BMR or Response</option>
+                      <option value="0">Response</option>
+                      <option value="1">BMR</option>
+                    </select>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="form-actions flex">
+                  <div class="" data-toggle="modal" data-target="#loading-modal">
+                    <input type="button" name="commit" value="Save" class="btn btn-user flex-item" data-disable-with="creating" id="create">
+                  </div>
+                  <!-- <button type="button" name="button" class="btn btn-user flex-item" data-toggle="modal" data-target="#preview-response-modal" id="response_preview">Preview</button> -->
+                  <div class="more-user flex-item"><a href="/responses">Back to Responses</a></div>
+                </div>
+              </form>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- loading modal -->
+<div id="loading-modal" class="modal fade">
+  <div class="modal-out">
+    <div class="modal-dialog">
+      <div class="circle spinner2"></div>
+    </div>
+  </div>
+</div>
+<div id="preview-response-modal" class="modal fade">
+  <div class="modal-out">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <div class="modal-header">
+          <h4 class="modal-title">
+            <div class="modal-h1-top">Response > Create Response > <span class="preview_response_title">Sample Response Title 01</span></div>
+            <div class="h1-style"><span class="preview_response_title">Sample Response Title 01</span></div>
+          </h4>
+        </div>
+        <div class="modal-body">
+          <table>
+            <tr>
+              <td>Language</td>
+              <td class="preview_response_lang">English</td>
+            </tr>
+            <tr>
+              <td>Industry</td>
+              <td class="preview_response_ind">Accounting</td>
+            </tr>
+            <tr>
+              <td>Level</td>
+              <td class="preview_response_level">ILR 1 (Elementary Proficiency)</td>
+            </tr>
+          </table>
+          <div class="play-prompt">
+              <span class="play-test"><i class="fa fa-play-circle-o" aria-hidden="true"></i>Play</span>
+              <span class="stop-test"><i class="fa fa-stop-circle-o" aria-hidden="true"></i>Stop</span>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" name="button" class="btn btn-user" data-dismiss="modal" aria-hidden="true">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%=render "users/footer" %>
+<%= javascript_include_tag "js/responses.js" %>
+<script type="text/javascript">
+// record-btn
+$('.response-stop-record').click(function(){
+  $('.response-start-record').toggle();
+  $('.response-stop-record').toggle();
+});
+$( ".response-stop-record" ).hide();
+$('.response-start-record').click(function(){
+  $('.response-start-record').toggle();
+  $('.response-stop-record').toggle();
+});
+//play-prompt
+$('.play-prompt').click(function(){
+  $('span.play-test').toggle();
+  $('span.stop-test').toggle();
+});
+
+// cookie
+  $(document).ready(function() {
+      $('#response_preview').click(function(){
+      var response_title = ($("#response_title").val());
+      $.cookie('response_title', response_title );
+      console.log($.cookie('response_title'));
+      var response_language = ($("#response_language").val());
+      $.cookie('response_language', response_language );
+      console.log($.cookie('response_language'));
+      var response_industry = ($("#response_industry").val());
+      $.cookie('response_industry', response_industry );
+      console.log($.cookie('response_industry'));
+      var response_level = ($("#response_level").val());
+      $.cookie('response_level', response_level );
+      console.log($.cookie('response_level'));
+
+     $('.preview_response_title').html($.cookie('response_title'));
+     $('.preview_response_lang').html($.cookie('response_language'));
+     $('.preview_response_ind').html($.cookie('response_industry'));
+     $('.preview_response_level').html($.cookie('response_level'));
+     $('.preview_response_level').html($.cookie('response_level'));
+      // console.log($('input[name="response[title]"]').val());
+        });
+  });
+</script>

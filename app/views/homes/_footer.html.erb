@@ -1,0 +1,94 @@
+<!-- footer -->
+<div class="footer">
+  <!-- footer-top -->
+  <div class="footer-top">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 footer-item">
+          <div class="h4-style">About Parrot</div>
+          <p>Parrot66, Inc. was created in the dorms of the Harvard Business School, and officially launched that same year, in 2015. Parrot66 not only provides a valid language assessment, scored on the US Govt's Language Scale, but we also provide earning potential to bilinguals! Starting with just English and Spanish, in a select few industries, Parrot66 seeks to build credentials for the top 66 languages / industries in demand at companies around the globe.</p>
+          <ul class="company-info">
+            <li><i class="fa fa-map-marker"></i>54, Emekuku Street, D-Line, Central, Hong Kong</li>
+            <li><a href="tel:9175194156"><i class="fa fa-phone"></i>+833-66-TESTS</a></li>
+            <li><a href="mailto:info@parrot66.com"><i class="fa fa-envelope-o"></i>info@parrot66.com</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4 footer-item-2">
+          <div class="h4-style"><%= link_to 'How It Works', howitworks_path %></div>
+          <ul>
+            <li><%= link_to 'Why Get Certified', howitworks_path(:anchor => "why-certi-section") %></li>
+            <!-- <li id="WGC"><a href="#">Why Get Certified</a></li> -->
+            <li><%= link_to 'Practice & Prepare', howitworks_path(:anchor => "pra-pre-section") %></li>
+          </ul>
+          <div class="h4-style"><%= link_to 'About The Tests', aboutthetests_path %></div>
+          <ul>
+            <li><%= link_to 'Benefits of a Parrot Certification', aboutthetests_path(:anchor => "bene-pr-section") %></li>
+            <li><%= link_to 'Available Tests', aboutthetests_path(:anchor => "ave-test-section") %></li>
+          </ul>
+          <div class="h4-style"><%= link_to 'About Parrot', aboutparrot_path %></div>
+          <ul>
+            <li><%= link_to 'Our Proof', aboutparrot_path(:anchor => "our-proof-section") %></li>
+          </ul>
+
+        </div>
+        <div class="col-md-4 footer-item">
+          <div class="h4-style"><%= link_to 'Parrot for Business', parrotforbusiness_path %></div>
+          <div class="h4-style"><%= link_to 'Become a Parrot Rater', howtobecomeaparrotrater_path %></div>
+          <div class="h4-style"><%= link_to 'FAQ', faq_path %></div>
+          <div class="h4-style"><%= link_to 'About The Tests', aboutthetests_path %></div>
+          <div class="h4-style"><%= link_to 'Legal Stuff', privatepolicy_path %></div>
+          <ul>
+            <li><%= link_to 'Privacy Policy Statement', privatepolicy_path %></li>
+            <li><%= link_to 'Refund Policy', privatepolicy_path %></li>
+            <li><%= link_to 'General Terms and Conditions', privatepolicy_path %></li>
+          </ul>
+
+      </div>
+    </div>
+  </div>
+  <!-- copyright -->
+  <div class="copyright">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 col-sm-6">
+          <p>Copyright © 2017 Parrot. All Rights Reserved.</p>
+        </div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4 col-sm-6 text-right">
+          <p>Payment available <i class="fa fa-cc-visa"></i><i class="fa fa-cc-paypal"></i><i class="fa fa-cc-mastercard"></i></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+// $(document).ready(function() {
+//     $('html, body').hide();
+//
+//     if (window.location.hash) {
+//         setTimeout(function() {
+//             $('html, body').scrollTop(0).show();
+//             $('html, body').animate({
+//                 scrollTop: $(window.location.hash).offset().top
+//                 }, 1000)
+//         }, 0);
+//     }
+//     else {
+//         $('html, body').show();
+//     }
+// });
+
+// $('html,body').scrollTo( $(window.location.hash), 800 );
+// $('html,body').animate({
+//   scrollTop: $(window.location.hash).offset().top
+// });
+//
+// $(".footer-item").find("a").click(function(e) {
+//     e.preventDefault();
+//     var section = $(this).attr("href");
+//     $("html, body").animate({
+//       scrollTop: $( $(this).attr('href') ).offset().top
+//     }, 'slow');
+//   });
+
+</script>

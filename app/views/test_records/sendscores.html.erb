@@ -1,0 +1,51 @@
+<%=render "users/header" %>
+<div class="container-fluid">
+  <div class="row" id="content-outter">
+    <!-- sidebar -->
+    <%=render "users/siderbar" %>
+    <!-- content -->
+
+    <div class="col-md-10">
+      <div class="content container-fluid">
+        <div class="send-scores">
+          <div class="row">
+            <% if notice %>
+            <p id="notice"><%= notice %></p>
+            <% end %>
+            <div class="h1-style-user col-md-4">Send Scores</div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+
+              <button type="button" name="button" class="btn btn-user">Back to History</button>
+              <div class="h2-style-user">New Message</div>
+              <div class="form-group">
+
+                <input type="text" class="form-control" class="" placeholder="Recipient Name" >
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" class="" placeholder="Recipient Email" >
+
+
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" class="" placeholder="Confirm Recipient Email" >
+              </div>
+
+              <button type="button" name="button" class="btn btn-user">Send</button>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+<%=render "users/footer" %>
+<script>
+  $("li.user-tests").addClass("active");
+  $("#send-scores").addClass("active");
+</script>

@@ -1,0 +1,2 @@
+module QarsHelper
+end

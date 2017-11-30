@@ -1,0 +1,19 @@
+<%=render "/users/header" %>
+<div class="thankyou-p">
+  <div class="container-fluid banner thankyou-p-head">
+    <div class="container">
+      <div class="h1-style">Thank you!</div>
+    </div>
+  </div>
+  <div class="container section">
+    <div class="col-md-12">
+      <p class="p-lg">All went well, and your test is ready when you are!</p>
+      <p>We will send a confirmation email to <%= @current_user.email %> shortly. For your reference, your transaction ID is <%= @transaction_id %>.</p>
+
+      <a href="/home">
+        <div class="back-home"><i class="fa fa-arrow-left"></i>Back to Homepage</a></div>
+    </div>
+  </div>
+</div>
+
+<%=render "/users/footer" %>

@@ -1,0 +1,21 @@
+<%=render "header" %>
+<div class="thankyou">
+  <div class="container-fluid banner thankyou-head">
+    <div class="container">
+      <div class="h1-style">Thank you for registering to Parrot</div>
+    </div>
+  </div>
+  <div class="container section">
+    <div class="col-md-12">
+      <p class="p-lg">Thank you for registering to Parrot.</p>
+      <p>We have sent you a confirmation email to <%=session[:sign_up_email].to_s%>.</p>
+
+      <a href="/">
+        <div class="back-home"><i class="fa fa-arrow-left"></i>Back to Homepage</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<% session[:sign_up_email] = nil%>
+<%=render "footer" %>

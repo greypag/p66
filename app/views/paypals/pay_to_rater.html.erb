@@ -1,0 +1,55 @@
+<%=render "/users/header" %>
+<div class="container-fluid">
+  <div class="row" id="content-outter">
+    <%=render "/users/siderbar" %>
+    <div class="col-md-10">
+      <div class="content container-fluid">
+        <div class="contact-us">
+          <div class="row">
+            <% if notice %>
+              <p id="notice"><%= notice %></p>
+            <% end %>
+            <!-- <p id="notice"><%= notice %></p> -->
+            <div class="h1-style-user">Cashflow</div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+            <div class="h2-style-user">Pay to rater</div>
+          </div>
+            <div class="col-md-6 download-btn">
+            <button type="button" name="button" class="btn btn-user">Download Statement</button>
+              </div>
+          </div>
+          <div class="row">
+                <table class="tb-payment">
+                  <thead class="th-user">
+                    <tr>
+                      <th>Test Name</th>
+                      <th>Purchase Date</th>
+                      <th>Amount(US$)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+
+                      </tr>
+
+                  </tbody>
+                </table>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%=render "/users/footer" %>
+<script type="text/javascript">
+$("li.admin-cashflow").addClass("active");
+$("#payout-new").addClass("active");
+</script>

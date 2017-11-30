@@ -1,0 +1,107 @@
+
+<!-- take-test-header -->
+<div class="header-user">
+  <nav class="navbar navbar-default" role="navigation">
+  <div class="container">
+    <div class="test-title">Rating: English Test Title 01</div>
+  </div>
+  </nav>
+</div>
+<!-- take-test-body -->
+<div class="rate-test">
+  <div class="container">
+    <div class="rate-test-inner">
+      <div class="row">
+        <% if notice %>
+          <p class="alert alert-success"><%= notice %></p>
+        <% end %>
+        <% if alert %>
+          <p class="alert alert-danger"><%= alert %></p>
+        <% end %>
+      </div>
+      <div class="row section-b">
+        <div class="col-md-2"><%= image_tag ( "homepage/logo-86x85.png") %></div>
+        <div class="col-md-4">
+       </div>
+      </div>
+      <div class="section-b">
+            <div class="questions">
+              <div class="question_text">
+                <%= @prompt.text if !@prompt.text.nil? %>
+              </div>
+              <div class="test-video"><%= video_tag(@prompt.video, controls: true) unless @prompt.video.blank? %></div>
+              <div class="test-audio"><%= audio_tag(@prompt.audio, controls: true) unless @prompt.audio.blank? %></div>
+              <div><%= image_tag @prompt.image if @prompt.image %></div>
+              <div class="flex">
+                <div class="flex-item">
+                  <%= audio_tag(@bmr.avatar, controls: true) %>
+                  <!-- <button type="button" name="button" class="btn btn-user btn-bmr-response start-bmr" id="recorder_btn" onclick="startRecording();"><i class="fa fa-play-circle-o" aria-hidden="true"></i> Play Benchmark Response</button>
+                  <button type="button" name="button" class="btn btn-user btn-bmr-response stop-bmr" onclick="stopRecording();"><i class="fa fa-stop-circle-o" aria-hidden="true"></i>Stop Benchmark Response<div class="loading"><span></span><span></span><span></span></div></button> -->
+                </div>
+
+              <div class="flex-item">
+                <%= audio_tag(@response.avatar, controls: true) %>
+                <!-- <button type="button" name="button" class="btn btn-user btn-bmr-response start-cdnr" id="recorder_btn" onclick="startRecording();"><i class="fa fa-play-circle-o" aria-hidden="true"></i> Play Candidate Response</button>
+                <button type="button" name="button" class="btn btn-user btn-bmr-response stop-cdnr" onclick="stopRecording();"><i class="fa fa-stop-circle-o" aria-hidden="true"></i> Stop Candidate Response<div class="loading"><span></span><span></span><span></span></div></button> -->
+              </div>
+            </div>
+        </div>
+          <div class="rating-test-section">
+            <div class="cr-title">Rate the Candidate Response (CR)</div>
+            <div>The Candidate Response(CR) is</div>
+              <label class="radio-inline"><input type="radio" name="optradio" value="better than">better than</label>
+              <label class="radio-inline"><input type="radio" name="optradio" value="as good as">as good as</label>
+              <label class="radio-inline"><input type="radio" name="optradio" value="worse than">worse than</label>
+            <div>the Benchmark.</div>
+          </div>
+          <div class="flex">
+        <div class="flex-item">  <button type="button" class="btn btn-user-fade" id="submit">Submit</button></div>
+          <div class="flex-item"> <%= link_to 'Cancel', rater_available_path, :class=>"btn btn-user-fade" %></div>
+          <span id="send_error_msg" style="color:red;"></span>
+         </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<%=render "/users/footer" %>
+
+<script>
+
+$('#submit').click(function() {
+
+  var response_id = <%= @response.id %>;
+  var rating = $('input[name=optradio]:checked').val();
+  // console.log(rating);
+  $.ajax({
+    url: '/give_a_rate',
+    type: 'post',
+    data: {
+      response_id: response_id,
+      rating: rating
+    },
+    success: function() {console.log(data);},
+    error: function() {console.log('error');}
+  });
+});
+
+// record-btn
+$('.stop-bmr').click(function(){
+  $('.start-bmr').toggle();
+  $('.stop-bmr').toggle();
+});
+$( ".stop-bmr" ).hide();
+$('.start-bmr').click(function(){
+  $('.start-bmr').toggle();
+  $('.stop-bmr').toggle();
+});
+$('.stop-cdnr').click(function(){
+  $('.start-cdnr').toggle();
+  $('.stop-cdnr').toggle();
+});
+$( ".stop-cdnr" ).hide();
+$('.start-cdnr').click(function(){
+  $('.start-cdnr').toggle();
+  $('.stop-cdnr').toggle();
+});
+</script>
